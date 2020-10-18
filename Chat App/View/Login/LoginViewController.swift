@@ -23,6 +23,14 @@ class LoginViewController: UIViewController {
         
         reusableForm.mainCommand.setTitle("Login", for: .normal)
         reusableForm.altCommand.setTitle("Sign Up", for: .normal)
+        
+        reusableForm.mainCommandInvoked = { [weak self] in
+            NSLog("Main Command() -> Login called.")
+        }
+        
+        reusableForm.altCommandInvoked = { [weak self] in
+            NSLog("Alt Command() -> Sign Up Called")
+        }
     }
 
 }
