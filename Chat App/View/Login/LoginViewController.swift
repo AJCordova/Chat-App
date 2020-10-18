@@ -16,8 +16,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        reusableForm.usernameWarningLabel.isHidden = false
-        reusableForm.passwordWarningLabel.isHidden = false
+        reusableForm.usernameWarningLabel.isHidden = true
+        reusableForm.passwordWarningLabel.isHidden = true
         reusableForm.usernameWarningLabel.text = "Invalid Value."
         reusableForm.passwordWarningLabel.text = "Invalid Value."
         
