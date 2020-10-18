@@ -8,30 +8,47 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+protocol SignUpViewControllerDelegate {
+    
+    func getInfoBack (any: String?)
+}
+
+class SignUpViewController: UIViewController, SignUpViewControllerDelegate {
     
     @IBOutlet weak var reusableForm: ReusableUserForm!
     
+    let viewModel = SignUpViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        viewModel.delegate = self
         
-        reusableForm.usernameWarningLabel.isHidden = false
-        reusableForm.passwordWarningLabel.isHidden = false
-        reusableForm.usernameWarningLabel.text = "Invalid Value."
-        reusableForm.passwordWarningLabel.text = "Invalid Value."
-        
-        reusableForm.mainCommand.setTitle("Sign Up", for: .normal)
         reusableForm.altCommand.setTitle("Login", for: .normal)
+        reusableForm.mainCommand.setTitle("Sign Up", for: .normal)
         
         reusableForm.mainCommandInvoked = { [weak self] in
             NSLog("Main Command() -> Sign Up called.")
+            self?.SignUp()
         }
         
         reusableForm.altCommandInvoked = { [weak self] in
             NSLog("Alt Command() -> Login Called")
+            self?.GoToLogin()
         }
     }
     
+    //MARK: - Navigation Methods
+    func GoToLogin() {
+        let loginViewController = LoginViewController()
+        self.navigationController?.pushViewController(loginViewController, animated: true)
+    }
+
+    func SignUp() {
+        viewModel.sendUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
+    }
     
+    //MARK: - Protocol Implementation
+    func getInfoBack(any: String?) {
+        NSLog(any!)
+    }
 }
