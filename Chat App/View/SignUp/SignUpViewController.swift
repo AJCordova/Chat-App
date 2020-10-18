@@ -10,7 +10,8 @@ import UIKit
 
 protocol SignUpViewControllerDelegate {
     
-    func getInfoBack (any: String?)
+    func getResult (result: Bool?)
+    
 }
 
 class SignUpViewController: UIViewController, SignUpViewControllerDelegate {
@@ -48,7 +49,10 @@ class SignUpViewController: UIViewController, SignUpViewControllerDelegate {
     }
     
     //MARK: - Protocol Implementation
-    func getInfoBack(any: String?) {
-        NSLog(any!)
+    func getResult(result: Bool?) {
+        if (result!) {
+            let chatroomViewcontroller = ChatRoomViewController()
+            self.navigationController?.pushViewController(chatroomViewcontroller, animated: true)
+        }
     }
 }
