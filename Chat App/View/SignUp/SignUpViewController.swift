@@ -44,7 +44,7 @@ class SignUpViewController: UIViewController, SignUpViewControllerDelegate {
     }
 
     func SignUp() {
-        viewModel.sendUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
+        viewModel.processUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
     }
     
     //MARK: - Protocol Implementation
