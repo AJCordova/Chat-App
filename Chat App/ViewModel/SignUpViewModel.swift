@@ -70,6 +70,4 @@ class SignUpViewModel: SignUpViewModelDelegate {
         
         return true
     }
-    
-    
 }
