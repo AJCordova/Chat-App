@@ -19,6 +19,8 @@
 		501A8CB72537F49500EEA42A /* IndexView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 501A8CB62537F49500EEA42A /* IndexView.xib */; };
 		5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5046254D253CB02D007BCC1C /* ChatRoomViewController.swift */; };
 		50462550253CB02D007BCC1C /* ChatRoomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5046254E253CB02D007BCC1C /* ChatRoomViewController.xib */; };
+		50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462551253D2350007BCC1C /* ChatRoomModel.swift */; };
+		50462554253D2CAD007BCC1C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462553253D2CAD007BCC1C /* Message.swift */; };
 		507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
@@ -73,6 +75,8 @@
 		501A8CB62537F49500EEA42A /* IndexView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IndexView.xib; sourceTree = "<group>"; };
 		5046254D253CB02D007BCC1C /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		5046254E253CB02D007BCC1C /* ChatRoomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomViewController.xib; sourceTree = "<group>"; };
+		50462551253D2350007BCC1C /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
+		50462553253D2CAD007BCC1C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50F46706253A928E006FEE21 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		50F46708253AD09C006FEE21 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				500465C12539BE8900480E1A /* UserModel.swift */,
+				50462551253D2350007BCC1C /* ChatRoomModel.swift */,
+				50462553253D2CAD007BCC1C /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -545,6 +551,8 @@
 				50F4671B253B31C8006FEE21 /* IndexViewModel.swift in Sources */,
 				500465C22539BE8900480E1A /* UserModel.swift in Sources */,
 				50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */,
+				50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */,
+				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
