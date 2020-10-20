@@ -20,6 +20,7 @@
 		5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5046254D253CB02D007BCC1C /* ChatRoomViewController.swift */; };
 		50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462551253D2350007BCC1C /* ChatRoomModel.swift */; };
 		50462554253D2CAD007BCC1C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462553253D2CAD007BCC1C /* Message.swift */; };
+		50462556253DD602007BCC1C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462555253DD602007BCC1C /* AppSettings.swift */; };
 		507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
@@ -75,6 +76,7 @@
 		5046254D253CB02D007BCC1C /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		50462551253D2350007BCC1C /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
 		50462553253D2CAD007BCC1C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		50462555253DD602007BCC1C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50F46706253A928E006FEE21 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		50F46708253AD09C006FEE21 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				501A8C862537F35A00EEA42A /* AppDelegate.swift */,
 				501A8C882537F35A00EEA42A /* SceneDelegate.swift */,
+				50462555253DD602007BCC1C /* AppSettings.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 			files = (
 				50F4670D253AD2E1006FEE21 /* SignUpViewController.swift in Sources */,
 				501A8C872537F35A00EEA42A /* AppDelegate.swift in Sources */,
+				50462556253DD602007BCC1C /* AppSettings.swift in Sources */,
 				50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */,
 				50F46715253AEBB8006FEE21 /* ReusableUserForm.swift in Sources */,
 				501A8C892537F35A00EEA42A /* SceneDelegate.swift in Sources */,
