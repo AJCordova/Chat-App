@@ -52,12 +52,18 @@ final class ChatRoomViewController: MessagesViewController
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.inputTextView.tintColor = .gray
         messageInputBar.sendButton.setTitleColor(.green, for: .normal)
+
         
         messageInputBar.delegate = self as InputBarAccessoryViewDelegate
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        //loadChatRoom()
+        
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
+        {
+          layout.setMessageIncomingAvatarSize(.zero)
+          layout.setMessageOutgoingAvatarSize(.zero)
+        }
     }
  
     //MARK: - Class Methods R.
@@ -160,21 +166,25 @@ extension ChatRoomViewController: MessagesDataSource
 //MARK: Messages Layout
 extension ChatRoomViewController: MessagesLayoutDelegate
 {
-  func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
-  {
-    return .zero
-  }
+    func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
+    {
+        return .zero
+    }
+
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
+    {
+        avatarView.isHidden = true
+    }
   
-  func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
-  {
-    return CGSize(width: 0, height: 8)
-  }
+    func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
+    {
+        return CGSize(width: 0, height: 8)
+    }
   
-  func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-  {
-    return 0
-  }
-  
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat
+    {
+        return 0
+    }
 }
 
 //MARK: - MessageDisplayDelegate
