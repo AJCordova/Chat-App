@@ -14,10 +14,9 @@ import InputBarAccessoryView
 //final class ChatRoomViewController: UIViewController {}
 final class ChatRoomViewController: MessagesViewController
 {
-    private let currentUser = AppSettings.displayName
     private let db = Firestore.firestore()
-    private var reference: CollectionReference?
     
+    private var reference: CollectionReference?
     private var messageListener: ListenerRegistration?
     private var messagesThread: [Message] = []
     
@@ -49,20 +48,20 @@ final class ChatRoomViewController: MessagesViewController
         self.title = "Chat App"
         navigationItem.setHidesBackButton(true, animated: false)
         
+        messageInputBar.delegate = self
         maintainPositionOnKeyboardFrameChanged = true
-        messageInputBar.inputTextView.tintColor = .gray
-        messageInputBar.sendButton.setTitleColor(.green, for: .normal)
+        messageInputBar.inputTextView.tintColor = .black
+        messageInputBar.sendButton.setTitleColor(.systemGreen, for: .normal)
 
-        
-        messageInputBar.delegate = self as InputBarAccessoryViewDelegate
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
         if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
         {
-          layout.setMessageIncomingAvatarSize(.zero)
-          layout.setMessageOutgoingAvatarSize(.zero)
+            layout.setMessageIncomingAvatarSize(.zero)
+            layout.setMessageOutgoingAvatarSize(.zero)
+            
         }
     }
  
@@ -71,15 +70,7 @@ final class ChatRoomViewController: MessagesViewController
     // saves message as new document in the message thread
     private func save (_ message: Message)
     {
-        let messageData: [String: Any] =
-        [
-            "id" : message.messageId,
-            "sendDate" : message.sendDate,
-            "content" : message.content,
-            "msgSender" : message.msgSender.displayName
-        ]
-        
-        reference?.addDocument(data: messageData)
+        reference?.addDocument(data: message.representation, completion:
         { error in
           if let e = error
           {
@@ -88,7 +79,7 @@ final class ChatRoomViewController: MessagesViewController
           }
           
           self.messagesCollectionView.scrollToBottom()
-        }
+        })
     }
     
     private func insertNewMessage (_ message: Message)
@@ -101,7 +92,6 @@ final class ChatRoomViewController: MessagesViewController
         messagesThread.append(message)
         messagesThread.sort()
         messagesCollectionView.reloadData()
-        
         DispatchQueue.main.async
         {
             self.messagesCollectionView.scrollToBottom()
@@ -114,11 +104,13 @@ final class ChatRoomViewController: MessagesViewController
         {
           return
         }
-
+        
+        print("doc change: \(message.msgSender)")
+        
         switch change.type
         {
             case .added:
-                insertNewMessage(message)
+                self.insertNewMessage(message)
             default:
                 break
         }
@@ -142,8 +134,12 @@ extension ChatRoomViewController: MessagesDataSource
 {
     func currentSender() -> SenderType
     {
-        NSLog(currentUser!)
-        return Sender(id: currentUser!, displayName: currentUser!)
+        return Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
+    }
+    
+    
+    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
+      return messagesThread.count
     }
 
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType
@@ -154,23 +150,32 @@ extension ChatRoomViewController: MessagesDataSource
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int
     {
         if messagesThread.count == 0 {
-            print("No messages to display")
             return 0
         } else {
-            print(messagesThread.count)
             return messagesThread.count
         }
+    }
+    
+    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString?
+    {
+        return NSAttributedString(
+            string: message.sender.displayName,
+            attributes:
+            [
+                .font: UIFont.preferredFont(forTextStyle: .caption1),
+                .foregroundColor: UIColor(white: 0.3, alpha: 1)
+            ])
+    }
+    
+    func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat
+    {
+        return 9
     }
 }
 
 //MARK: Messages Layout
 extension ChatRoomViewController: MessagesLayoutDelegate
 {
-    func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
-    {
-        return .zero
-    }
-
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
     {
         avatarView.isHidden = true
@@ -185,6 +190,14 @@ extension ChatRoomViewController: MessagesLayoutDelegate
     {
         return 0
     }
+    
+    private func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
+        if isFromCurrentSender(message: message){
+            return LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
+        } else {
+            return LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
+        }
+    }
 }
 
 //MARK: - MessageDisplayDelegate
@@ -192,7 +205,7 @@ extension ChatRoomViewController: MessagesDisplayDelegate
 {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor
     {
-        return isFromCurrentSender(message: message) ? UIColor.green : UIColor.green
+        return isFromCurrentSender(message: message) ? UIColor(red: (158/255), green: (225/255), blue: (70/225), alpha: 1) : UIColor(red: (158/255), green: (225/255), blue: (70/255), alpha: 1) 
     }
     
     func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool

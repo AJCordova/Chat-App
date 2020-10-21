@@ -9,18 +9,17 @@
 import Firebase
 import MessageKit
 import FirebaseFirestore
-import Foundation
 
 struct Message: MessageType
 {
     let id: String?
     let content: String
     let sendDate: Date
-    let msgSender: Sender
+    let msgSender: SenderType
     
     var sender: SenderType
     {
-        return Sender(id:  AppSettings.displayName, displayName: AppSettings.displayName)
+        return msgSender
     }
     
     var messageId: String
@@ -44,24 +43,38 @@ struct Message: MessageType
       
       guard let sentDate = data["sendDate"] as? Timestamp else {return nil}
       guard let senderName = data["msgSender"] as? String else {return nil}
+      guard let senderID = data["senderID"] as? String else {return nil}
       guard let content = data["content"] as? String else {return nil}
-        
-      
-      id = document.documentID
+
+      self.id = document.documentID
       self.sendDate = sentDate.dateValue()
-      msgSender = Sender(id: senderName, displayName: senderName)
+      self.msgSender = Sender(senderId: senderID, displayName: senderName)
+      print(self.msgSender)
       self.content = content
-      print(content)
-      
     }
     
     init(content: String)
     {
-      self.msgSender = Sender(id: AppSettings.displayName, displayName: AppSettings.displayName)
+      self.msgSender = Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
       self.content = content
       self.id = nil
       self.sendDate = Date()
     }
+}
+
+extension Message: DatabaseRepresentation
+{
+  var representation: [String : Any]
+  {
+    let rep: [String : Any] = [
+        "sendDate": sentDate,
+        "senderID": sender.senderId,
+        "msgSender": sender.displayName,
+        "content": content]
+    
+    return rep
+  }
+  
 }
 
 extension Message: Comparable {
@@ -73,5 +86,8 @@ extension Message: Comparable {
   static func < (lhs: Message, rhs: Message) -> Bool {
     return lhs.sentDate < rhs.sentDate
   }
-  
+}
+
+protocol DatabaseRepresentation {
+    var representation: [String: Any] { get }
 }
