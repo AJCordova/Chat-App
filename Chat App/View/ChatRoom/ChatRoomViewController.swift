@@ -191,11 +191,11 @@ extension ChatRoomViewController: MessagesLayoutDelegate
         return 0
     }
     
-    private func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
+    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
         if isFromCurrentSender(message: message){
-            return LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
+            return LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         } else {
-            return LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
+            return LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40))
         }
     }
 }
@@ -205,7 +205,7 @@ extension ChatRoomViewController: MessagesDisplayDelegate
 {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor
     {
-        return isFromCurrentSender(message: message) ? UIColor(red: (158/255), green: (225/255), blue: (70/225), alpha: 1) : UIColor(red: (158/255), green: (225/255), blue: (70/255), alpha: 1) 
+        return isFromCurrentSender(message: message) ? UIColor(red: (158/255), green: (225/255), blue: (70/225), alpha: 1) : UIColor(red: (158/255), green: (225/255), blue: (70/255), alpha: 1)
     }
     
     func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool
