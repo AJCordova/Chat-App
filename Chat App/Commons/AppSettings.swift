@@ -13,7 +13,30 @@ final class AppSettings
     private enum SettingKey: String
     {
       case displayName
+      case userID
     }
+    
+    static var userID: String!
+    {
+       get
+       {
+         return UserDefaults.standard.string(forKey: SettingKey.userID.rawValue)
+       }
+       set
+       {
+         let defaults = UserDefaults.standard
+         let key = SettingKey.userID.rawValue
+         
+         if let name = newValue
+         {
+           defaults.set(name, forKey: key)
+         }
+         else
+         {
+           defaults.removeObject(forKey: key)
+         }
+       }
+     }
     
     static var displayName: String!
     {
