@@ -10,11 +10,12 @@ import Foundation
 import FirebaseFirestore
 
 protocol SignUpViewModelDelegate {
-    func processUserCredentials(from username: String?, password: String?) -> Bool
+    func processUserCredentials(from username: String?, password: String?)
 }
 
 class SignUpViewModel: SignUpViewModelDelegate {
     
+    let task = DispatchGroup()
     var delegate: SignUpViewControllerDelegate?
     private var db = Firestore.firestore()
     
@@ -24,15 +25,16 @@ class SignUpViewModel: SignUpViewModelDelegate {
         - Parameter password: submitted password
         - Returns: bool
      */
-    func processUserCredentials(from username: String?, password: String?) -> Bool
+    func processUserCredentials(from username: String?, password: String?)
     {
-        guard let userText = username else {return false}
-        guard let passwordText = password else {return false}
+        guard let userText = username else {return}
+        guard let passwordText = password else {return}
         
         if (validateUserInput(username: userText, password: passwordText))
         {
             var ref: DocumentReference? = nil
             
+            task.enter()
             ref = db.collection("Users").addDocument(
                 data: [
                     "username" : userText,
@@ -42,15 +44,21 @@ class SignUpViewModel: SignUpViewModelDelegate {
                 if let err = err {
                     print("Error adding document: \(err)")
                 } else {
+                    AppSettings.userID = ref!.documentID
                     print("Document added with ID: \(ref!.documentID)")
                 }
+                self.task.leave()
             }
-            delegate?.getResult(result: true)
-            return true
+
+            task.notify(queue: .main)
+            {
+                AppSettings.displayName = userText
+                self.delegate?.getResult(result: true)
+            }
         }
         else
         {
-            return false
+            return
         }
     }
     
