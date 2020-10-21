@@ -24,6 +24,7 @@
 		507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
+		50B88FC62540461500A7A7E2 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */; };
 		50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46706253A928E006FEE21 /* LoginViewController.swift */; };
 		50F46709253AD09C006FEE21 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F46708253AD09C006FEE21 /* LoginView.xib */; };
 		50F4670D253AD2E1006FEE21 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4670B253AD2E1006FEE21 /* SignUpViewController.swift */; };
@@ -78,6 +79,7 @@
 		50462553253D2CAD007BCC1C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		50462555253DD602007BCC1C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		50F46706253A928E006FEE21 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		50F46708253AD09C006FEE21 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		50F4670B253AD2E1006FEE21 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				50F46718253B31B7006FEE21 /* SignUpViewModel.swift */,
 				50F4671A253B31C8006FEE21 /* IndexViewModel.swift */,
 				50F4671C253B31D6006FEE21 /* LoginViewModel.swift */,
+				50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				500465C22539BE8900480E1A /* UserModel.swift in Sources */,
 				50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */,
 				50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */,
+				50B88FC62540461500A7A7E2 /* ChatRoomViewModel.swift in Sources */,
 				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
@@ -738,7 +742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jcordova.apps.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -757,7 +761,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jcordova.apps.Chat-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -11,42 +11,30 @@ import MessageKit
 import FirebaseFirestore
 import InputBarAccessoryView
 
-//final class ChatRoomViewController: UIViewController {}
+protocol ChatRoomViewControllerDelegate
+{
+    func updateMessageCollection(_ messageThread: [Message])
+    func scrollToBottom()
+}
+
 final class ChatRoomViewController: MessagesViewController
 {
-    private let db = Firestore.firestore()
+    let viewModel = ChatRoomViewModel()
+    var delegate: ChatRoomViewModelDelegate?
     
-    private var reference: CollectionReference?
-    private var messageListener: ListenerRegistration?
     private var messagesThread: [Message] = []
-    
-    deinit
-    {
-      messageListener?.remove()
-    }
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        let logout = UIBarButtonItem(title: "Logout", style: .done, target: self, action: Selector("logoutChat"))
+        viewModel.delegate = self
         
-        reference = db.collection(["Message Thread","MessageThread", "Messages"].joined(separator: "/"))
-        
-        messageListener = reference?.addSnapshotListener
-        { querySnapshot, error in
-          guard let snapshot = querySnapshot else
-          {
-            print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
-            return
-          }
-          
-          snapshot.documentChanges.forEach
-          { change in
-            self.handleDocumentChange(change)
-          }
-        }
-                
         self.title = "Chat App"
         navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.rightBarButtonItem = logout
+        
+        viewModel.initializeListener()
         
         messageInputBar.delegate = self
         maintainPositionOnKeyboardFrameChanged = true
@@ -61,59 +49,12 @@ final class ChatRoomViewController: MessagesViewController
         {
             layout.setMessageIncomingAvatarSize(.zero)
             layout.setMessageOutgoingAvatarSize(.zero)
-            
-        }
-    }
- 
-    //MARK: - Class Methods R.
-    
-    // saves message as new document in the message thread
-    private func save (_ message: Message)
-    {
-        reference?.addDocument(data: message.representation, completion:
-        { error in
-          if let e = error
-          {
-            print("Error sending message: \(e.localizedDescription)")
-            return
-          }
-          
-          self.messagesCollectionView.scrollToBottom()
-        })
-    }
-    
-    private func insertNewMessage (_ message: Message)
-    {
-        guard !messagesThread.contains(message) else
-        {
-          return
-        }
-        
-        messagesThread.append(message)
-        messagesThread.sort()
-        messagesCollectionView.reloadData()
-        DispatchQueue.main.async
-        {
-            self.messagesCollectionView.scrollToBottom()
         }
     }
     
-    private func handleDocumentChange(_ change: DocumentChange)
+    private func logoutChat(sender: AnyObject)
     {
-        guard let message = Message(document: change.document) else
-        {
-          return
-        }
         
-        print("doc change: \(message.msgSender)")
-        
-        switch change.type
-        {
-            case .added:
-                self.insertNewMessage(message)
-            default:
-                break
-        }
     }
 }
 
@@ -123,8 +64,7 @@ extension ChatRoomViewController: InputBarAccessoryViewDelegate
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String)
     {
         let message = Message(content: text)
-
-        save(message)
+        viewModel.sendMessage(message)
         inputBar.inputTextView.text = ""
     }
 }
@@ -225,12 +165,21 @@ extension ChatRoomViewController: MessagesDisplayDelegate
     }
 }
 
-extension Date
+//MARK: - Delegate Implementation
+extension ChatRoomViewController: ChatRoomViewControllerDelegate
 {
-    func toString( dateFormat format  : String ) -> String
+    func scrollToBottom()
     {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
+        self.messagesCollectionView.reloadData()
+        DispatchQueue.main.async
+        {
+            self.messagesCollectionView.scrollToBottom()
+        }
+    }
+    
+    func updateMessageCollection(_ messageThread: [Message])
+    {
+        self.messagesThread = messageThread
+        scrollToBottom()
     }
 }
