@@ -15,14 +15,24 @@ protocol SignUpViewModelDelegate {
     var passwordWarningMessage: String { get }
 }
 
-class SignUpViewModel: SignUpViewModelDelegate {
-    
-    var usernameWarningMessage: String = "username warning"
-    var passwordWarningMessage: String = "password warning"
-    
+class SignUpViewModel: SignUpViewModelDelegate
+{
     let task = DispatchGroup()
+    var usernameWarningMessage: String = ""
+    var passwordWarningMessage: String = ""
     var delegate: SignUpViewControllerDelegate?
+    var model = SignupModel()
+    
+    private let collectionName = "Users"
     private var db = Firestore.firestore()
+    private var referrence: CollectionReference? = nil
+    private var docReferrence: DocumentReference? = nil
+    private var isUserRegistered = false
+    
+    init()
+    {
+        self.referrence = db.collection(collectionName)
+    }
     
     //MARK: Delegate Methods
 
@@ -36,38 +46,28 @@ class SignUpViewModel: SignUpViewModelDelegate {
     {
         guard let userText = username else {return}
         guard let passwordText = password else {return}
-        
-        if (validateUserInput(username: userText, password: passwordText))
+
+        if userText.isEmpty && passwordText.isEmpty
         {
-            print(validateUserInput(username: userText, password: passwordText))
-            var ref: DocumentReference? = nil
-
-            task.enter()
-            ref = db.collection("Users").addDocument(
-                data: [
-                    "username" : userText,
-                    "password" : passwordText])
-            {
-                err in
-                if let err = err {
-                    print("Error adding document: \(err)")
-                } else {
-                    AppSettings.userID = ref!.documentID
-                    print("Document added with ID: \(ref!.documentID)")
-                }
-                self.task.leave()
-            }
-
-            task.notify(queue: .main)
-            {
-                AppSettings.displayName = userText
-                self.delegate?.isSignupSuccessful(result: true)
-            }
+            usernameWarningMessage = model.textFieldEmptyWarningMessage
+            passwordWarningMessage = model.textFieldEmptyWarningMessage
+            self.delegate?.showWarnings()
+            return
+            
         }
         else
         {
-            self.delegate?.isSignupSuccessful(result: false)
-            return
+            if (validateUserInput(username: userText, password: passwordText))
+            {
+                isUsernameRegistered(username: userText, password: passwordText)
+            }
+            else
+            {
+                usernameWarningMessage = model.invalidInputWarning
+                passwordWarningMessage = model.invalidInputWarning
+                self.delegate?.showWarnings()
+                return
+            }
         }
     }
     
@@ -79,11 +79,6 @@ class SignUpViewModel: SignUpViewModelDelegate {
      */
     func validateUserInput(username: String, password: String) -> Bool
     {
-        if username.isEmpty && password.isEmpty
-        {
-            return false;
-        }
-
         if username.count < 8 || username.count > 16
         {
             return false
@@ -95,5 +90,85 @@ class SignUpViewModel: SignUpViewModelDelegate {
         }
         
         return true;
+    }
+    
+    /**
+     Register user credentials to firestore.
+     - Parameter username: submitted user name
+     - Parameter password: submitted password
+     - Returns: bool
+     */
+    private func registerUser (username: String, password: String)
+    {
+        task.enter()
+        if (self.isUserRegistered)
+        {
+            return
+        }
+        else
+        {
+            let encodedPassword: String = password.base64Encoded()!
+            print (encodedPassword)
+            docReferrence = db.collection(collectionName).addDocument(data: ["username": username,"password": password])
+            { error in
+                if let error = error
+                {
+                    print("Error adding user: \(error)")
+                    self.usernameWarningMessage = self.model.invalidInputWarning
+                    self.passwordWarningMessage = self.model.invalidInputWarning
+                    self.delegate?.showWarnings()
+                }
+                else
+                {
+                    AppSettings.userID = self.docReferrence?.documentID
+                    AppSettings.displayName = username
+                }
+            }
+            task.leave()
+        }
+        
+        task.notify(queue: .main)
+        {
+            NSLog("\(AppSettings.userID ?? "") \(AppSettings.displayName ?? "")")
+            self.delegate?.isSignupSuccessful(result: true)
+        }
+    }
+    
+    /**
+     Checks for username duplicates.
+     - Parameter username: submitted user name
+     - Parameter password: submitted password
+     - Returns: bool
+     */
+    private func isUsernameRegistered (username: String, password: String)
+    {
+        task.enter()
+        referrence?.whereField("username", isEqualTo: username).getDocuments()
+        { (snapshot, err) in
+            if let err = err
+            {
+                print("Error getting document: \(err)")
+            }
+            else if (snapshot!.isEmpty)
+            {
+                self.isUserRegistered = false
+            }
+            else
+            {
+                self.isUserRegistered = true
+                self.usernameWarningMessage = self.model.duplicateUserWarning
+                self.passwordWarningMessage = ""
+                self.delegate?.showWarnings()
+            }
+            self.task.leave()
+        }
+        
+        task.notify(queue: .global())
+        {
+            if !self.isUserRegistered
+            {
+                self.registerUser(username: username, password: password)
+            }
+        }
     }
 }
