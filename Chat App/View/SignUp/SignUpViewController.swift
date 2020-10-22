@@ -10,10 +10,10 @@ import UIKit
 
 protocol SignUpViewControllerDelegate
 {
-    func getResult (result: Bool?)
+    func isSignupSuccessful (result: Bool)
 }
 
-class SignUpViewController: UIViewController, SignUpViewControllerDelegate
+class SignUpViewController: UIViewController
 {
     
     @IBOutlet weak var reusableForm: ReusableUserForm!
@@ -31,6 +31,7 @@ class SignUpViewController: UIViewController, SignUpViewControllerDelegate
         reusableForm.mainCommandInvoked =
         { [weak self] in
             NSLog("Main Command() -> Sign Up called.")
+            self?.hideWarnings()
             self?.SignUp()
         }
         
@@ -41,7 +42,6 @@ class SignUpViewController: UIViewController, SignUpViewControllerDelegate
         }
     }
     
-    //MARK: - Navigation Methods
     func GoToLogin()
     {
         let loginViewController = LoginViewController()
@@ -53,13 +53,29 @@ class SignUpViewController: UIViewController, SignUpViewControllerDelegate
         viewModel.processUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
     }
     
-    //MARK: - Protocol Implementation
-    func getResult(result: Bool?)
+    private func hideWarnings()
     {
-        if (result!)
+        reusableForm.usernameWarningLabel.isHidden = true
+        reusableForm.passwordWarningLabel.isHidden = true
+    }
+}
+
+//MARK: - Protocol Implementation
+extension SignUpViewController: SignUpViewControllerDelegate
+{
+    func isSignupSuccessful(result: Bool)
+    {
+        if (result)
         {
             let chatroomViewcontroller = ChatRoomViewController()
             self.navigationController?.pushViewController(chatroomViewcontroller, animated: true)
+        }
+        else
+        {
+            reusableForm.passwordWarningLabel.text = viewModel.passwordWarningMessage
+            reusableForm.usernameWarningLabel.text = viewModel.usernameWarningMessage
+            reusableForm.usernameWarningLabel.isHidden = false
+            reusableForm.passwordWarningLabel.isHidden = false
         }
     }
 }

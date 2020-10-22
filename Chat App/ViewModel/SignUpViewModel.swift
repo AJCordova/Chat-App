@@ -11,14 +11,21 @@ import FirebaseFirestore
 
 protocol SignUpViewModelDelegate {
     func processUserCredentials(from username: String?, password: String?)
+    var usernameWarningMessage: String { get }
+    var passwordWarningMessage: String { get }
 }
 
 class SignUpViewModel: SignUpViewModelDelegate {
+    
+    var usernameWarningMessage: String = "username warning"
+    var passwordWarningMessage: String = "password warning"
     
     let task = DispatchGroup()
     var delegate: SignUpViewControllerDelegate?
     private var db = Firestore.firestore()
     
+    //MARK: Delegate Methods
+
     /**
      Processes the user credentials for Sign Up.
         - Parameter username: submitted user name
@@ -32,8 +39,9 @@ class SignUpViewModel: SignUpViewModelDelegate {
         
         if (validateUserInput(username: userText, password: passwordText))
         {
+            print(validateUserInput(username: userText, password: passwordText))
             var ref: DocumentReference? = nil
-            
+
             task.enter()
             ref = db.collection("Users").addDocument(
                 data: [
@@ -53,11 +61,12 @@ class SignUpViewModel: SignUpViewModelDelegate {
             task.notify(queue: .main)
             {
                 AppSettings.displayName = userText
-                self.delegate?.getResult(result: true)
+                self.delegate?.isSignupSuccessful(result: true)
             }
         }
         else
         {
+            self.delegate?.isSignupSuccessful(result: false)
             return
         }
     }
@@ -68,14 +77,23 @@ class SignUpViewModel: SignUpViewModelDelegate {
      - Parameter password: submitted password
      - Returns: bool
      */
-    func validateUserInput(username: String?, password: String?) -> Bool
+    func validateUserInput(username: String, password: String) -> Bool
     {
-        let usernameChars = username!.count
-        let passwordChars = password!.count
+        if username.isEmpty && password.isEmpty
+        {
+            return false;
+        }
+
+        if username.count < 8 || username.count > 16
+        {
+            return false
+        }
         
-        if (usernameChars < 8 && usernameChars > 16) { return false}
-        if (passwordChars < 8 && passwordChars > 16) {return false}
+        if password.count < 8 || password.count > 16
+        {
+            return false;
+        }
         
-        return true
+        return true;
     }
 }
