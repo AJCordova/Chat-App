@@ -7,58 +7,176 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 protocol LoginViewModelDelegate
 {
-    func processUserCredentials(from username: String?, password: String?) -> Bool
+    func processUserCredentials(from username: String?, password: String?)
+    var usernameWarningMessage: String { get }
+    var passwordWarningMessage: String { get }
 }
 
 class LoginViewModel: LoginViewModelDelegate
 {
-    //var delegate:
+    let task = DispatchGroup()
+    var usernameWarningMessage: String = ""
+    var passwordWarningMessage: String = ""
+    var delegate: LoginViewControllerDelegate?
+    
+    private let collectionName = "Users"
+    private var db = Firestore.firestore()
+    private var referrence: CollectionReference? = nil
+    private var docReferrence: DocumentReference? = nil
+    private var isUserRegistered = false
+    private let model = SignupModel()
+    private var encodedPassword: String? = nil
+    
+    init()
+    {
+        self.referrence = db.collection(collectionName)
+    }
     
     /**
-     Gets the user credentials from the text fields in SignUpViewController.
+     Processes user credentials for login.
         - Parameter username: submitted user name
         - Parameter password: submitted password
         - Returns: bool
      */
-    func processUserCredentials(from username: String?, password: String?) -> Bool {
-        guard let userText = username else {return false}
-        guard let passwordText = password else {return false}
-        
-        // validate user input
-        if (validateUserInput(username: userText, password: passwordText))
+    func processUserCredentials(from username: String?, password: String?)
+    {
+        guard let userText = username else {return}
+        guard let passwordText = password else {return}
+
+        if userText.isEmpty && passwordText.isEmpty
         {
-            // hash password
-            // send parameters to API request
-            return true
+            usernameWarningMessage = model.textFieldEmptyWarningMessage
+            passwordWarningMessage = model.textFieldEmptyWarningMessage
+            self.delegate?.showWarnings()
+            return
         }
         else
         {
-            return false
+            if (validateUserInput(username: userText, password: passwordText))
+            {
+                encodedPassword = passwordText.base64Encoded()
+                isUsernameRegistered(username: userText)
+            }
+            else
+            {
+                usernameWarningMessage = model.invalidInputWarning
+                passwordWarningMessage = model.invalidInputWarning
+                self.delegate?.showWarnings()
+                return
+            }
         }
-        
-        //delegate?.getInfoBack(any: userText + passwordText)
     }
     
+    
     /**
-     Validates the user credentials if it meets the required character counts.
+     This method vallidates the user credentials if it meets the required character counts.
      - Parameter username: submitted user name
      - Parameter password: submitted password
      - Returns: bool
      */
-    func validateUserInput(username: String?, password: String?) -> Bool
+    func validateUserInput(username: String, password: String) -> Bool
     {
-        let usernameChars = username!.count
-        let passwordChars = password!.count
+        if username.count < 8 || username.count > 16
+        {
+            return false
+        }
         
-        if (usernameChars < 8 && usernameChars > 16) { return false}
-        if (passwordChars < 8 && passwordChars > 16) {return false}
+        if password.count < 8 || password.count > 16
+        {
+            return false;
+        }
         
-        return true
+        return true;
     }
     
+    /**
+     This method checks if user credentials exist.
+     - Parameter username: submitted user name
+     - Parameter password: submitted password
+     - Returns: bool
+     */
+    private func isUsernameRegistered (username: String)
+    {
+        task.enter()
+        referrence?.whereField("username", isEqualTo: username).getDocuments()
+        { (snapshot, err) in
+            if let err = err
+            {
+                print("Error getting document: \(err)")
+            }
+            else if (snapshot!.isEmpty)
+            {
+                self.isUserRegistered = false
+            }
+            else
+            {
+                if snapshot?.count == 1
+                {
+                    for document in snapshot!.documents
+                    {
+                        let data = document.data()
+                        let hash: String = (data["password"] as? String)!
+                        
+                        if self.isValidHash(hash: hash.base64Encoded()!)
+                        {
+                            AppSettings.displayName = data["username"] as? String
+                            AppSettings.userID = document.documentID
+                            self.isUserRegistered = true
+                            print(data)
+                        }
+                        else
+                        {
+                            print("Wrong password")
+                        }
+                    }
+                }
+                else
+                {
+                    // duplicate error
+                    print("Multiple user entries found.")
+                }
+            }
+            self.task.leave()
+        }
+        
+        task.notify(queue: .main)
+        {
+            if self.isUserRegistered
+            {
+                self.delegate?.isLoginSuccessful(result: true)
+            }
+        }
+    }
+    
+    private func isValidHash(hash: String) -> Bool
+    {
+        print(hash)
+        print(encodedPassword!)
+        let userInput = encodedPassword?.base64Decoded()
+        let hash = encodedPassword?.base64Decoded()
+        
+        if hash!.elementsEqual(userInput!)
+        {
+            return true
+        }
+        return false
+    }
 }
 
+extension String
+{
+    func base64Encoded() -> String?
+    {
+        return data(using: .utf8)?.base64EncodedString()
+    }
 
+    func base64Decoded() -> String?
+    {
+        guard let data = Data(base64Encoded: self) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+}
