@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		500465C025398CE200480E1A /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500465BF25398CE200480E1A /* IndexViewController.swift */; };
 		500465C22539BE8900480E1A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500465C12539BE8900480E1A /* UserModel.swift */; };
+		5015531B254203E700EA1011 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015531A254203E700EA1011 /* LoginModel.swift */; };
 		501A8C872537F35A00EEA42A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501A8C862537F35A00EEA42A /* AppDelegate.swift */; };
 		501A8C892537F35A00EEA42A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501A8C882537F35A00EEA42A /* SceneDelegate.swift */; };
 		501A8C8E2537F35A00EEA42A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 501A8C8C2537F35A00EEA42A /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		50B88FC62540461500A7A7E2 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */; };
+		50B88FD12541871A00A7A7E2 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B88FD02541871A00A7A7E2 /* SignupModel.swift */; };
 		50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46706253A928E006FEE21 /* LoginViewController.swift */; };
 		50F46709253AD09C006FEE21 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F46708253AD09C006FEE21 /* LoginView.xib */; };
 		50F4670D253AD2E1006FEE21 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4670B253AD2E1006FEE21 /* SignUpViewController.swift */; };
@@ -60,6 +62,7 @@
 		0B718472377B2B208FC6C793 /* Pods_Chat_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		500465BF25398CE200480E1A /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		500465C12539BE8900480E1A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		5015531A254203E700EA1011 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		501A8C832537F35A00EEA42A /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		501A8C862537F35A00EEA42A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		501A8C882537F35A00EEA42A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		50462555253DD602007BCC1C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
+		50B88FD02541871A00A7A7E2 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		50F46706253A928E006FEE21 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		50F46708253AD09C006FEE21 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		50F4670B253AD2E1006FEE21 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 				500465C12539BE8900480E1A /* UserModel.swift */,
 				50462551253D2350007BCC1C /* ChatRoomModel.swift */,
 				50462553253D2CAD007BCC1C /* Message.swift */,
+				50B88FD02541871A00A7A7E2 /* SignupModel.swift */,
+				5015531A254203E700EA1011 /* LoginModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,13 +229,12 @@
 		501A8C852537F35A00EEA42A /* Chat App */ = {
 			isa = PBXGroup;
 			children = (
-				509D701E253BD89C00724508 /* Helpers */,
 				500465BD2538D86900480E1A /* Commons */,
 				500465BC2538D7DC00480E1A /* Support Files */,
-				500465BA2538D6FB00480E1A /* Resources */,
+				500465B52538D62F00480E1A /* Model */,
 				500465B82538D66000480E1A /* View */,
 				500465B72538D65100480E1A /* ViewModel */,
-				500465B52538D62F00480E1A /* Model */,
+				500465BA2538D6FB00480E1A /* Resources */,
 			);
 			path = "Chat App";
 			sourceTree = "<group>";
@@ -250,13 +255,6 @@
 				501A8CAA2537F35C00EEA42A /* Info.plist */,
 			);
 			path = "Chat AppUITests";
-			sourceTree = "<group>";
-		};
-		509D701E253BD89C00724508 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		50F46705253A926C006FEE21 /* Login */ = {
@@ -548,10 +546,12 @@
 				50F4670D253AD2E1006FEE21 /* SignUpViewController.swift in Sources */,
 				501A8C872537F35A00EEA42A /* AppDelegate.swift in Sources */,
 				50462556253DD602007BCC1C /* AppSettings.swift in Sources */,
+				50B88FD12541871A00A7A7E2 /* SignupModel.swift in Sources */,
 				50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */,
 				50F46715253AEBB8006FEE21 /* ReusableUserForm.swift in Sources */,
 				501A8C892537F35A00EEA42A /* SceneDelegate.swift in Sources */,
 				50F4671B253B31C8006FEE21 /* IndexViewModel.swift in Sources */,
+				5015531B254203E700EA1011 /* LoginModel.swift in Sources */,
 				500465C22539BE8900480E1A /* UserModel.swift in Sources */,
 				50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */,
 				50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */,
