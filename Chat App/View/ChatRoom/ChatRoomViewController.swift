@@ -27,7 +27,8 @@ final class ChatRoomViewController: MessagesViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        let logout = UIBarButtonItem(title: "Logout", style: .done, target: self, action: Selector("logoutChat"))
+        let logout = createLogoutButton()
+        
         viewModel.delegate = self
         
         self.title = "Chat App"
@@ -35,9 +36,9 @@ final class ChatRoomViewController: MessagesViewController
         navigationItem.rightBarButtonItem = logout
         
         viewModel.initializeListener()
-        
-        messageInputBar.delegate = self
+ 
         maintainPositionOnKeyboardFrameChanged = true
+        messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
         messageInputBar.sendButton.setTitleColor(.systemGreen, for: .normal)
 
@@ -54,7 +55,28 @@ final class ChatRoomViewController: MessagesViewController
     
     private func logoutChat(sender: AnyObject)
     {
+        AppSettings.displayName = nil
+        AppSettings.userID = nil
+        let indexViewController = IndexViewController()
+        self.navigationController?.pushViewController(indexViewController, animated: true)
+    }
+    
+    private func createLogoutButton() -> UIBarButtonItem
+    {
+        let btnProfile = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 25))
+        btnProfile.setTitle("Log out", for: .normal)
+        btnProfile.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btnProfile.titleEdgeInsets = UIEdgeInsetsMake(1,5,0,5)
+        btnProfile.backgroundColor = UIColor.darkGray
+        btnProfile.contentVerticalAlignment = .center
+        btnProfile.contentHorizontalAlignment = .center
+        btnProfile.titleLabel?.textAlignment = NSTextAlignment.center
+        btnProfile.titleLabel?.adjustsFontSizeToFitWidth = true
+        btnProfile.layer.cornerRadius = 4.0
+        btnProfile.layer.masksToBounds = true
         
+        let button = UIBarButtonItem(customView: btnProfile)
+        return button
     }
 }
 
