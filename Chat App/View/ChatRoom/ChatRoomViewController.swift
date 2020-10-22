@@ -33,6 +33,8 @@ final class ChatRoomViewController: MessagesViewController
         
         self.title = "Chat App"
         navigationItem.setHidesBackButton(true, animated: false)
+        logout.target = self
+        logout.action = #selector(self.logoutChat)
         navigationItem.rightBarButtonItem = logout
         
         viewModel.initializeListener()
@@ -53,7 +55,8 @@ final class ChatRoomViewController: MessagesViewController
         }
     }
     
-    private func logoutChat(sender: AnyObject)
+    @objc
+    func logoutChat()
     {
         AppSettings.displayName = nil
         AppSettings.userID = nil
