@@ -18,6 +18,7 @@ class ReusableUserForm: UIView {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var mainCommand: UIButton!
     @IBOutlet weak var altCommand: UIButton!
+    @IBOutlet weak var userAgreement: UILabel!
     
     var mainCommandInvoked: (() -> Void)?
     var altCommandInvoked: (() -> Void)?
