@@ -21,16 +21,17 @@ class SignUpViewModel: SignUpViewModelDelegate
     var usernameWarningMessage: String = ""
     var passwordWarningMessage: String = ""
     var delegate: SignUpViewControllerDelegate?
-    var model = SignupModel()
     
-    private let collectionName = "Users"
+    private var collectionName: String = ""
     private var db = Firestore.firestore()
     private var referrence: CollectionReference? = nil
-    private var docReferrence: DocumentReference? = nil
     private var isUserRegistered = false
+    private var model = SignupModel()
+    
     
     init()
     {
+        self.collectionName = model.CollectionReferrence
         self.referrence = db.collection(collectionName)
     }
     
@@ -49,11 +50,10 @@ class SignUpViewModel: SignUpViewModelDelegate
 
         if userText.isEmpty && passwordText.isEmpty
         {
-            usernameWarningMessage = model.textFieldEmptyWarningMessage
-            passwordWarningMessage = model.textFieldEmptyWarningMessage
+            usernameWarningMessage = Constants.invalidInputWarning
+            passwordWarningMessage = Constants.invalidInputWarning
             self.delegate?.showWarnings()
             return
-            
         }
         else
         {
@@ -63,8 +63,8 @@ class SignUpViewModel: SignUpViewModelDelegate
             }
             else
             {
-                usernameWarningMessage = model.invalidInputWarning
-                passwordWarningMessage = model.invalidInputWarning
+                usernameWarningMessage = Constants.invalidInputWarning
+                passwordWarningMessage = Constants.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -100,6 +100,7 @@ class SignUpViewModel: SignUpViewModelDelegate
      */
     private func registerUser (username: String, password: String)
     {
+        var docReferrence: DocumentReference? = nil
         task.enter()
         if (self.isUserRegistered)
         {
@@ -107,29 +108,28 @@ class SignUpViewModel: SignUpViewModelDelegate
         }
         else
         {
-            let encodedPassword: String = password.base64Encoded()!
-            print (encodedPassword)
-            docReferrence = db.collection(collectionName).addDocument(data: ["username": username,"password": password])
+            docReferrence = referrence!.addDocument(data: ["username": username,"password": password])
             { error in
                 if let error = error
                 {
-                    print("Error adding user: \(error)")
-                    self.usernameWarningMessage = self.model.invalidInputWarning
-                    self.passwordWarningMessage = self.model.invalidInputWarning
+                    NSLog("Error adding user: \(error)")
+                    self.usernameWarningMessage = Constants.invalidInputWarning
+                    self.passwordWarningMessage = Constants.invalidInputWarning
                     self.delegate?.showWarnings()
                 }
                 else
                 {
-                    AppSettings.userID = self.docReferrence?.documentID
+                    NSLog("User added. Reference: \(docReferrence?.documentID ?? "")")
+                    AppSettings.userID = docReferrence?.documentID
                     AppSettings.displayName = username
                 }
+                self.task.leave()
             }
-            task.leave()
         }
         
         task.notify(queue: .main)
         {
-            NSLog("\(AppSettings.userID ?? "") \(AppSettings.displayName ?? "")")
+            NSLog("Current user: [\(AppSettings.userID ?? "")][ \(AppSettings.displayName ?? "")]")
             self.delegate?.isSignupSuccessful(result: true)
         }
     }
@@ -143,20 +143,22 @@ class SignUpViewModel: SignUpViewModelDelegate
     private func isUsernameRegistered (username: String, password: String)
     {
         task.enter()
-        referrence?.whereField("username", isEqualTo: username).getDocuments()
+        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments()
         { (snapshot, err) in
             if let err = err
             {
-                print("Error getting document: \(err)")
+                NSLog("isUsernameRegistered(): Error getting document: \(err)")
             }
             else if (snapshot!.isEmpty)
             {
                 self.isUserRegistered = false
+                NSLog("isUsernameRegistered(): No duplicates found")
             }
             else
             {
+                NSLog("isUsernameRegistered(): duplicates found")
                 self.isUserRegistered = true
-                self.usernameWarningMessage = self.model.duplicateUserWarning
+                self.usernameWarningMessage = Constants.duplicateUserWarningLabel
                 self.passwordWarningMessage = ""
                 self.delegate?.showWarnings()
             }
@@ -167,6 +169,7 @@ class SignUpViewModel: SignUpViewModelDelegate
         {
             if !self.isUserRegistered
             {
+                NSLog("isUsernameRegistered(): Proceed to registerUser()")
                 self.registerUser(username: username, password: password)
             }
         }
