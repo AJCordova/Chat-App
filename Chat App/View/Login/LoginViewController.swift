@@ -15,8 +15,8 @@ protocol LoginViewControllerDelegate
     func showWarnings ()
 }
 
-class LoginViewController: UIViewController {
-
+class LoginViewController: UIViewController
+{
     @IBOutlet weak var reusableForm: ReusableUserForm!
     
     var attributedString = NSMutableAttributedString(string:"")
@@ -64,19 +64,18 @@ class LoginViewController: UIViewController {
     {
         viewModel.processUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
     }
-
 }
 
 //MARK: - Protocol Implementation
 extension LoginViewController: LoginViewControllerDelegate
 {
-    func showWarnings() {
+    func showWarnings()
+    {
         reusableForm.usernameWarningLabel.text = viewModel.usernameWarningMessage
         reusableForm.passwordWarningLabel.text = viewModel.passwordWarningMessage
         reusableForm.usernameWarningLabel.isHidden = false
         reusableForm.passwordWarningLabel.isHidden = false
     }
-    
     
     func hideWarnings()
     {

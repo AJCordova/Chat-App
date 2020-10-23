@@ -96,8 +96,8 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     }
     
     /**
-        Gets the changed document from the change object to insert to the device con
-         - Parameter change: an object that contains the changed/added document.
+     Gets the changed document from the change object to insert to the device con
+     -   Parameter change: an object that contains the changed/added document.
     */
     private func handleDocumentChange (_ change: DocumentChange)
     {

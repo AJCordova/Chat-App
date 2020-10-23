@@ -49,7 +49,6 @@ struct Message: MessageType
       self.id = document.documentID
       self.sendDate = sentDate.dateValue()
       self.msgSender = Sender(senderId: senderID, displayName: senderName)
-      print(self.msgSender)
       self.content = content
     }
     

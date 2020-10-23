@@ -17,7 +17,6 @@ protocol SignUpViewControllerDelegate
 
 class SignUpViewController: UIViewController
 {
-    
     @IBOutlet weak var reusableForm: ReusableUserForm!
     
     var attributedString = NSMutableAttributedString(string:"")
@@ -34,7 +33,6 @@ class SignUpViewController: UIViewController
         viewModel.delegate = self
         
         reusableForm.mainCommand.setTitle("Sign Up", for: .normal)
-        
         reusableForm.mainCommandInvoked =
         { [weak self] in
             NSLog("Main Command() -> Sign Up called.")
@@ -69,7 +67,8 @@ class SignUpViewController: UIViewController
 //MARK: - Protocol Implementation
 extension SignUpViewController: SignUpViewControllerDelegate
 {
-    func showWarnings() {
+    func showWarnings()
+    {
         reusableForm.usernameWarningLabel.text = viewModel.usernameWarningMessage
         reusableForm.passwordWarningLabel.text = viewModel.passwordWarningMessage
         reusableForm.usernameWarningLabel.isHidden = false

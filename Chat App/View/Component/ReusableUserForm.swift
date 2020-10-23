@@ -22,8 +22,7 @@ class ReusableUserForm: UIView {
     
     var mainCommandInvoked: (() -> Void)?
     var altCommandInvoked: (() -> Void)?
-    
-    //MARK: -
+
    let nibName = "UserForm"
    
    required init?(coder aDecoder: NSCoder) {
@@ -44,21 +43,22 @@ class ReusableUserForm: UIView {
         userAgreement.text = Constants.userAgreementText
    }
    
-   func loadViewFromNib() -> UIView? {
+   func loadViewFromNib() -> UIView?
+   {
        let nib = UINib(nibName: nibName, bundle: nil)
        return nib.instantiate(withOwner: self, options: nil).first as? UIView
    }
     
     // MARK: - Functions
-    @IBAction func mainCommandTapped(_ sender: UIButton) {
+    @IBAction func mainCommandTapped(_ sender: UIButton)
+    {
         if let mainCommandInvoked = self.mainCommandInvoked {
             mainCommandInvoked()
         }
     }
     
-    @IBAction func altCommandTapped(_ sender: UIButton) {
-        if let altCommandInvoked = self.altCommandInvoked {
-            altCommandInvoked()
-        }
+    @IBAction func altCommandTapped(_ sender: UIButton)
+    {
+        if let altCommandInvoked = self.altCommandInvoked { altCommandInvoked()}
     }
 }
