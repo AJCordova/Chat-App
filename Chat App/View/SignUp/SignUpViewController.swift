@@ -28,7 +28,7 @@ class SignUpViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.title = "Chat App"
+        self.title = Constants.navigationTitle
         navigationItem.setHidesBackButton(true, animated: false)
         viewModel.delegate = self
         

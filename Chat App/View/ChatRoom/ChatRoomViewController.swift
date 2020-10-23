@@ -32,14 +32,20 @@ final class ChatRoomViewController: MessagesViewController
         viewModel.delegate = self
         viewModel.initializeListener()
         
-        self.title = "Chat App"
+        self.title = Constants.navigationTitle
         self.navigationItem.rightBarButtonItem = logout
         navigationItem.setHidesBackButton(true, animated: false)
  
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
-        messageInputBar.sendButton.setTitleColor(.systemGreen, for: .normal)
+        messageInputBar.inputTextView.placeholder = "Start a new message"
+        messageInputBar.inputTextView.backgroundColor = Constants.messageInputBackground
+        messageInputBar.inputTextView.layer.cornerRadius = 10.0
+        messageInputBar.sendButton.backgroundColor = .darkGray
+        messageInputBar.sendButton.setTitle("send", for: .normal)
+        messageInputBar.sendButton.setTitleColor(.white, for: .normal)
+        messageInputBar.sendButton.layer.cornerRadius = 10.0
 
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -77,7 +83,7 @@ final class ChatRoomViewController: MessagesViewController
         btnProfile.contentHorizontalAlignment = .center
         btnProfile.titleLabel?.textAlignment = NSTextAlignment.center
         btnProfile.titleLabel?.adjustsFontSizeToFitWidth = true
-        btnProfile.layer.cornerRadius = 4.0
+        btnProfile.layer.cornerRadius = 10.0
         btnProfile.layer.masksToBounds = true
         btnProfile.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.logoutChat)))
         
