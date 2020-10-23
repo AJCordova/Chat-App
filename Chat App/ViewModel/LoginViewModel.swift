@@ -23,16 +23,17 @@ class LoginViewModel: LoginViewModelDelegate
     var passwordWarningMessage: String = ""
     var delegate: LoginViewControllerDelegate?
     
-    private let collectionName = "Users"
+    private var collectionName = ""
     private var db = Firestore.firestore()
     private var referrence: CollectionReference? = nil
     private var docReferrence: DocumentReference? = nil
     private var isUserRegistered = false
-    private let model = SignupModel()
+    private let model = LoginModel()
     private var encodedPassword: String? = nil
     
     init()
     {
+        self.collectionName = model.CollectionReferrence
         self.referrence = db.collection(collectionName)
     }
     
@@ -49,8 +50,8 @@ class LoginViewModel: LoginViewModelDelegate
 
         if userText.isEmpty && passwordText.isEmpty
         {
-            usernameWarningMessage = model.textFieldEmptyWarningMessage
-            passwordWarningMessage = model.textFieldEmptyWarningMessage
+            usernameWarningMessage = Constants.invalidInputWarning
+            passwordWarningMessage = Constants.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
@@ -63,8 +64,8 @@ class LoginViewModel: LoginViewModelDelegate
             }
             else
             {
-                usernameWarningMessage = model.invalidInputWarning
-                passwordWarningMessage = model.invalidInputWarning
+                usernameWarningMessage = Constants.invalidInputWarning
+                passwordWarningMessage = Constants.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -102,7 +103,7 @@ class LoginViewModel: LoginViewModelDelegate
     private func isUsernameRegistered (username: String)
     {
         task.enter()
-        referrence?.whereField("username", isEqualTo: username).getDocuments()
+        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments()
         { (snapshot, err) in
             if let err = err
             {
@@ -152,14 +153,17 @@ class LoginViewModel: LoginViewModelDelegate
         }
     }
     
+    /**
+     This method checks the hashed user password input against the hash stored in the database.
+     - Parameter hash: submitted user name
+     - Returns: bool
+     */
     private func isValidHash(hash: String) -> Bool
     {
-        print(hash)
-        print(encodedPassword!)
         let userInput = encodedPassword?.base64Decoded()
         let hash = encodedPassword?.base64Decoded()
         
-        if hash!.elementsEqual(userInput!)
+        if hash! == userInput!
         {
             return true
         }
@@ -167,6 +171,7 @@ class LoginViewModel: LoginViewModelDelegate
     }
 }
 
+// MOVE TO DIFFERENT SWIFT FILE
 extension String
 {
     func base64Encoded() -> String?
