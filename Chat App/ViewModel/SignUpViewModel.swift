@@ -9,7 +9,8 @@
 import Foundation
 import FirebaseFirestore
 
-protocol SignUpViewModelDelegate {
+protocol SignUpViewModelDelegate
+{
     func processUserCredentials(from username: String?, password: String?)
     var usernameWarningMessage: String { get }
     var passwordWarningMessage: String { get }
@@ -27,7 +28,6 @@ class SignUpViewModel: SignUpViewModelDelegate
     private var referrence: CollectionReference? = nil
     private var isUserRegistered = false
     private var model = SignupModel()
-    
     
     init()
     {
@@ -101,6 +101,7 @@ class SignUpViewModel: SignUpViewModelDelegate
     private func registerUser (username: String, password: String)
     {
         var docReferrence: DocumentReference? = nil
+        let hash = password.base64Encoded()
         task.enter()
         if (self.isUserRegistered)
         {
@@ -108,7 +109,7 @@ class SignUpViewModel: SignUpViewModelDelegate
         }
         else
         {
-            docReferrence = referrence!.addDocument(data: ["username": username,"password": password])
+            docReferrence = referrence!.addDocument(data: ["username": username,"password": hash!])
             { error in
                 if let error = error
                 {
@@ -122,6 +123,7 @@ class SignUpViewModel: SignUpViewModelDelegate
                     NSLog("User added. Reference: \(docReferrence?.documentID ?? "")")
                     AppSettings.userID = docReferrence?.documentID
                     AppSettings.displayName = username
+                    self.isUserRegistered = true
                 }
                 self.task.leave()
             }
@@ -129,8 +131,11 @@ class SignUpViewModel: SignUpViewModelDelegate
         
         task.notify(queue: .main)
         {
-            NSLog("Current user: [\(AppSettings.userID ?? "")][ \(AppSettings.displayName ?? "")]")
-            self.delegate?.isSignupSuccessful(result: true)
+            if self.isUserRegistered
+            {
+                NSLog("registerUser(): -> ChatRoomViewController()")
+                self.delegate?.isSignupSuccessful(result: true)
+            }
         }
     }
     
