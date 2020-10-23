@@ -26,7 +26,9 @@ class SignUpViewModel: SignUpViewModelDelegate
     private var collectionName: String = ""
     private var db = Firestore.firestore()
     private var referrence: CollectionReference? = nil
-    private var isUserRegistered = false
+    private var hasFoundDuplicates = false
+    private var isSignupSuccess = false
+    private var didEncounterError = false
     private var model = SignupModel()
     
     init()
@@ -50,6 +52,7 @@ class SignUpViewModel: SignUpViewModelDelegate
 
         if userText.isEmpty && passwordText.isEmpty
         {
+            NSLog("Input Empty")
             usernameWarningMessage = Constants.invalidInputWarning
             passwordWarningMessage = Constants.invalidInputWarning
             self.delegate?.showWarnings()
@@ -103,9 +106,17 @@ class SignUpViewModel: SignUpViewModelDelegate
         var docReferrence: DocumentReference? = nil
         let hash = password.base64Encoded()
         task.enter()
-        if (self.isUserRegistered)
+        
+        if self.didEncounterError
         {
-            return
+            NSLog("Sign up failed")
+            task.leave()
+        }
+        
+        if (self.hasFoundDuplicates)
+        {
+            NSLog("Sign up failed")
+            task.leave()
         }
         else
         {
@@ -116,14 +127,14 @@ class SignUpViewModel: SignUpViewModelDelegate
                     NSLog("Error adding user: \(error)")
                     self.usernameWarningMessage = Constants.invalidInputWarning
                     self.passwordWarningMessage = Constants.invalidInputWarning
-                    self.delegate?.showWarnings()
+                    self.didEncounterError = true
                 }
                 else
                 {
                     NSLog("User added. Reference: \(docReferrence?.documentID ?? "")")
                     AppSettings.userID = docReferrence?.documentID
                     AppSettings.displayName = username
-                    self.isUserRegistered = true
+                    self.isSignupSuccess = true
                 }
                 self.task.leave()
             }
@@ -131,10 +142,25 @@ class SignUpViewModel: SignUpViewModelDelegate
         
         task.notify(queue: .main)
         {
-            if self.isUserRegistered
+            if self.didEncounterError
             {
-                NSLog("registerUser(): -> ChatRoomViewController()")
+                NSLog("Firebase error")
+                self.delegate?.isSignupSuccessful(result: false) // better have a generic error message. but sticking to specs for now.
+            }
+            else if self.hasFoundDuplicates
+            {
+                NSLog("Found user duplicates")
+                self.delegate?.showWarnings()
+            }
+            else if self.isSignupSuccess
+            {
+                NSLog("Sign up Success")
                 self.delegate?.isSignupSuccessful(result: true)
+            }
+            else
+            {
+                NSLog("Sign up failed")
+                self.delegate?.isSignupSuccessful(result: false)
             }
         }
     }
@@ -153,30 +179,26 @@ class SignUpViewModel: SignUpViewModelDelegate
             if let err = err
             {
                 NSLog("isUsernameRegistered(): Error getting document: \(err)")
+                self.didEncounterError = true
             }
             else if (snapshot!.isEmpty)
             {
-                self.isUserRegistered = false
                 NSLog("isUsernameRegistered(): No duplicates found")
             }
             else
             {
                 NSLog("isUsernameRegistered(): duplicates found")
-                self.isUserRegistered = true
                 self.usernameWarningMessage = Constants.duplicateUserWarningLabel
                 self.passwordWarningMessage = ""
-                self.delegate?.showWarnings()
+                self.hasFoundDuplicates = true
             }
             self.task.leave()
         }
         
         task.notify(queue: .global())
         {
-            if !self.isUserRegistered
-            {
-                NSLog("isUsernameRegistered(): Proceed to registerUser()")
-                self.registerUser(username: username, password: password)
-            }
+            NSLog("isUsernameRegistered(): Proceed to registerUser()")
+            self.registerUser(username: username, password: password)
         }
     }
 }
