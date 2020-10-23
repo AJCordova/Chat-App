@@ -65,8 +65,9 @@ final class ChatRoomViewController: MessagesViewController
     {
         AppSettings.displayName = ""
         AppSettings.userID = ""
-        let indexViewController = IndexViewController()
-        self.navigationController?.pushViewController(indexViewController, animated: true)
+        NSLog("ChatroomVC: Navigate to SignupVC")
+        let signupViewController = IndexViewController()
+        self.navigationController?.pushViewController(signupViewController, animated: true)
     }
     
     /**
