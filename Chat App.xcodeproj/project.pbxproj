@@ -22,6 +22,7 @@
 		50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462551253D2350007BCC1C /* ChatRoomModel.swift */; };
 		50462554253D2CAD007BCC1C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462553253D2CAD007BCC1C /* Message.swift */; };
 		50462556253DD602007BCC1C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462555253DD602007BCC1C /* AppSettings.swift */; };
+		507D10422542AC2E00940438 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507D10412542AC2E00940438 /* Extensions.swift */; };
 		507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
@@ -34,7 +35,6 @@
 		50F46715253AEBB8006FEE21 /* ReusableUserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46714253AEBB8006FEE21 /* ReusableUserForm.swift */; };
 		50F46717253AEBD0006FEE21 /* UserForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F46716253AEBD0006FEE21 /* UserForm.xib */; };
 		50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46718253B31B7006FEE21 /* SignUpViewModel.swift */; };
-		50F4671B253B31C8006FEE21 /* IndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4671A253B31C8006FEE21 /* IndexViewModel.swift */; };
 		50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4671C253B31D6006FEE21 /* LoginViewModel.swift */; };
 		5BB896780EA3DFCA400A316B /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */; };
 		7F4EECDAAA671218E97F32F1 /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */; };
@@ -81,6 +81,7 @@
 		50462551253D2350007BCC1C /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
 		50462553253D2CAD007BCC1C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		50462555253DD602007BCC1C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		507D10412542AC2E00940438 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		50B88FD02541871A00A7A7E2 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		50F46714253AEBB8006FEE21 /* ReusableUserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableUserForm.swift; sourceTree = "<group>"; };
 		50F46716253AEBD0006FEE21 /* UserForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserForm.xib; sourceTree = "<group>"; };
 		50F46718253B31B7006FEE21 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		50F4671A253B31C8006FEE21 /* IndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewModel.swift; sourceTree = "<group>"; };
 		50F4671C253B31D6006FEE21 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		5BACE62980176EE24479C1A9 /* Pods-Chat AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Chat AppUITests/Pods-Chat AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				50F46718253B31B7006FEE21 /* SignUpViewModel.swift */,
-				50F4671A253B31C8006FEE21 /* IndexViewModel.swift */,
 				50F4671C253B31D6006FEE21 /* LoginViewModel.swift */,
 				50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */,
 			);
@@ -191,6 +190,7 @@
 				501A8C882537F35A00EEA42A /* SceneDelegate.swift */,
 				50462555253DD602007BCC1C /* AppSettings.swift */,
 				5015531D25425D3800EA1011 /* Constants.swift */,
+				507D10412542AC2E00940438 /* Extensions.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -550,7 +550,6 @@
 				50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */,
 				50F46715253AEBB8006FEE21 /* ReusableUserForm.swift in Sources */,
 				501A8C892537F35A00EEA42A /* SceneDelegate.swift in Sources */,
-				50F4671B253B31C8006FEE21 /* IndexViewModel.swift in Sources */,
 				5015531B254203E700EA1011 /* LoginModel.swift in Sources */,
 				50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */,
 				50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */,
@@ -558,6 +557,7 @@
 				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
+				507D10422542AC2E00940438 /* Extensions.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
 				5015531E25425D3800EA1011 /* Constants.swift in Sources */,
 			);
