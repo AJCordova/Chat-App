@@ -18,6 +18,7 @@ class IndexViewController: UIViewController {
     // MARK: - Override functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     @IBAction func signupCommand() {
