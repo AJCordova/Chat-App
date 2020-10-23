@@ -8,30 +8,91 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
-    
+protocol SignUpViewControllerDelegate
+{
+    func isSignupSuccessful (result: Bool)
+    func hideWarnings ()
+    func showWarnings ()
+}
+
+class SignUpViewController: UIViewController
+{
     @IBOutlet weak var reusableForm: ReusableUserForm!
     
-    override func viewDidLoad() {
+    var attributedString = NSMutableAttributedString(string:"")
+    var attrs = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15.0),
+                 NSAttributedStringKey.underlineStyle : 1] as [NSAttributedStringKey : Any]
+    
+    let viewModel = SignUpViewModel()
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        reusableForm.usernameWarningLabel.isHidden = false
-        reusableForm.passwordWarningLabel.isHidden = false
-        reusableForm.usernameWarningLabel.text = "Invalid Value."
-        reusableForm.passwordWarningLabel.text = "Invalid Value."
+        self.title = Constants.navigationTitle
+        navigationItem.setHidesBackButton(true, animated: false)
+        viewModel.delegate = self
         
         reusableForm.mainCommand.setTitle("Sign Up", for: .normal)
-        reusableForm.altCommand.setTitle("Login", for: .normal)
-        
-        reusableForm.mainCommandInvoked = { [weak self] in
+        reusableForm.mainCommandInvoked =
+        { [weak self] in
             NSLog("Main Command() -> Sign Up called.")
+            self?.hideWarnings()
+            self?.signup()
         }
         
-        reusableForm.altCommandInvoked = { [weak self] in
+        reusableForm.altCommandInvoked =
+        { [weak self] in
             NSLog("Alt Command() -> Login Called")
+            self?.hideWarnings()
+            self?.login()
         }
+        
+        let buttonTitleStr = NSMutableAttributedString(string:"Login", attributes:attrs)
+        attributedString.append(buttonTitleStr)
+        reusableForm.altCommand.setAttributedTitle(attributedString, for: .normal)
     }
     
+    func login()
+    {
+        NSLog("SignupVC: Navigate to LoginVC")
+        let loginViewController = LoginViewController()
+        self.navigationController?.pushViewController(loginViewController, animated: true)
+    }
+
+    func signup()
+    {
+        viewModel.processUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
+    }
+}
+
+//MARK: - Protocol Implementation
+extension SignUpViewController: SignUpViewControllerDelegate
+{
+    func showWarnings()
+    {
+        reusableForm.usernameWarningLabel.text = viewModel.usernameWarningMessage
+        reusableForm.passwordWarningLabel.text = viewModel.passwordWarningMessage
+        reusableForm.usernameWarningLabel.isHidden = false
+        reusableForm.passwordWarningLabel.isHidden = false
+    }
     
+    func hideWarnings()
+    {
+        reusableForm.usernameWarningLabel.isHidden = true
+        reusableForm.passwordWarningLabel.isHidden = true
+    }
+    
+    func isSignupSuccessful(result: Bool)
+    {
+        if (result)
+        {
+            NSLog("ChatroomVC: Navigate to ChatroomVC")
+            let chatroomViewcontroller = ChatRoomViewController()
+            self.navigationController?.pushViewController(chatroomViewcontroller, animated: true)
+        }
+        else
+        {
+            showWarnings()
+        }
+    }
 }

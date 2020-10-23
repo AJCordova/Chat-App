@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatApp_Logo" id="Mkg-8K-7ZK">
-                    <rect key="frame" x="0.0" y="106" width="375" height="220"/>
+                    <rect key="frame" x="0.0" y="112" width="375" height="220"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                 </imageView>
@@ -30,7 +30,7 @@
                     <color key="backgroundColor" red="0.44266563653945923" green="0.63148528337478638" blue="0.18808969855308533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
                     <color key="tintColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Sign Up"/>
+                    <state key="normal" title="Sign up"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="5"/>
@@ -41,7 +41,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="B2U-Ff-yNs">
-                    <rect key="frame" x="32" y="403" width="311" height="45"/>
+                    <rect key="frame" x="32" y="393" width="311" height="45"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <color key="backgroundColor" red="0.61897355318069458" green="0.87604624032974243" blue="0.27823737263679504" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>

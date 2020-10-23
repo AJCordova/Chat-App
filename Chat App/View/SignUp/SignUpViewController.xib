@@ -20,7 +20,7 @@
             <subviews>
                 <view contentMode="scaleToFill" id="CmK-9g-4PO" customClass="ReusableUserForm" customModule="Chat_App" customModuleProvider="target">
                     <rect key="frame" x="16" y="84" width="343" height="503"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <viewLayoutGuide key="safeArea" id="PCW-QF-Ewg"/>
                 </view>

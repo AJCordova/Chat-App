@@ -11,6 +11,9 @@ target 'Chat App' do
   # add pods for any other desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods
 
+  pod 'Firebase/Firestore'
+  pod 'MessageKit'
+
   target 'Chat AppTests' do
     inherit! :search_paths
     # Pods for testing

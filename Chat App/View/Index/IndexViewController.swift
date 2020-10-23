@@ -18,16 +18,17 @@ class IndexViewController: UIViewController {
     // MARK: - Override functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     @IBAction func signupCommand() {
-        NSLog("Sign Up selected")
+        NSLog("IndexVC: Navigate to SignupVC")
         let signUpViewController = SignUpViewController()
         self.navigationController?.pushViewController(signUpViewController, animated: true)
         }
     
     @IBAction func loginCommand() {
-        NSLog("Login selected")
+        NSLog("IndexVC: Navigate to LoginVC")
         let loginViewController = LoginViewController()
         self.navigationController?.pushViewController(loginViewController, animated: true)
     }

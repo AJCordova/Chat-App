@@ -14,13 +14,14 @@
                 <outlet property="mainCommand" destination="MAT-UA-G6b" id="Mhu-ov-bVg"/>
                 <outlet property="passwordTextField" destination="Kxk-6Z-jVp" id="FSy-tb-kg5"/>
                 <outlet property="passwordWarningLabel" destination="5f3-M9-odM" id="6jD-vS-dwM"/>
+                <outlet property="userAgreement" destination="6p9-1C-4yN" id="otr-u5-IDF"/>
                 <outlet property="usernameTextField" destination="D7T-ZL-0Y3" id="hJD-Cq-bHj"/>
                 <outlet property="usernameWarningLabel" destination="xQB-7J-TwU" id="w6M-04-ClC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="263"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="440"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User name" textAlignment="natural" minimumFontSize="17" id="D7T-ZL-0Y3">
@@ -40,7 +41,7 @@
                     <rect key="frame" x="32" y="85" width="350" height="34"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" textContentType="password"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                 </textField>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5f3-M9-odM">
                     <rect key="frame" x="32" y="119" width="350" height="21"/>
@@ -83,11 +84,24 @@
                         <action selector="altCommandTapped:" destination="-1" eventType="touchUpInside" id="KyE-0P-Z7M"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6p9-1C-4yN">
+                    <rect key="frame" x="32" y="238" width="350" height="92"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Label">
+                            <attributes>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="9.5999999999999996" y="-7.6461769115442282"/>
+            <point key="canvasLocation" x="-7.5" y="25.35211267605634"/>
         </view>
     </objects>
 </document>

@@ -18,11 +18,11 @@ class ReusableUserForm: UIView {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var mainCommand: UIButton!
     @IBOutlet weak var altCommand: UIButton!
+    @IBOutlet weak var userAgreement: UILabel!
     
     var mainCommandInvoked: (() -> Void)?
     var altCommandInvoked: (() -> Void)?
-    
-    //MARK: -
+
    let nibName = "UserForm"
    
    required init?(coder aDecoder: NSCoder) {
@@ -35,27 +35,30 @@ class ReusableUserForm: UIView {
        commonInit()
    }
    
-   func commonInit() {
-       guard let view = loadViewFromNib() else { return }
-       view.frame = self.bounds
-       self.addSubview(view)
+   func commonInit()
+   {
+        guard let view = loadViewFromNib() else { return }
+        view.frame = self.bounds
+        self.addSubview(view)
+        userAgreement.text = Constants.userAgreementText
    }
    
-   func loadViewFromNib() -> UIView? {
+   func loadViewFromNib() -> UIView?
+   {
        let nib = UINib(nibName: nibName, bundle: nil)
        return nib.instantiate(withOwner: self, options: nil).first as? UIView
    }
     
     // MARK: - Functions
-    @IBAction func mainCommandTapped(_ sender: UIButton) {
+    @IBAction func mainCommandTapped(_ sender: UIButton)
+    {
         if let mainCommandInvoked = self.mainCommandInvoked {
             mainCommandInvoked()
         }
     }
     
-    @IBAction func altCommandTapped(_ sender: UIButton) {
-        if let altCommandInvoked = self.altCommandInvoked {
-            altCommandInvoked()
-        }
+    @IBAction func altCommandTapped(_ sender: UIButton)
+    {
+        if let altCommandInvoked = self.altCommandInvoked { altCommandInvoked()}
     }
 }
