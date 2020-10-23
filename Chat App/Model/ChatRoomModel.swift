@@ -10,5 +10,5 @@ import Foundation
 
 struct ChatRoomModel
 {
-    static let CollectionReferrence = "Message Thread/MessageThread/Messages"
+    static let CollectionReferrence = "Message Thread/MessageThreadActual/Messages"
 }
