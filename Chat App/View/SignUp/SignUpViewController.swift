@@ -54,6 +54,7 @@ class SignUpViewController: UIViewController
     
     func login()
     {
+        NSLog("SignupVC: Navigate to LoginVC")
         let loginViewController = LoginViewController()
         self.navigationController?.pushViewController(loginViewController, animated: true)
     }
@@ -85,6 +86,7 @@ extension SignUpViewController: SignUpViewControllerDelegate
     {
         if (result)
         {
+            NSLog("ChatroomVC: Navigate to ChatroomVC")
             let chatroomViewcontroller = ChatRoomViewController()
             self.navigationController?.pushViewController(chatroomViewcontroller, animated: true)
         }

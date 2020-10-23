@@ -127,7 +127,6 @@ class LoginViewModel: LoginViewModelDelegate
                             AppSettings.displayName = data["username"] as? String
                             AppSettings.userID = document.documentID
                             self.isUserRegistered = true
-                            print(data)
                         }
                         else
                         {
