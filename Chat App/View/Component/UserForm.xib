@@ -14,14 +14,14 @@
                 <outlet property="mainCommand" destination="MAT-UA-G6b" id="Mhu-ov-bVg"/>
                 <outlet property="passwordTextField" destination="Kxk-6Z-jVp" id="FSy-tb-kg5"/>
                 <outlet property="passwordWarningLabel" destination="5f3-M9-odM" id="6jD-vS-dwM"/>
-                <outlet property="userAgreement" destination="3II-Eo-BxI" id="RvG-tL-0SR"/>
+                <outlet property="userAgreement" destination="6p9-1C-4yN" id="otr-u5-IDF"/>
                 <outlet property="usernameTextField" destination="D7T-ZL-0Y3" id="hJD-Cq-bHj"/>
                 <outlet property="usernameWarningLabel" destination="xQB-7J-TwU" id="w6M-04-ClC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="540"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="440"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User name" textAlignment="natural" minimumFontSize="17" id="D7T-ZL-0Y3">
@@ -84,20 +84,13 @@
                         <action selector="altCommandTapped:" destination="-1" eventType="touchUpInside" id="KyE-0P-Z7M"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3II-Eo-BxI">
-                    <rect key="frame" x="32" y="259" width="350" height="222"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6p9-1C-4yN">
+                    <rect key="frame" x="32" y="238" width="350" height="92"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <attributedString key="attributedText">
-                        <fragment content="big wall of text">
+                        <fragment content="Label">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                            </attributes>
-                        </fragment>
-                        <fragment>
-                            <mutableString key="content">big wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of textbig wall of </mutableString>
-                            <attributes>
-                                <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
@@ -108,7 +101,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="9.375" y="8.4507042253521121"/>
+            <point key="canvasLocation" x="-7.5" y="25.35211267605634"/>
         </view>
     </objects>
 </document>
