@@ -172,7 +172,7 @@ extension ChatRoomViewController: MessagesDisplayDelegate
 {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor
     {
-        return isFromCurrentSender(message: message) ? UIColor(red: (158/255), green: (225/255), blue: (70/225), alpha: 1) : UIColor(red: (158/255), green: (225/255), blue: (70/255), alpha: 1)
+        return isFromCurrentSender(message: message) ? Constants.messageBubbleColor : Constants.messageBubbleColor
     }
     
     func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool

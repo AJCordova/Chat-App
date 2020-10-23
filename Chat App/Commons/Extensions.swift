@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String
 {
@@ -19,5 +20,17 @@ extension String
     {
         guard let data = Data(base64Encoded: self) else { return nil }
         return String(data: data, encoding: .utf8)
+    }
+}
+
+extension UIColor
+{
+    convenience init(red: Int, green: Int, blue: Int)
+    {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
     }
 }
