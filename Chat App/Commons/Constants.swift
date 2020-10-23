@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants
 {
@@ -19,4 +20,5 @@ struct Constants
     static let duplicateUserWarningLabel: String = "Username is taken"
     
     //MARK: - Color
+    static let messageBubbleColor = UIColor(red: 158, green: 223, blue: 71)
 }
