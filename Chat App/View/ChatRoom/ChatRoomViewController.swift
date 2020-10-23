@@ -45,11 +45,11 @@ final class ChatRoomViewController: MessagesViewController
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
-        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
-        {
-            layout.setMessageIncomingAvatarSize(.zero)
-            layout.setMessageOutgoingAvatarSize(.zero)
-        }
+        let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
+        layout?.setMessageIncomingAvatarSize(.zero)
+        layout?.setMessageOutgoingAvatarSize(.zero)
+        layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
+        layout?.setMessageIncomingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0) ))
     }
     
     /**
@@ -68,9 +68,9 @@ final class ChatRoomViewController: MessagesViewController
      */
     private func createLogoutButton() -> UIBarButtonItem
     {
-        let btnProfile = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 25))
+        let btnProfile = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 22))
         btnProfile.setTitle("Log out", for: .normal)
-        btnProfile.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btnProfile.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         btnProfile.titleEdgeInsets = UIEdgeInsetsMake(1,5,0,5)
         btnProfile.backgroundColor = UIColor.darkGray
         btnProfile.contentVerticalAlignment = .center
@@ -122,22 +122,6 @@ extension ChatRoomViewController: MessagesDataSource
             return messagesThread.count
         }
     }
-    
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString?
-    {
-        return NSAttributedString(
-            string: message.sender.displayName,
-            attributes:
-            [
-                .font: UIFont.preferredFont(forTextStyle: .caption1),
-                .foregroundColor: UIColor(white: 0.3, alpha: 1)
-            ])
-    }
-    
-    func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-    {
-        return 9
-    }
 }
 
 //MARK: Messages Layout
@@ -158,13 +142,18 @@ extension ChatRoomViewController: MessagesLayoutDelegate
         return 0
     }
     
-    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
-        if isFromCurrentSender(message: message){
-            return LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        } else {
-            return LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40))
-        }
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString?
+    {
+        let value = message.sender.displayName
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 10)! ]
+        let attributedString = NSAttributedString(string: value, attributes: attributes)
+        return attributedString
     }
+    
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 10
+    }
+
 }
 
 //MARK: - MessageDisplayDelegate
