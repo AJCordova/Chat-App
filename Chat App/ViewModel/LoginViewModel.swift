@@ -122,7 +122,7 @@ class LoginViewModel: LoginViewModelDelegate
                         let data = document.data()
                         let hash: String = (data["password"] as? String)!
                         
-                        if self.isValidHash(hash: hash.base64Encoded()!)
+                        if self.isValidHash(hash: hash)
                         {
                             AppSettings.displayName = data["username"] as? String
                             AppSettings.userID = document.documentID
@@ -131,14 +131,9 @@ class LoginViewModel: LoginViewModelDelegate
                         }
                         else
                         {
-                            print("Wrong password")
+                            self.isUserRegistered = false
                         }
                     }
-                }
-                else
-                {
-                    // duplicate error
-                    print("Multiple user entries found.")
                 }
             }
             self.task.leave()
@@ -150,6 +145,13 @@ class LoginViewModel: LoginViewModelDelegate
             {
                 self.delegate?.isLoginSuccessful(result: true)
             }
+            else
+            {
+                NSLog("Authentication failed")
+                self.usernameWarningMessage = Constants.invalidInputWarning
+                self.passwordWarningMessage = Constants.invalidInputWarning
+                self.delegate?.isLoginSuccessful(result: false)
+            }
         }
     }
     
@@ -160,28 +162,14 @@ class LoginViewModel: LoginViewModelDelegate
      */
     private func isValidHash(hash: String) -> Bool
     {
-        let userInput = encodedPassword?.base64Decoded()
-        let hash = encodedPassword?.base64Decoded()
+        // I would replace this with a better encryption.
+        // This is just implemented so I do not store passwords in plaintext.
         
-        if hash! == userInput!
+        if hash == encodedPassword!
         {
             return true
         }
+        
         return false
-    }
-}
-
-// MOVE TO DIFFERENT SWIFT FILE
-extension String
-{
-    func base64Encoded() -> String?
-    {
-        return data(using: .utf8)?.base64EncodedString()
-    }
-
-    func base64Decoded() -> String?
-    {
-        guard let data = Data(base64Encoded: self) else { return nil }
-        return String(data: data, encoding: .utf8)
     }
 }
