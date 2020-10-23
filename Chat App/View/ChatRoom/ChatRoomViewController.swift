@@ -30,14 +30,12 @@ final class ChatRoomViewController: MessagesViewController
         let logout = createLogoutButton()
         
         viewModel.delegate = self
+        viewModel.initializeListener()
         
         self.title = "Chat App"
-        navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.rightBarButtonItem = logout
-        
-        viewModel.initializeListener()
+        navigationItem.setHidesBackButton(true, animated: false)
  
-        
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
@@ -54,6 +52,9 @@ final class ChatRoomViewController: MessagesViewController
         }
     }
     
+    /**
+     Logs user out of the chat room. Clears AppSettings data for user info..
+     */
     @objc func logoutChat()
     {
         AppSettings.displayName = ""
@@ -62,6 +63,9 @@ final class ChatRoomViewController: MessagesViewController
         self.navigationController?.pushViewController(indexViewController, animated: true)
     }
     
+    /**
+     Creates the Navigationbar logout button.
+     */
     private func createLogoutButton() -> UIBarButtonItem
     {
         let btnProfile = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 25))

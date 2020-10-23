@@ -37,14 +37,14 @@ class LoginViewController: UIViewController {
         
         reusableForm.mainCommandInvoked =
         { [weak self] in
-            NSLog("Main Command() -> Sign Up called.")
+            NSLog("Main Command() -> Login called.")
             self?.hideWarnings()
             self?.login()
         }
         
         reusableForm.altCommandInvoked =
         { [weak self] in
-            NSLog("Alt Command() -> Login Called")
+            NSLog("Alt Command() -> Signup Called")
             self?.hideWarnings()
             self?.signup()
         }
@@ -76,6 +76,7 @@ extension LoginViewController: LoginViewControllerDelegate
         reusableForm.usernameWarningLabel.isHidden = false
         reusableForm.passwordWarningLabel.isHidden = false
     }
+    
     
     func hideWarnings()
     {
