@@ -27,7 +27,7 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     
     init ()
     {
-        self.reference = db.collection(["Message Thread","MessageThread", "Messages"].joined(separator: "/"))
+        self.reference = db.collection(ChatRoomModel.CollectionReferrence)
     }
     
     deinit
@@ -36,6 +36,10 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     }
     
     //MARK: - Delegate Methods
+    
+    /**
+      Initializes a listener to detect querries to  database.
+    */
     func initializeListener()
     {
         messageThreadListener = reference?.addSnapshotListener
@@ -55,6 +59,10 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
         }
     }
     
+    /**
+      Adds a new message document to the database collection.
+         - Parameter message: message object
+    */
     func sendMessage(_ message: Message)
     {
         reference?.addDocument(data: message.representation, completion:
@@ -70,6 +78,11 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     }
     
     //MARK: - Private Methods
+    
+    /**
+      Inserts a new  message  to the device collection.
+         - Parameter message: message object
+    */
     private func insertNewMessage (_ message: Message)
     {
         guard !messageThread.contains(message) else
@@ -82,6 +95,10 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
         self.delegate?.updateMessageCollection(messageThread)
     }
     
+    /**
+        Gets the changed document from the change object to insert to the device con
+         - Parameter change: an object that contains the changed/added document.
+    */
     private func handleDocumentChange (_ change: DocumentChange)
     {
         guard let message = Message(document: change.document) else
