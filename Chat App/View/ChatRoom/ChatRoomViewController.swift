@@ -33,12 +33,11 @@ final class ChatRoomViewController: MessagesViewController
         
         self.title = "Chat App"
         navigationItem.setHidesBackButton(true, animated: false)
-        logout.target = self
-        logout.action = #selector(self.logoutChat)
-        navigationItem.rightBarButtonItem = logout
+        self.navigationItem.rightBarButtonItem = logout
         
         viewModel.initializeListener()
  
+        
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
@@ -55,11 +54,10 @@ final class ChatRoomViewController: MessagesViewController
         }
     }
     
-    @objc
-    func logoutChat()
+    @objc func logoutChat()
     {
-        AppSettings.displayName = nil
-        AppSettings.userID = nil
+        AppSettings.displayName = ""
+        AppSettings.userID = ""
         let indexViewController = IndexViewController()
         self.navigationController?.pushViewController(indexViewController, animated: true)
     }
@@ -77,6 +75,7 @@ final class ChatRoomViewController: MessagesViewController
         btnProfile.titleLabel?.adjustsFontSizeToFitWidth = true
         btnProfile.layer.cornerRadius = 4.0
         btnProfile.layer.masksToBounds = true
+        btnProfile.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.logoutChat)))
         
         let button = UIBarButtonItem(customView: btnProfile)
         return button
@@ -101,7 +100,6 @@ extension ChatRoomViewController: MessagesDataSource
     {
         return Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
     }
-    
     
     func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
       return messagesThread.count
