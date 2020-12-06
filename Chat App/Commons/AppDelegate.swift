@@ -8,11 +8,19 @@
 
 import UIKit
 import Firebase
+import PubNub
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var pubNub: PubNub!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        PubNub.log.levels = [.all]
+        PubNub.log.writers = [ConsoleLogWriter(), FileLogWriter()]
+        
+        let config = PubNubConfiguration(publishKey: "pub-c-ab3e7382-2e56-42ab-8b17-8054bfe593df", subscribeKey: "sub-c-73714f4c-3477-11eb-bb60-1afa7ba42f78")
+        pubNub = PubNub(configuration: config)
         
         FirebaseApp.configure()
         return true

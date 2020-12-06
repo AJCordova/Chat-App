@@ -38,6 +38,7 @@
 		50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4671C253B31D6006FEE21 /* LoginViewModel.swift */; };
 		5BB896780EA3DFCA400A316B /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */; };
 		7F4EECDAAA671218E97F32F1 /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */; };
+		A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */; };
 		F04B6C0D89BBEFBC488CA408 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B718472377B2B208FC6C793 /* Pods_Chat_AppUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9BD139CB12D89B44EADD34 /* Pods-Chat AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppUITests/Pods-Chat AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoredMessageSet.xcdatamodel; sourceTree = "<group>"; };
 		B6C02558C99F4BCCA21F7E5B /* Pods-Chat AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppTests/Pods-Chat AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE65F3C59DB4D7A02C46F704 /* Pods-Chat App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App.debug.xcconfig"; path = "Target Support Files/Pods-Chat App/Pods-Chat App.debug.xcconfig"; sourceTree = "<group>"; };
 		CD2128983C631E28457D6E93 /* Pods-Chat App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App.release.xcconfig"; path = "Target Support Files/Pods-Chat App/Pods-Chat App.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				501A8C8F2537F35B00EEA42A /* Assets.xcassets */,
 				501A8C912537F35B00EEA42A /* LaunchScreen.storyboard */,
 				501A8C8C2537F35A00EEA42A /* Main.storyboard */,
+				A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				50F4670D253AD2E1006FEE21 /* SignUpViewController.swift in Sources */,
 				501A8C872537F35A00EEA42A /* AppDelegate.swift in Sources */,
 				50462556253DD602007BCC1C /* AppSettings.swift in Sources */,
+				A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */,
 				50B88FD12541871A00A7A7E2 /* SignupModel.swift in Sources */,
 				50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */,
 				50F46715253AEBB8006FEE21 /* ReusableUserForm.swift in Sources */,
@@ -894,6 +898,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */,
+			);
+			currentVersion = A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */;
+			path = StoredMessageSet.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 501A8C7B2537F35A00EEA42A /* Project object */;
 }
