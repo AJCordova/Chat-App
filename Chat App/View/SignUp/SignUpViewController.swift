@@ -8,15 +8,13 @@
 
 import UIKit
 
-protocol SignUpViewControllerDelegate
-{
+protocol SignUpViewControllerDelegate {
     func isSignupSuccessful (result: Bool)
     func hideWarnings ()
     func showWarnings ()
 }
 
-class SignUpViewController: UIViewController
-{
+class SignUpViewController: UIViewController {
     @IBOutlet weak var reusableForm: ReusableUserForm!
     
     var attributedString = NSMutableAttributedString(string:"")
@@ -25,23 +23,20 @@ class SignUpViewController: UIViewController
     
     let viewModel = SignUpViewModel()
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.title = Constants.navigationTitle
         navigationItem.setHidesBackButton(true, animated: false)
         viewModel.delegate = self
         
         reusableForm.mainCommand.setTitle("Sign Up", for: .normal)
-        reusableForm.mainCommandInvoked =
-        { [weak self] in
+        reusableForm.mainCommandInvoked = { [weak self] in
             NSLog("Main Command() -> Sign Up called.")
             self?.hideWarnings()
             self?.signup()
         }
         
-        reusableForm.altCommandInvoked =
-        { [weak self] in
+        reusableForm.altCommandInvoked = { [weak self] in
             NSLog("Alt Command() -> Login Called")
             self?.hideWarnings()
             self?.login()
@@ -52,46 +47,39 @@ class SignUpViewController: UIViewController
         reusableForm.altCommand.setAttributedTitle(attributedString, for: .normal)
     }
     
-    func login()
-    {
+    func login() {
         NSLog("SignupVC: Navigate to LoginVC")
         let loginViewController = LoginViewController()
         self.navigationController?.pushViewController(loginViewController, animated: true)
     }
 
-    func signup()
-    {
+    func signup() {
         viewModel.processUserCredentials(from: reusableForm.usernameTextField.text, password: reusableForm.passwordTextField.text)
     }
 }
 
 //MARK: - Protocol Implementation
-extension SignUpViewController: SignUpViewControllerDelegate
-{
-    func showWarnings()
-    {
+extension SignUpViewController: SignUpViewControllerDelegate {
+    
+    func showWarnings() {
         reusableForm.usernameWarningLabel.text = viewModel.usernameWarningMessage
         reusableForm.passwordWarningLabel.text = viewModel.passwordWarningMessage
         reusableForm.usernameWarningLabel.isHidden = false
         reusableForm.passwordWarningLabel.isHidden = false
     }
     
-    func hideWarnings()
-    {
+    func hideWarnings() {
         reusableForm.usernameWarningLabel.isHidden = true
         reusableForm.passwordWarningLabel.isHidden = true
     }
     
-    func isSignupSuccessful(result: Bool)
-    {
-        if (result)
-        {
+    func isSignupSuccessful(result: Bool) {
+        if (result) {
             NSLog("ChatroomVC: Navigate to ChatroomVC")
             let chatroomViewcontroller = ChatRoomViewController()
             self.navigationController?.pushViewController(chatroomViewcontroller, animated: true)
         }
-        else
-        {
+        else {
             showWarnings()
         }
     }

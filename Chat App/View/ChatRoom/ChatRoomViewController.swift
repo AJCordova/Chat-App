@@ -11,21 +11,18 @@ import MessageKit
 import FirebaseFirestore
 import InputBarAccessoryView
 
-protocol ChatRoomViewControllerDelegate
-{
+protocol ChatRoomViewControllerDelegate {
     func updateMessageCollection(_ messageThread: [Message])
     func scrollToBottom()
 }
 
-final class ChatRoomViewController: MessagesViewController
-{
+final class ChatRoomViewController: MessagesViewController {
     let viewModel = ChatRoomViewModel()
     var delegate: ChatRoomViewModelDelegate?
     
     private var messagesThread: [Message] = []
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         let logout = createLogoutButton()
         
@@ -61,8 +58,7 @@ final class ChatRoomViewController: MessagesViewController
     /**
      Logs user out of the chat room. Clears AppSettings data for user info..
      */
-    @objc func logoutChat()
-    {
+    @objc func logoutChat() {
         AppSettings.displayName = ""
         AppSettings.userID = ""
         NSLog("ChatroomVC: Navigate to SignupVC")
@@ -73,8 +69,7 @@ final class ChatRoomViewController: MessagesViewController
     /**
      Creates the Navigationbar logout button.
      */
-    private func createLogoutButton() -> UIBarButtonItem
-    {
+    private func createLogoutButton() -> UIBarButtonItem {
         let btnProfile = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 22))
         btnProfile.setTitle("Log out", for: .normal)
         btnProfile.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -94,10 +89,9 @@ final class ChatRoomViewController: MessagesViewController
 }
 
 //MARK: - InputBar Delegate
-extension ChatRoomViewController: InputBarAccessoryViewDelegate
-{
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String)
-    {
+extension ChatRoomViewController: InputBarAccessoryViewDelegate {
+    
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let message = Message(content: text)
         viewModel.sendMessage(message)
         inputBar.inputTextView.text = ""
@@ -105,10 +99,9 @@ extension ChatRoomViewController: InputBarAccessoryViewDelegate
 }
 
 //MARK: - MessageDataSource
-extension ChatRoomViewController: MessagesDataSource
-{
-    func currentSender() -> SenderType
-    {
+extension ChatRoomViewController: MessagesDataSource {
+    
+    func currentSender() -> SenderType {
         return Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
     }
     
@@ -116,13 +109,11 @@ extension ChatRoomViewController: MessagesDataSource
       return messagesThread.count
     }
 
-    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType
-    {
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return messagesThread[indexPath.section]
     }
     
-    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int
-    {
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         if messagesThread.count == 0 {
             return 0
         } else {
@@ -132,25 +123,21 @@ extension ChatRoomViewController: MessagesDataSource
 }
 
 //MARK: Messages Layout
-extension ChatRoomViewController: MessagesLayoutDelegate
-{
-    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
-    {
+extension ChatRoomViewController: MessagesLayoutDelegate {
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         avatarView.isHidden = true
     }
   
-    func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize
-    {
+    func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return CGSize(width: 0, height: 8)
     }
   
-    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-    {
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 0
     }
     
-    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString?
-    {
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let value = message.sender.displayName
         let attributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 10)! ]
         let attributedString = NSAttributedString(string: value, attributes: attributes)
@@ -160,48 +147,40 @@ extension ChatRoomViewController: MessagesLayoutDelegate
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 10
     }
-
 }
 
 //MARK: - MessageDisplayDelegate
-extension ChatRoomViewController: MessagesDisplayDelegate
-{
-    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor
-    {
+extension ChatRoomViewController: MessagesDisplayDelegate {
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? Constants.messageBubbleColor : Constants.messageBubbleColor
     }
     
-    func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool
-    {
+    func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool {
       return false
     }
     
-    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle
-    {
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
       let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(corner, .pointedEdge)
     }
     
-    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor
-    {
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return .white
     }
 }
 
 //MARK: - Delegate Implementation
-extension ChatRoomViewController: ChatRoomViewControllerDelegate
-{
-    func scrollToBottom()
-    {
+extension ChatRoomViewController: ChatRoomViewControllerDelegate {
+    
+    func scrollToBottom() {
         self.messagesCollectionView.reloadData()
-        DispatchQueue.main.async
-        {
+        DispatchQueue.main.async {
             self.messagesCollectionView.scrollToBottom()
         }
     }
     
-    func updateMessageCollection(_ messageThread: [Message])
-    {
+    func updateMessageCollection(_ messageThread: [Message]) {
         self.messagesThread = messageThread
         scrollToBottom()
     }

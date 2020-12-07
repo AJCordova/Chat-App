@@ -25,7 +25,7 @@ class IndexViewController: UIViewController {
         NSLog("IndexVC: Navigate to SignupVC")
         let signUpViewController = SignUpViewController()
         self.navigationController?.pushViewController(signUpViewController, animated: true)
-        }
+    }
     
     @IBAction func loginCommand() {
         NSLog("IndexVC: Navigate to LoginVC")
