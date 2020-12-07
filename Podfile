@@ -13,6 +13,7 @@ target 'Chat App' do
 
   pod 'Firebase/Firestore'
   pod 'MessageKit'
+  pod 'PubNubSwift', '~> 3.0'
 
   target 'Chat AppTests' do
     inherit! :search_paths

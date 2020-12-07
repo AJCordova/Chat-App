@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var navigationController: UINavigationController?
+    var baseViewController = IndexViewController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -21,8 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
 
-        let indexViewController = IndexViewController()
-        navigationController = UINavigationController(rootViewController: indexViewController)
+        if Constants.applicationFlavor != "Default" {
+            baseViewController = IndexViewController() // use PubNub Viewcontroller
+        }
+        
+        navigationController = UINavigationController(rootViewController: baseViewController)
         window?.rootViewController = navigationController
     }
 
