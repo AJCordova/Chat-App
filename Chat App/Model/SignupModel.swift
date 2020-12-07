@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct SignupModel
-{
+struct SignupModel {
     let CollectionReferrence = "Users"
     let FieldReferrence = "username"
 }
