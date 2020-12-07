@@ -189,6 +189,7 @@
 		500465BD2538D86900480E1A /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				A7C2975B257DDC5400ED4541 /* ChatApp */,
 				501A8C862537F35A00EEA42A /* AppDelegate.swift */,
 				501A8C882537F35A00EEA42A /* SceneDelegate.swift */,
 				50462555253DD602007BCC1C /* AppSettings.swift */,
@@ -316,6 +317,13 @@
 				5BACE62980176EE24479C1A9 /* Pods-Chat AppUITests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A7C2975B257DDC5400ED4541 /* ChatApp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChatApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
