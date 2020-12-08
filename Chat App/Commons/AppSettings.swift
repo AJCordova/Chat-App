@@ -8,53 +8,43 @@
 
 import Foundation
 
-final class AppSettings
-{
-    private enum SettingKey: String
-    {
+final class AppSettings {
+    
+    private enum SettingKey: String {
       case displayName
       case userID
     }
     
-    static var userID: String!
-    {
-       get
-       {
-         return UserDefaults.standard.string(forKey: SettingKey.userID.rawValue)
-       }
-       set
-       {
+    static var userID: String! {
+        get {
+            return UserDefaults.standard.string(forKey: SettingKey.userID.rawValue)
+        }
+       
+        set {
          let defaults = UserDefaults.standard
          let key = SettingKey.userID.rawValue
          
-         if let name = newValue
-         {
+         if let name = newValue {
            defaults.set(name, forKey: key)
          }
-         else
-         {
+         else {
            defaults.removeObject(forKey: key)
          }
        }
      }
     
-    static var displayName: String!
-    {
-       get
-       {
+    static var displayName: String! {
+       get {
          return UserDefaults.standard.string(forKey: SettingKey.displayName.rawValue)
        }
-       set
-       {
+       set {
          let defaults = UserDefaults.standard
          let key = SettingKey.displayName.rawValue
          
-         if let name = newValue
-         {
+         if let name = newValue {
            defaults.set(name, forKey: key)
          }
-         else
-         {
+         else {
            defaults.removeObject(forKey: key)
          }
        }

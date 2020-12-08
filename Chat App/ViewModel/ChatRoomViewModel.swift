@@ -9,14 +9,12 @@
 import Foundation
 import FirebaseFirestore
 
-protocol ChatRoomViewModelDelegate
-{
+protocol ChatRoomViewModelDelegate {
     func initializeListener()
     func sendMessage(_ message: Message)
 }
 
-class ChatRoomViewModel: ChatRoomViewModelDelegate
-{
+class ChatRoomViewModel: ChatRoomViewModelDelegate {
     private let db = Firestore.firestore()
     private let task = DispatchGroup()
     
@@ -25,13 +23,11 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     private var messageThread: [Message] = []
     var delegate: ChatRoomViewControllerDelegate?
     
-    init ()
-    {
+    init() {
         self.reference = db.collection(ChatRoomModel.CollectionReferrence)
     }
     
-    deinit
-    {
+    deinit {
         messageThreadListener?.remove()
     }
     
@@ -40,19 +36,14 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
     /**
       Initializes a listener to detect querries to  database.
     */
-    func initializeListener()
-    {
-        messageThreadListener = reference?.addSnapshotListener
-        {
-            querySnapshot, error in
-            guard let snapshot = querySnapshot else
-            {
+    func initializeListener() {
+        messageThreadListener = reference?.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
                 print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
                 return
             }
           
-            snapshot.documentChanges.forEach
-            {
+            snapshot.documentChanges.forEach {
                 change in
                 self.handleDocumentChange(change)
             }
@@ -63,13 +54,9 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
       Adds a new message document to the database collection.
          - Parameter message: message object
     */
-    func sendMessage(_ message: Message)
-    {
-        reference?.addDocument(data: message.representation, completion:
-        {
-            error in
-            if let e = error
-            {
+    func sendMessage(_ message: Message) {
+        reference?.addDocument(data: message.representation, completion: { error in
+            if let e = error {
                 print("Error sending message: \(e.localizedDescription)")
                 return
             }
@@ -83,12 +70,8 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
       Inserts a new  message  to the device collection.
          - Parameter message: message object
     */
-    private func insertNewMessage (_ message: Message)
-    {
-        guard !messageThread.contains(message) else
-        {
-          return
-        }
+    private func insertNewMessage(_ message: Message) {
+        guard !messageThread.contains(message) else { return }
         
         messageThread.append(message)
         messageThread.sort()
@@ -99,15 +82,10 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate
      Gets the changed document from the change object to insert to the device con
      -   Parameter change: an object that contains the changed/added document.
     */
-    private func handleDocumentChange (_ change: DocumentChange)
-    {
-        guard let message = Message(document: change.document) else
-        {
-          return
-        }
+    private func handleDocumentChange(_ change: DocumentChange) {
+        guard let message = Message(document: change.document) else { return }
         
-        switch change.type
-        {
+        switch change.type {
             case .added:
                 self.insertNewMessage(message)
             default:

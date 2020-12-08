@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct LoginModel
-{
+struct LoginModel {
     let CollectionReferrence = "Users"
     let FieldReferrence = "username"
 }

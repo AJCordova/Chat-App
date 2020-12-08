@@ -10,35 +10,29 @@ import Firebase
 import MessageKit
 import FirebaseFirestore
 
-struct Message: MessageType
-{
+struct Message: MessageType {
     let id: String?
     let content: String
     let sendDate: Date
     let msgSender: SenderType
     
-    var sender: SenderType
-    {
+    var sender: SenderType {
         return msgSender
     }
     
-    var messageId: String
-    {
+    var messageId: String {
         return id ?? UUID().uuidString
     }
     
-    var sentDate: Date
-    {
+    var sentDate: Date {
         return sendDate
     }
     
-    var kind: MessageKind
-    {
+    var kind: MessageKind {
         return .text(content)
     }
 
-    init?(document: QueryDocumentSnapshot)
-    {
+    init?(document: QueryDocumentSnapshot) {
       let data = document.data()
       
       guard let sentDate = data["sendDate"] as? Timestamp else {return nil}
@@ -52,8 +46,7 @@ struct Message: MessageType
       self.content = content
     }
     
-    init(content: String)
-    {
+    init(content: String) {
       self.msgSender = Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
       self.content = content
       self.id = nil
@@ -61,10 +54,9 @@ struct Message: MessageType
     }
 }
 
-extension Message: DatabaseRepresentation
-{
-  var representation: [String : Any]
-  {
+extension Message: DatabaseRepresentation {
+    
+  var representation: [String : Any] {
     let rep: [String : Any] = [
         "sendDate": sentDate,
         "senderID": sender.senderId,
@@ -73,7 +65,6 @@ extension Message: DatabaseRepresentation
     
     return rep
   }
-  
 }
 
 extension Message: Comparable {

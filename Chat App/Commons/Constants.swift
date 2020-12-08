@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-struct Constants
-{
+struct Constants {
     //MARK: RootViewController
     /**
         ApplicationFlavor determines which root viewcontroller is loaded on runtime.
