@@ -149,9 +149,7 @@
 		500465B72538D65100480E1A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				50F46718253B31B7006FEE21 /* SignUpViewModel.swift */,
-				50F4671C253B31D6006FEE21 /* LoginViewModel.swift */,
-				50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */,
+				A7552CFC2580447F00C89166 /* ChatRoom */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -316,6 +314,16 @@
 				5BACE62980176EE24479C1A9 /* Pods-Chat AppUITests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A7552CFC2580447F00C89166 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				50F46718253B31B7006FEE21 /* SignUpViewModel.swift */,
+				50F4671C253B31D6006FEE21 /* LoginViewModel.swift */,
+				50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */,
+			);
+			path = ChatRoom;
 			sourceTree = "<group>";
 		};
 		A7C2975B257DDC5400ED4541 /* ChatApp */ = {
