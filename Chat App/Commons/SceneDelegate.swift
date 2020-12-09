@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case "Default":
             baseViewController = IndexViewController()
         case "Pub":
-            baseViewController = PubChatLoginViewController()
+            baseViewController = PubChatRoomViewController()
         default:
             baseViewController = IndexViewController()
         }
