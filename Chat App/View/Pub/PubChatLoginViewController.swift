@@ -1,5 +1,5 @@
 //
-//  PubChat.swift
+//  PubChatLoginViewController.swift
 //  Chat App
 //
 //  Created by Amiel Jireh Cordova on 12/7/20.
@@ -30,7 +30,7 @@ class PubChatLoginViewController: UIViewController {
         bannerLabel.translatesAutoresizingMaskIntoConstraints = false
         bannerLabel.textAlignment = .center
         bannerLabel.font = UIFont.systemFont(ofSize: 40)
-        bannerLabel.text = "PUBCHAT" // TODO:  refactor to use constants file
+        bannerLabel.text = Constants.bannerLabel
         view.addSubview(bannerLabel)
         
         // Username textfield
@@ -39,7 +39,7 @@ class PubChatLoginViewController: UIViewController {
         userNameField.font = UIFont.systemFont(ofSize: 15)
         userNameField.backgroundColor = .white
         userNameField.borderStyle = .roundedRect
-        userNameField.placeholder = "User name" // TODO: refactor to use constants file
+        userNameField.placeholder = Constants.usernamePlaceholderText
         view.addSubview(userNameField)
         
         // password textfield
@@ -47,15 +47,15 @@ class PubChatLoginViewController: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.font = UIFont.systemFont(ofSize: 15)
         passwordField.backgroundColor = .white
-        passwordField.isSecureTextEntry = true // masks inputted text
+        passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
-        passwordField.placeholder = "Password" // TODO: refactor to use constants file
+        passwordField.placeholder = Constants.passwordPlaceholderText
         view.addSubview(passwordField)
         
         // Login button
         loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Enter Server", for: .normal)
+        loginButton.setTitle(Constants.loginButtonTitle, for: .normal)
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
@@ -64,28 +64,24 @@ class PubChatLoginViewController: UIViewController {
         // Sign Up button
         registerButton = UIButton()
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle("Register", for: .normal)
+        registerButton.setTitle(Constants.registerButtonTitle, for: .normal)
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
         view.addSubview(registerButton)
         
         NSLayoutConstraint.activate ([
-            // banner label
             bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
             bannerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            // username
             userNameField.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 70),
             userNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             userNameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
-            // password
             passwordField.topAnchor.constraint(equalTo: userNameField.bottomAnchor, constant: 20),
             passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
-            // login button
             loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 70),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
