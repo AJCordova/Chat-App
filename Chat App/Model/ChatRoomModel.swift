@@ -8,7 +8,6 @@
 
 import Foundation
 
-struct ChatRoomModel
-{
+struct ChatRoomModel {
     static let CollectionReferrence = "Message Thread/MessageThreadActual/Messages"
 }

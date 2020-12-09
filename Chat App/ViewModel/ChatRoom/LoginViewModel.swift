@@ -9,15 +9,13 @@
 import Foundation
 import FirebaseFirestore
 
-protocol LoginViewModelDelegate
-{
+protocol LoginViewModelDelegate {
     func processUserCredentials(from username: String?, password: String?)
     var usernameWarningMessage: String { get }
     var passwordWarningMessage: String { get }
 }
 
-class LoginViewModel: LoginViewModelDelegate
-{
+class LoginViewModel: LoginViewModelDelegate {
     let task = DispatchGroup()
     var usernameWarningMessage: String = ""
     var passwordWarningMessage: String = ""
@@ -31,8 +29,7 @@ class LoginViewModel: LoginViewModelDelegate
     private let model = LoginModel()
     private var encodedPassword: String? = nil
     
-    init()
-    {
+    init() {
         self.collectionName = model.CollectionReferrence
         self.referrence = db.collection(collectionName)
     }
@@ -43,27 +40,22 @@ class LoginViewModel: LoginViewModelDelegate
         - Parameter password: submitted password
         - Returns: bool
      */
-    func processUserCredentials(from username: String?, password: String?)
-    {
-        guard let userText = username else {return}
-        guard let passwordText = password else {return}
+    func processUserCredentials(from username: String?, password: String?) {
+        guard let userText = username else { return }
+        guard let passwordText = password else { return }
 
-        if userText.isEmpty && passwordText.isEmpty
-        {
+        if userText.isEmpty && passwordText.isEmpty {
             usernameWarningMessage = Constants.invalidInputWarning
             passwordWarningMessage = Constants.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
-        else
-        {
-            if (validateUserInput(username: userText, password: passwordText))
-            {
-                encodedPassword = passwordText.base64Encoded()
+        else {
+            if (validateUserInput(username: userText, password: passwordText)) {
+                encodedPassword = passwordText.base64Decoded()
                 isUsernameRegistered(username: userText)
             }
-            else
-            {
+            else {
                 usernameWarningMessage = Constants.invalidInputWarning
                 passwordWarningMessage = Constants.invalidInputWarning
                 self.delegate?.showWarnings()
@@ -72,22 +64,18 @@ class LoginViewModel: LoginViewModelDelegate
         }
     }
     
-    
     /**
      This method vallidates the user credentials if it meets the required character counts.
      - Parameter username: submitted user name
      - Parameter password: submitted password
      - Returns: bool
      */
-    func validateUserInput(username: String, password: String) -> Bool
-    {
-        if username.count < 8 || username.count > 16
-        {
+    func validateUserInput(username: String, password: String) -> Bool {
+        if username.count < 8 || username.count > 16 {
             return false
         }
         
-        if password.count < 8 || password.count > 16
-        {
+        if password.count < 8 || password.count > 16 {
             return false;
         }
         
@@ -100,36 +88,27 @@ class LoginViewModel: LoginViewModelDelegate
      - Parameter password: submitted password
      - Returns: bool
      */
-    private func isUsernameRegistered (username: String)
-    {
+    private func isUsernameRegistered (username: String) {
         task.enter()
-        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments()
-        { (snapshot, err) in
-            if let err = err
-            {
+        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments() { (snapshot, err) in
+            if let err = err {
                 print("Error getting document: \(err)")
             }
-            else if (snapshot!.isEmpty)
-            {
+            else if (snapshot!.isEmpty) {
                 self.isUserRegistered = false
             }
-            else
-            {
-                if snapshot?.count == 1
-                {
-                    for document in snapshot!.documents
-                    {
+            else {
+                if snapshot?.count == 1 {
+                    for document in snapshot!.documents {
                         let data = document.data()
                         let hash: String = (data["password"] as? String)!
                         
-                        if self.isValidHash(hash: hash)
-                        {
+                        if self.isValidHash(hash: hash) {
                             AppSettings.displayName = data["username"] as? String
                             AppSettings.userID = document.documentID
                             self.isUserRegistered = true
                         }
-                        else
-                        {
+                        else {
                             self.isUserRegistered = false
                         }
                     }
@@ -138,14 +117,11 @@ class LoginViewModel: LoginViewModelDelegate
             self.task.leave()
         }
         
-        task.notify(queue: .main)
-        {
-            if self.isUserRegistered
-            {
+        task.notify(queue: .main) {
+            if self.isUserRegistered {
                 self.delegate?.isLoginSuccessful(result: true)
             }
-            else
-            {
+            else {
                 NSLog("Authentication failed")
                 self.usernameWarningMessage = Constants.invalidInputWarning
                 self.passwordWarningMessage = Constants.invalidInputWarning
@@ -159,13 +135,11 @@ class LoginViewModel: LoginViewModelDelegate
      - Parameter hash: submitted user name
      - Returns: bool
      */
-    private func isValidHash(hash: String) -> Bool
-    {
+    private func isValidHash(hash: String) -> Bool {
         // I would replace this with a better encryption.
         // This is just implemented so I do not store passwords in plaintext.
         
-        if hash == encodedPassword!
-        {
+        if hash == encodedPassword! {
             return true
         }
         

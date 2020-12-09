@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-struct Constants
-{
+struct Constants {
     //MARK: RootViewController
     /**
         ApplicationFlavor determines which root viewcontroller is loaded on runtime.
@@ -18,8 +17,8 @@ struct Constants
         1. Default (Firebase + MessageKit)
         2. Pub (PubNub + MessageKit + DataPersistence + ReactiveCocoa)
      */
-    static let applicationFlavor: String = "Default"
-    
+    static let applicationFlavor: String = "Pub"
+
     //MARK: - Default Texts
     static let navigationTitle: String = "Chat app"
     static let userAgreementText: String = "By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use. Others will be able to find you by searching for your email address or phone number when provided."
