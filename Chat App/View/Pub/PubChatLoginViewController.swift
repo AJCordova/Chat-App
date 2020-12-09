@@ -95,6 +95,8 @@ class PubChatLoginViewController: UIViewController {
     
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
+        let pubChatroomViewController = PubChatRoomViewController()
+        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
     }
     
     @objc func registerButtonTapped() {
