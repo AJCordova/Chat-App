@@ -32,7 +32,6 @@ class ChatRoomViewModel: ChatRoomViewModelDelegate {
     }
     
     //MARK: - Delegate Methods
-    
     /**
       Initializes a listener to detect querries to  database.
     */
