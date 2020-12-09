@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PubNub.log.levels = [.all]
         PubNub.log.writers = [ConsoleLogWriter(), FileLogWriter()]
         
-        let config = PubNubConfiguration(publishKey: "pub-c-ab3e7382-2e56-42ab-8b17-8054bfe593df", subscribeKey: "sub-c-73714f4c-3477-11eb-bb60-1afa7ba42f78")
+        let config = PubNubConfiguration(publishKey: "", subscribeKey: "")
         pubNub = PubNub(configuration: config)
         
         FirebaseApp.configure()
