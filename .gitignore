@@ -38,3 +38,4 @@ timeline.xctimeline
 playground.xcworkspace
 
 .build/
+Chat App/BuildConfig/pubKeys.plist
