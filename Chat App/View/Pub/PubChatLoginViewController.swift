@@ -8,13 +8,13 @@
 
 import UIKit
 
-class PubChatViewController: UIViewController {
+class PubChatLoginViewController: UIViewController {
     
     var bannerLabel: UILabel!
     var userNameField: UITextField!
     var passwordField: UITextField!
     var loginButton: UIButton!
-    var signUpButton: UIButton!
+    var registerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +62,14 @@ class PubChatViewController: UIViewController {
         view.addSubview(loginButton)
         
         // Sign Up button
+        registerButton = UIButton()
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.backgroundColor = .black
+        registerButton.layer.cornerRadius = 9.0
+        registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
+        view.addSubview(registerButton)
+        
         NSLayoutConstraint.activate ([
             // banner label
             bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
@@ -78,13 +86,22 @@ class PubChatViewController: UIViewController {
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
             // login button
-            loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 40),
+            loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 70),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
+            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            loginButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07),
+            
+            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
+            registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
     }
     
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
+    }
+    
+    @objc func registerButtonTapped() {
+        print("PubChat register button tapped.")
     }
 }
