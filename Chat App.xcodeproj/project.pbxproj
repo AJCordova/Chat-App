@@ -38,6 +38,8 @@
 		50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4671C253B31D6006FEE21 /* LoginViewModel.swift */; };
 		5BB896780EA3DFCA400A316B /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */; };
 		7F4EECDAAA671218E97F32F1 /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */; };
+		A7552D042580782200C89166 /* PubChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7552D032580782200C89166 /* PubChatRoomViewController.swift */; };
+		A7552D0A2580A53400C89166 /* PubChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7552D092580A53400C89166 /* PubChatRoomViewModel.swift */; };
 		A7C29781257E14B300ED4541 /* PubChatLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C29780257E14B300ED4541 /* PubChatLoginViewController.swift */; };
 		A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */; };
 		F04B6C0D89BBEFBC488CA408 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B718472377B2B208FC6C793 /* Pods_Chat_AppUITests.framework */; };
@@ -99,6 +101,8 @@
 		6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9BD139CB12D89B44EADD34 /* Pods-Chat AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppUITests/Pods-Chat AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A7552D032580782200C89166 /* PubChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatRoomViewController.swift; sourceTree = "<group>"; };
+		A7552D092580A53400C89166 /* PubChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatRoomViewModel.swift; sourceTree = "<group>"; };
 		A7C29780257E14B300ED4541 /* PubChatLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewController.swift; sourceTree = "<group>"; };
 		A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoredMessageSet.xcdatamodel; sourceTree = "<group>"; };
 		B6C02558C99F4BCCA21F7E5B /* Pods-Chat AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppTests/Pods-Chat AppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 		500465B72538D65100480E1A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A7552D082580A51100C89166 /* PubChat */,
 				A7552CFC2580447F00C89166 /* ChatRoom */,
 			);
 			path = ViewModel;
@@ -326,6 +331,14 @@
 			path = ChatRoom;
 			sourceTree = "<group>";
 		};
+		A7552D082580A51100C89166 /* PubChat */ = {
+			isa = PBXGroup;
+			children = (
+				A7552D092580A53400C89166 /* PubChatRoomViewModel.swift */,
+			);
+			path = PubChat;
+			sourceTree = "<group>";
+		};
 		A7C2975B257DDC5400ED4541 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				A7C29780257E14B300ED4541 /* PubChatLoginViewController.swift */,
+				A7552D032580782200C89166 /* PubChatRoomViewController.swift */,
 			);
 			path = Pub;
 			sourceTree = "<group>";
@@ -598,8 +612,10 @@
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
 				507D10422542AC2E00940438 /* Extensions.swift in Sources */,
+				A7552D042580782200C89166 /* PubChatRoomViewController.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
 				5015531E25425D3800EA1011 /* Constants.swift in Sources */,
+				A7552D0A2580A53400C89166 /* PubChatRoomViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
