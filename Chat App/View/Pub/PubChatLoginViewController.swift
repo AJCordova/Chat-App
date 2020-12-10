@@ -30,7 +30,7 @@ class PubChatLoginViewController: UIViewController {
         bannerLabel.translatesAutoresizingMaskIntoConstraints = false
         bannerLabel.textAlignment = .center
         bannerLabel.font = UIFont.systemFont(ofSize: 40)
-        bannerLabel.text = Constants.bannerLabel
+        bannerLabel.text = PubStrings.bannerLabel
         view.addSubview(bannerLabel)
         
         // Username textfield
@@ -39,7 +39,7 @@ class PubChatLoginViewController: UIViewController {
         userNameField.font = UIFont.systemFont(ofSize: 15)
         userNameField.backgroundColor = .white
         userNameField.borderStyle = .roundedRect
-        userNameField.placeholder = Constants.usernamePlaceholderText
+        userNameField.placeholder = PubStrings.usernamePlaceholderText
         view.addSubview(userNameField)
         
         // password textfield
@@ -49,13 +49,13 @@ class PubChatLoginViewController: UIViewController {
         passwordField.backgroundColor = .white
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
-        passwordField.placeholder = Constants.passwordPlaceholderText
+        passwordField.placeholder = PubStrings.passwordPlaceholderText
         view.addSubview(passwordField)
         
         // Login button
         loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle(Constants.loginButtonTitle, for: .normal)
+        loginButton.setTitle(PubStrings.loginButtonTitle, for: .normal)
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
@@ -64,7 +64,7 @@ class PubChatLoginViewController: UIViewController {
         // Sign Up button
         registerButton = UIButton()
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle(Constants.registerButtonTitle, for: .normal)
+        registerButton.setTitle(PubStrings.registerButtonTitle, for: .normal)
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)

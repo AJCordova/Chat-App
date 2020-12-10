@@ -25,7 +25,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = Constants.navigationTitle
+        self.title = DefaultStrings.navigationTitle
         navigationItem.setHidesBackButton(true, animated: false)
         viewModel.delegate = self
         

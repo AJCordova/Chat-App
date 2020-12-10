@@ -13,19 +13,18 @@ import InputBarAccessoryView
 class PubChatRoomViewController: MessagesViewController {
     
     private var messagesThread: [Message] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         
-        self.title = Constants.bannerLabel
+        self.title = PubStrings.bannerLabel
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
         messageInputBar.inputTextView.placeholder = "Start a new message"
-        messageInputBar.inputTextView.backgroundColor = Constants.messageInputBackground
+        messageInputBar.inputTextView.backgroundColor = DefaultColors.messageInputBackground
         messageInputBar.inputTextView.layer.cornerRadius = 10.0
         messageInputBar.sendButton.backgroundColor = .darkGray
         messageInputBar.sendButton.setTitle("send", for: .normal)
