@@ -41,6 +41,7 @@
 		A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */; };
 		A717A4872580CB5C00AECB2A /* PubChatLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */; };
 		A7552D192580B7AF00C89166 /* pubKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7552D182580B7AF00C89166 /* pubKeys.plist */; };
+		A77998952581E941000CC730 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A77998942581E941000CC730 /* .swiftlint.yml */; };
 		A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */; };
 		F04B6C0D89BBEFBC488CA408 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B718472377B2B208FC6C793 /* Pods_Chat_AppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatRoomViewController.swift; sourceTree = "<group>"; };
 		A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewController.swift; sourceTree = "<group>"; };
 		A7552D182580B7AF00C89166 /* pubKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pubKeys.plist; sourceTree = "<group>"; };
+		A77998942581E941000CC730 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoredMessageSet.xcdatamodel; sourceTree = "<group>"; };
 		B6C02558C99F4BCCA21F7E5B /* Pods-Chat AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppTests/Pods-Chat AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE65F3C59DB4D7A02C46F704 /* Pods-Chat App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App.debug.xcconfig"; path = "Target Support Files/Pods-Chat App/Pods-Chat App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		501A8C7A2537F35A00EEA42A = {
 			isa = PBXGroup;
 			children = (
+				A77998942581E941000CC730 /* .swiftlint.yml */,
 				501A8C852537F35A00EEA42A /* Chat App */,
 				501A8C9C2537F35C00EEA42A /* Chat AppTests */,
 				501A8CA72537F35C00EEA42A /* Chat AppUITests */,
@@ -379,6 +382,7 @@
 				501A8C802537F35A00EEA42A /* Frameworks */,
 				501A8C812537F35A00EEA42A /* Resources */,
 				3CE4958D75EFD95CF64CD2BC /* [CP] Embed Pods Frameworks */,
+				A77998902581E56C000CC730 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -475,6 +479,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77998952581E941000CC730 /* .swiftlint.yml in Resources */,
 				50F46717253AEBD0006FEE21 /* UserForm.xib in Resources */,
 				501A8CB72537F49500EEA42A /* IndexView.xib in Resources */,
 				501A8C932537F35B00EEA42A /* LaunchScreen.storyboard in Resources */,
@@ -566,6 +571,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A77998902581E56C000CC730 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		C9678CE43F919BC06385EADC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

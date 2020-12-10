@@ -1,0 +1,5 @@
+included:
+  - Chat App
+
+excluded:
+  - Pods
