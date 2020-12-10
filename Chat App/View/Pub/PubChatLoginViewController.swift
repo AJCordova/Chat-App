@@ -9,12 +9,11 @@
 import UIKit
 
 class PubChatLoginViewController: UIViewController {
-    
-    var bannerLabel: UILabel!
-    var userNameField: UITextField!
-    var passwordField: UITextField!
-    var loginButton: UIButton!
-    var registerButton: UIButton!
+    lazy var bannerLabel: UILabel = UILabel()
+    lazy var userNameField: UITextField = UITextField()
+    lazy var passwordField: UITextField = UITextField()
+    lazy var loginButton: UIButton = UIButton()
+    lazy var registerButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,64 +21,56 @@ class PubChatLoginViewController: UIViewController {
     }
     
     override func loadView() {
+        super.loadView()
         view = UIView()
         view.backgroundColor = .systemGray3
         
-        // Top Label
-        bannerLabel = UILabel()
         bannerLabel.translatesAutoresizingMaskIntoConstraints = false
         bannerLabel.textAlignment = .center
-        bannerLabel.font = UIFont.systemFont(ofSize: 40)
+        bannerLabel.font = .systemFont(ofSize: 40)
         bannerLabel.text = PubStrings.bannerLabel
         view.addSubview(bannerLabel)
-        
-        // Username textfield
-        userNameField = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+
         userNameField.translatesAutoresizingMaskIntoConstraints = false
-        userNameField.font = UIFont.systemFont(ofSize: 15)
+        userNameField.font = .systemFont(ofSize: 15)
         userNameField.backgroundColor = .white
         userNameField.borderStyle = .roundedRect
         userNameField.placeholder = PubStrings.usernamePlaceholderText
         view.addSubview(userNameField)
-        
-        // password textfield
-        passwordField = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+
         passwordField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.font = UIFont.systemFont(ofSize: 15)
+        passwordField.font = .systemFont(ofSize: 15)
         passwordField.backgroundColor = .white
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
         passwordField.placeholder = PubStrings.passwordPlaceholderText
         view.addSubview(passwordField)
-        
-        // Login button
-        loginButton = UIButton()
+
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.setTitle(PubStrings.loginButtonTitle, for: .normal)
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
         view.addSubview(loginButton)
-        
-        // Sign Up button
-        registerButton = UIButton()
+
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         registerButton.setTitle(PubStrings.registerButtonTitle, for: .normal)
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
         view.addSubview(registerButton)
-        
-        NSLayoutConstraint.activate ([
+        NSLayoutConstraint.activate([
             bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
             bannerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             userNameField.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 70),
             userNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userNameField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
             userNameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
             passwordField.topAnchor.constraint(equalTo: userNameField.bottomAnchor, constant: 20),
             passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
             loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 70),
@@ -92,13 +83,11 @@ class PubChatLoginViewController: UIViewController {
             registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
     }
-    
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
         let pubChatroomViewController = PubChatRoomViewController()
         self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
     }
-    
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
     }
