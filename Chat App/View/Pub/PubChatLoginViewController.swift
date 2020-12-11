@@ -25,40 +25,7 @@ class PubChatLoginViewController: UIViewController {
         view = UIView()
         view.backgroundColor = .systemGray3
         
-        bannerLabel.translatesAutoresizingMaskIntoConstraints = false
-        bannerLabel.textAlignment = .center
-        bannerLabel.font = .systemFont(ofSize: 40)
-        bannerLabel.text = Constants.PubStrings.bannerLabel
-        view.addSubview(bannerLabel)
-
-        userNameField.translatesAutoresizingMaskIntoConstraints = false
-        userNameField.font = .systemFont(ofSize: 15)
-        userNameField.backgroundColor = .white
-        userNameField.borderStyle = .roundedRect
-        userNameField.placeholder = Constants.PubStrings.usernamePlaceholderText
-        view.addSubview(userNameField)
-
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.font = .systemFont(ofSize: 15)
-        passwordField.backgroundColor = .white
-        passwordField.isSecureTextEntry = true
-        passwordField.borderStyle = .roundedRect
-        passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
-        view.addSubview(passwordField)
-
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle(Constants.PubStrings.loginButtonTitle, for: .normal)
-        loginButton.backgroundColor = .black
-        loginButton.layer.cornerRadius = 9.0
-        loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
-        view.addSubview(loginButton)
-
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle(Constants.PubStrings.registerButtonTitle, for: .normal)
-        registerButton.backgroundColor = .black
-        registerButton.layer.cornerRadius = 9.0
-        registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
-        view.addSubview(registerButton)
+        createSubViews()
         NSLayoutConstraint.activate([
             bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
             bannerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -90,5 +57,58 @@ class PubChatLoginViewController: UIViewController {
     }
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
+    }
+    
+    func createSubViews() {
+        createBannerLabel()
+        createUsernameField()
+        createPasswordField()
+        createLoginButton()
+        createRegisterButton()
+    }
+    
+    func createBannerLabel() {
+        bannerLabel.translatesAutoresizingMaskIntoConstraints = false
+        bannerLabel.textAlignment = .center
+        bannerLabel.font = .systemFont(ofSize: 40)
+        bannerLabel.text = Constants.PubStrings.bannerLabel
+        view.addSubview(bannerLabel)
+    }
+    
+    func createUsernameField() {
+        userNameField.translatesAutoresizingMaskIntoConstraints = false
+        userNameField.font = .systemFont(ofSize: 15)
+        userNameField.backgroundColor = .white
+        userNameField.borderStyle = .roundedRect
+        userNameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        view.addSubview(userNameField)
+    }
+    
+    func createPasswordField() {
+        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        passwordField.font = .systemFont(ofSize: 15)
+        passwordField.backgroundColor = .white
+        passwordField.isSecureTextEntry = true
+        passwordField.borderStyle = .roundedRect
+        passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
+        view.addSubview(passwordField)
+    }
+    
+    func createLoginButton() {
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.setTitle(Constants.PubStrings.loginButtonTitle, for: .normal)
+        loginButton.backgroundColor = .black
+        loginButton.layer.cornerRadius = 9.0
+        loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
+        view.addSubview(loginButton)
+    }
+    
+    func createRegisterButton() {
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.setTitle(Constants.PubStrings.registerButtonTitle, for: .normal)
+        registerButton.backgroundColor = .black
+        registerButton.layer.cornerRadius = 9.0
+        registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
+        view.addSubview(registerButton)
     }
 }
