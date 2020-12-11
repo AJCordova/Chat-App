@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Constants {
-    enum AppConstants {
+    enum App {
         /**
             ApplicationFlavor determines which root viewcontroller is loaded on runtime.
             Flavors:
