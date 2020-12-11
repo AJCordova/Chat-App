@@ -17,14 +17,14 @@ class PubChatRoomViewController: MessagesViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         
-        self.title = PubStrings.bannerLabel
+        self.title = Constants.PubStrings.bannerLabel
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
         messageInputBar.inputTextView.placeholder = "Start a new message"
-        messageInputBar.inputTextView.backgroundColor = DefaultColors.messageInputBackground
+        messageInputBar.inputTextView.backgroundColor = Constants.DefaultColors.messageInputBackground
         messageInputBar.inputTextView.layer.cornerRadius = 10.0
         messageInputBar.sendButton.backgroundColor = .darkGray
         messageInputBar.sendButton.setTitle("send", for: .normal)

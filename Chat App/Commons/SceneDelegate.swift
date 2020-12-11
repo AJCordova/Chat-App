@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        switch AppConstants.applicationFlavor {
+        switch Constants.AppConstants.applicationFlavor {
         case "Default":
             baseViewController = IndexViewController()
         case "Pub":

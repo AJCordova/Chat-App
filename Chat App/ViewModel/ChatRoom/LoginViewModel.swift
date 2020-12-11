@@ -45,8 +45,8 @@ class LoginViewModel: LoginViewModelDelegate {
         guard let passwordText = password else { return }
 
         if userText.isEmpty && passwordText.isEmpty {
-            usernameWarningMessage = DefaultStrings.invalidInputWarning
-            passwordWarningMessage = DefaultStrings.invalidInputWarning
+            usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+            passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
@@ -56,8 +56,8 @@ class LoginViewModel: LoginViewModelDelegate {
                 isUsernameRegistered(username: userText)
             }
             else {
-                usernameWarningMessage = DefaultStrings.invalidInputWarning
-                passwordWarningMessage = DefaultStrings.invalidInputWarning
+                usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -123,8 +123,8 @@ class LoginViewModel: LoginViewModelDelegate {
             }
             else {
                 NSLog("Authentication failed")
-                self.usernameWarningMessage = DefaultStrings.invalidInputWarning
-                self.passwordWarningMessage = DefaultStrings.invalidInputWarning
+                self.usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                self.passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.isLoginSuccessful(result: false)
             }
         }

@@ -39,7 +39,7 @@ class ReusableUserForm: UIView {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.bounds
         self.addSubview(view)
-        userAgreement.text = DefaultStrings.userAgreementText
+        userAgreement.text = Constants.DefaultStrings.userAgreementText
    }
    
    func loadViewFromNib() -> UIView? {

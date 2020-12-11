@@ -29,7 +29,7 @@ final class ChatRoomViewController: MessagesViewController {
         viewModel.delegate = self
         viewModel.initializeListener()
         
-        self.title = DefaultStrings.navigationTitle
+        self.title = Constants.DefaultStrings.navigationTitle
         self.navigationItem.rightBarButtonItem = logout
         navigationItem.setHidesBackButton(true, animated: false)
  
@@ -37,7 +37,7 @@ final class ChatRoomViewController: MessagesViewController {
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .black
         messageInputBar.inputTextView.placeholder = "Start a new message"
-        messageInputBar.inputTextView.backgroundColor = DefaultColors.messageInputBackground
+        messageInputBar.inputTextView.backgroundColor = Constants.DefaultColors.messageInputBackground
         messageInputBar.inputTextView.layer.cornerRadius = 10.0
         messageInputBar.sendButton.backgroundColor = .darkGray
         messageInputBar.sendButton.setTitle("send", for: .normal)
@@ -153,7 +153,7 @@ extension ChatRoomViewController: MessagesLayoutDelegate {
 extension ChatRoomViewController: MessagesDisplayDelegate {
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? DefaultColors.messageBubbleColor : DefaultColors.messageBubbleColor
+        return isFromCurrentSender(message: message) ? Constants.DefaultColors.messageBubbleColor : Constants.DefaultColors.messageBubbleColor
     }
     
     func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool {

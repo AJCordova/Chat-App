@@ -48,8 +48,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
 
         if userText.isEmpty && passwordText.isEmpty {
             NSLog("Input Empty")
-            usernameWarningMessage = DefaultStrings.invalidInputWarning
-            passwordWarningMessage = DefaultStrings.invalidInputWarning
+            usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+            passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
@@ -58,8 +58,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
                 isUsernameRegistered(username: userText, password: passwordText)
             }
             else {
-                usernameWarningMessage = DefaultStrings.invalidInputWarning
-                passwordWarningMessage = DefaultStrings.invalidInputWarning
+                usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -108,8 +108,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
             docReferrence = referrence!.addDocument(data: ["username": username,"password": hash!]) { error in
                 if let error = error {
                     NSLog("Error adding user: \(error)")
-                    self.usernameWarningMessage = DefaultStrings.invalidInputWarning
-                    self.passwordWarningMessage = DefaultStrings.invalidInputWarning
+                    self.usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                    self.passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                     self.didEncounterError = true
                 }
                 else {
@@ -160,7 +160,7 @@ class SignUpViewModel: SignUpViewModelDelegate {
             }
             else {
                 NSLog("isUsernameRegistered(): duplicates found")
-                self.usernameWarningMessage = DefaultStrings.duplicateUserWarningLabel
+                self.usernameWarningMessage = Constants.DefaultStrings.duplicateUserWarningLabel
                 self.passwordWarningMessage = ""
                 self.hasFoundDuplicates = true
             }

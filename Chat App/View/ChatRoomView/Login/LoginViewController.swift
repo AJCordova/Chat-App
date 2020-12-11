@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = DefaultStrings.navigationTitle
+        self.title = Constants.DefaultStrings.navigationTitle
         navigationItem.setHidesBackButton(true, animated: false)
         viewModel.delegate = self
         
