@@ -98,14 +98,12 @@ PODS:
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
   - PubNubSwift (3.1.0)
-  - SwiftLint (0.41.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Firestore
   - MessageKit
   - PubNubSwift (~> 3.0)
-  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -126,7 +124,6 @@ SPEC REPOS:
     - nanopb
     - Protobuf
     - PubNubSwift
-    - SwiftLint
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -146,8 +143,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   PubNubSwift: 6c963621e53dd5a87384be9d4b3aa148d0b0660d
-  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
-PODFILE CHECKSUM: 58aad2abcf04ebe25a4d71013dab86f6bc47fc14
+PODFILE CHECKSUM: 3f6b9e9319df6e42324c802792c25cd3164c8ad6
 
 COCOAPODS: 1.10.0
