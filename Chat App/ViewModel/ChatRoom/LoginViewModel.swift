@@ -30,7 +30,7 @@ class LoginViewModel: LoginViewModelDelegate {
     private var encodedPassword: String? = nil
     
     init() {
-        self.collectionName = model.CollectionReferrence
+        self.collectionName = model.collectionReferrence
         self.referrence = db.collection(collectionName)
     }
     
@@ -45,8 +45,8 @@ class LoginViewModel: LoginViewModelDelegate {
         guard let passwordText = password else { return }
 
         if userText.isEmpty && passwordText.isEmpty {
-            usernameWarningMessage = Constants.invalidInputWarning
-            passwordWarningMessage = Constants.invalidInputWarning
+            usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+            passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
@@ -56,8 +56,8 @@ class LoginViewModel: LoginViewModelDelegate {
                 isUsernameRegistered(username: userText)
             }
             else {
-                usernameWarningMessage = Constants.invalidInputWarning
-                passwordWarningMessage = Constants.invalidInputWarning
+                usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -90,7 +90,7 @@ class LoginViewModel: LoginViewModelDelegate {
      */
     private func isUsernameRegistered (username: String) {
         task.enter()
-        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments() { (snapshot, err) in
+        referrence?.whereField(model.fieldReferrence, isEqualTo: username).getDocuments() { (snapshot, err) in
             if let err = err {
                 print("Error getting document: \(err)")
             }
@@ -123,8 +123,8 @@ class LoginViewModel: LoginViewModelDelegate {
             }
             else {
                 NSLog("Authentication failed")
-                self.usernameWarningMessage = Constants.invalidInputWarning
-                self.passwordWarningMessage = Constants.invalidInputWarning
+                self.usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                self.passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.isLoginSuccessful(result: false)
             }
         }

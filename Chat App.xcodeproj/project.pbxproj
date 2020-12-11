@@ -38,8 +38,12 @@
 		50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4671C253B31D6006FEE21 /* LoginViewModel.swift */; };
 		5BB896780EA3DFCA400A316B /* Pods_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */; };
 		7F4EECDAAA671218E97F32F1 /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */; };
+		A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */; };
+		A717A4872580CB5C00AECB2A /* PubChatLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */; };
 		A7552D192580B7AF00C89166 /* pubKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7552D182580B7AF00C89166 /* pubKeys.plist */; };
-		A7C29781257E14B300ED4541 /* PubChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C29780257E14B300ED4541 /* PubChatViewController.swift */; };
+		A77998952581E941000CC730 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A77998942581E941000CC730 /* .swiftlint.yml */; };
+		A779989A2581F8EB000CC730 /* ChatApp.Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A77998992581F8EB000CC730 /* ChatApp.Debug.xcconfig */; };
+		A779989F2581F920000CC730 /* ChatApp.Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */; };
 		A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EE93892576168D0024D391 /* StoredMessageSet.xcdatamodeld */; };
 		F04B6C0D89BBEFBC488CA408 /* Pods_Chat_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B718472377B2B208FC6C793 /* Pods_Chat_AppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -100,8 +104,12 @@
 		6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CB96C8FA68096B342AD7EC /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9BD139CB12D89B44EADD34 /* Pods-Chat AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppUITests/Pods-Chat AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatRoomViewController.swift; sourceTree = "<group>"; };
+		A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewController.swift; sourceTree = "<group>"; };
 		A7552D182580B7AF00C89166 /* pubKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pubKeys.plist; sourceTree = "<group>"; };
-		A7C29780257E14B300ED4541 /* PubChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatViewController.swift; sourceTree = "<group>"; };
+		A77998942581E941000CC730 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A77998992581F8EB000CC730 /* ChatApp.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ChatApp.Debug.xcconfig; sourceTree = "<group>"; };
+		A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ChatApp.Release.xcconfig; sourceTree = "<group>"; };
 		A7EE938A2576168D0024D391 /* StoredMessageSet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoredMessageSet.xcdatamodel; sourceTree = "<group>"; };
 		B6C02558C99F4BCCA21F7E5B /* Pods-Chat AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppTests/Pods-Chat AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE65F3C59DB4D7A02C46F704 /* Pods-Chat App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App.debug.xcconfig"; path = "Target Support Files/Pods-Chat App/Pods-Chat App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -210,6 +218,7 @@
 		501A8C7A2537F35A00EEA42A = {
 			isa = PBXGroup;
 			children = (
+				A77998942581E941000CC730 /* .swiftlint.yml */,
 				501A8C852537F35A00EEA42A /* Chat App */,
 				501A8C9C2537F35C00EEA42A /* Chat AppTests */,
 				501A8CA72537F35C00EEA42A /* Chat AppUITests */,
@@ -333,6 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				A7552D182580B7AF00C89166 /* pubKeys.plist */,
+				A77998992581F8EB000CC730 /* ChatApp.Debug.xcconfig */,
+				A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */,
 			);
 			path = BuildConfig;
 			sourceTree = "<group>";
@@ -359,7 +370,8 @@
 		A7C2977F257E148800ED4541 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
-				A7C29780257E14B300ED4541 /* PubChatViewController.swift */,
+				A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */,
+				A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */,
 			);
 			path = Pub;
 			sourceTree = "<group>";
@@ -376,6 +388,7 @@
 				501A8C802537F35A00EEA42A /* Frameworks */,
 				501A8C812537F35A00EEA42A /* Resources */,
 				3CE4958D75EFD95CF64CD2BC /* [CP] Embed Pods Frameworks */,
+				A77998902581E56C000CC730 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -472,11 +485,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77998952581E941000CC730 /* .swiftlint.yml in Resources */,
 				50F46717253AEBD0006FEE21 /* UserForm.xib in Resources */,
 				501A8CB72537F49500EEA42A /* IndexView.xib in Resources */,
 				501A8C932537F35B00EEA42A /* LaunchScreen.storyboard in Resources */,
 				50F4670E253AD2E1006FEE21 /* SignUpViewController.xib in Resources */,
+				A779989A2581F8EB000CC730 /* ChatApp.Debug.xcconfig in Resources */,
 				50F46709253AD09C006FEE21 /* LoginView.xib in Resources */,
+				A779989F2581F920000CC730 /* ChatApp.Release.xcconfig in Resources */,
 				507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */,
 				501A8C902537F35B00EEA42A /* Assets.xcassets in Resources */,
 				501A8C8E2537F35A00EEA42A /* Main.storyboard in Resources */,
@@ -564,6 +580,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A77998902581E56C000CC730 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		C9678CE43F919BC06385EADC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -604,13 +637,14 @@
 				5015531B254203E700EA1011 /* LoginModel.swift in Sources */,
 				50F46707253A928E006FEE21 /* LoginViewController.swift in Sources */,
 				50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */,
-				A7C29781257E14B300ED4541 /* PubChatViewController.swift in Sources */,
 				50B88FC62540461500A7A7E2 /* ChatRoomViewModel.swift in Sources */,
+				A717A4872580CB5C00AECB2A /* PubChatLoginViewController.swift in Sources */,
 				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
 				507D10422542AC2E00940438 /* Extensions.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
+				A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */,
 				5015531E25425D3800EA1011 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,6 +702,7 @@
 /* Begin XCBuildConfiguration section */
 		501A8CAB2537F35C00EEA42A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A77998992581F8EB000CC730 /* ChatApp.Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -728,6 +763,7 @@
 		};
 		501A8CAC2537F35C00EEA42A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

@@ -9,6 +9,6 @@
 import Foundation
 
 struct LoginModel {
-    let CollectionReferrence = "Users"
-    let FieldReferrence = "username"
+    let collectionReferrence = "Users"
+    let fieldReferrence = "username"
 }

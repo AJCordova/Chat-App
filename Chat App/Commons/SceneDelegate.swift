@@ -22,12 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        switch (Constants.applicationFlavor) {
+        switch Constants.App.applicationFlavor {
         case "Default":
             baseViewController = IndexViewController()
         case "Pub":
-            baseViewController = PubChatViewController()
-            
+            baseViewController = PubChatLoginViewController()
         default:
             baseViewController = IndexViewController()
         }

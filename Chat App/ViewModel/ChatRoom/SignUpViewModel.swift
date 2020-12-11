@@ -30,7 +30,7 @@ class SignUpViewModel: SignUpViewModelDelegate {
     private var model = SignupModel()
     
     init() {
-        self.collectionName = model.CollectionReferrence
+        self.collectionName = model.collectionReferrence
         self.referrence = db.collection(collectionName)
     }
     
@@ -48,8 +48,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
 
         if userText.isEmpty && passwordText.isEmpty {
             NSLog("Input Empty")
-            usernameWarningMessage = Constants.invalidInputWarning
-            passwordWarningMessage = Constants.invalidInputWarning
+            usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+            passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
             self.delegate?.showWarnings()
             return
         }
@@ -58,8 +58,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
                 isUsernameRegistered(username: userText, password: passwordText)
             }
             else {
-                usernameWarningMessage = Constants.invalidInputWarning
-                passwordWarningMessage = Constants.invalidInputWarning
+                usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                 self.delegate?.showWarnings()
                 return
             }
@@ -108,8 +108,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
             docReferrence = referrence!.addDocument(data: ["username": username,"password": hash!]) { error in
                 if let error = error {
                     NSLog("Error adding user: \(error)")
-                    self.usernameWarningMessage = Constants.invalidInputWarning
-                    self.passwordWarningMessage = Constants.invalidInputWarning
+                    self.usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
+                    self.passwordWarningMessage = Constants.DefaultStrings.invalidInputWarning
                     self.didEncounterError = true
                 }
                 else {
@@ -150,7 +150,7 @@ class SignUpViewModel: SignUpViewModelDelegate {
      */
     private func isUsernameRegistered (username: String, password: String) {
         task.enter()
-        referrence?.whereField(model.FieldReferrence, isEqualTo: username).getDocuments() { (snapshot, err) in
+        referrence?.whereField(model.fieldReferrence, isEqualTo: username).getDocuments() { (snapshot, err) in
             if let err = err {
                 NSLog("isUsernameRegistered(): Error getting document: \(err)")
                 self.didEncounterError = true
@@ -160,7 +160,7 @@ class SignUpViewModel: SignUpViewModelDelegate {
             }
             else {
                 NSLog("isUsernameRegistered(): duplicates found")
-                self.usernameWarningMessage = Constants.duplicateUserWarningLabel
+                self.usernameWarningMessage = Constants.DefaultStrings.duplicateUserWarningLabel
                 self.passwordWarningMessage = ""
                 self.hasFoundDuplicates = true
             }
