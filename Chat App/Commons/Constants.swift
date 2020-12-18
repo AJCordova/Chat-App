@@ -47,4 +47,9 @@ struct Constants {
         static let registerButtonTitle: String = "Register"
         static let loginButtonTitle: String = "Enter Server"
     }
+    
+    enum FirebaseStrings {
+        static let userCollectionReference = "Users"
+        static let userReference = "username"
+    }
 }
