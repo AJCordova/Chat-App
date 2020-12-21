@@ -52,4 +52,10 @@ struct Constants {
         static let userCollectionReference = "Users"
         static let userReference = "username"
     }
+    
+    enum UserDefaultConstants {
+        static let userKey = "pub-username"
+        static let UUIDKey = "pub-UUID"
+        static let isLoggedIn = "pub-isLoggedIn"
+    }
 }

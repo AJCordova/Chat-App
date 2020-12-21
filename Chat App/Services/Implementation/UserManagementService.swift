@@ -38,6 +38,7 @@ extension UserManagementService {
                         let data = document.data()
                         self.username = (data["username"] as? String)!
                         self.receivedHash = (data["password"] as? String)!
+                        self.receivedUUID = (document.documentID)
                         print((data["password"] as? String)!)
                     }
                     self.isSignInSuccessful.accept(true)
@@ -47,16 +48,14 @@ extension UserManagementService {
         task.notify(queue: .main) {
             print("Task Finished")
             print("Mounting user..\(self.username)")
+            print("\(self.receivedUUID)")
             self.compareHash()
         }
     }
     
     func compareHash() {
         if userHash.elementsEqual(receivedHash) {
-            // load the ff to userdefaults
-            // 1. hasSignedIn
-            // 2. username
-            // 3. UUID
+            saveUser()
             isSignInSuccessful.accept(true)
         } else {
             isSignInSuccessful.accept(false)
@@ -64,6 +63,9 @@ extension UserManagementService {
     }
     
     func saveUser() {
-        // user userdefaults here 
+        let defaults = UserDefaults.standard
+        defaults.setValue(self.username, forKey: Constants.UserDefaultConstants.userKey)
+        defaults.setValue(self.receivedUUID, forKey: Constants.UserDefaultConstants.UUIDKey)
+        defaults.setValue(true, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
 }
