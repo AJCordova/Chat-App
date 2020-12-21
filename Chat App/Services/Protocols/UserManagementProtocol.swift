@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import RxCocoa
 
 protocol UserManagementProtocol {
+    var isSignInSuccessful: BehaviorRelay<Bool> {get}
     func UserSignIn(username: String, hash: String)
 }
