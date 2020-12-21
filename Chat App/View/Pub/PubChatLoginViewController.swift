@@ -16,6 +16,7 @@ class PubChatLoginViewController: UIViewController {
     lazy var passwordField: UITextField = UITextField()
     lazy var loginButton: UIButton = UIButton()
     lazy var registerButton: UIButton = UIButton()
+    lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .large)
     private let disposeBag = DisposeBag()
     private let UserManager = UserManagementService()
     var viewModel: PubChatLoginViewModel!
@@ -24,7 +25,7 @@ class PubChatLoginViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         viewModel = PubChatLoginViewModel(userProtocol: UserManager)
-        
+        setupObservers()
     }
     
     override func loadView() {
@@ -54,14 +55,15 @@ class PubChatLoginViewController: UIViewController {
             
             registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
             registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
+            registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
         viewModel.processLogin(usernameInput: userNameField.text, passwordInput: passwordField.text)
-//        let pubChatroomViewController = PubChatRoomViewController()
-//        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
     }
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
@@ -75,6 +77,7 @@ class PubChatLoginViewController: UIViewController {
         createPasswordField()
         createLoginButton()
         createRegisterButton()
+        createLoadingIndicator()
     }
     
     func createBannerLabel() {
@@ -126,6 +129,33 @@ class PubChatLoginViewController: UIViewController {
         view.addSubview(registerButton)
     }
     
-    func setUpListeners() {
+    func createLoadingIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+    }
+    
+    func setupObservers() {
+        viewModel.shouldShowLoading
+            .asObservable()
+            .subscribe(onNext: { [weak self] showLoading in
+                guard let shouldshowLoading: Bool = showLoading.rawValue as? Bool else { return }
+                if shouldshowLoading {
+                    self!.activityIndicator.startAnimating()
+                } else {
+                    self!.activityIndicator.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.shouldProceedtoServer
+            .asObservable()
+            .subscribe(onNext: { [weak self] shouldProceed in
+                guard let shouldProceed: Bool = shouldProceed.rawValue as? Bool else { return }
+                if shouldProceed {
+                    let viewController = PubChatRoomViewController()
+                    self?.navigationController?.pushViewController(viewController, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -9,27 +9,27 @@
 import Foundation
 import FirebaseFirestore
 import RxSwift
+import RxCocoa
 
 class PubChatLoginViewModel {
     let task = DispatchGroup()
 
     var reference: CollectionReference? = nil
     var encodedPassword: String? = nil
-    var db = Firestore.firestore()
-    var retrievedHash: String = ""
-    var isLoginSuccessful: Bool = false
+    var shouldShowLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
 
     var UserManager: UserManagementProtocol
+    private let disposeBag = DisposeBag()
     
     init(userProtocol: UserManagementProtocol) {
         self.UserManager = userProtocol
-        self.reference = db.collection(Constants.FirebaseStrings.userCollectionReference)
+        setUpObserver()
     }
     
     func processLogin(usernameInput: String?, passwordInput: String?) {
         guard let username = usernameInput else {return}
         guard let password = passwordInput else {return}
-        
         if username.isEmpty && password.isEmpty {
             print("Empty")
         } else if isInputValid(username: username, password: password) {
@@ -52,14 +52,22 @@ class PubChatLoginViewModel {
     }
     
     func loginUser(username: String) {
-        var retrievedHash: String = ""
+        shouldShowLoading.accept(true)
         UserManager.UserSignIn(username: username, hash: encodedPassword!)
     }
     
-    func verifyHash(retrievedHash: String) {
-        if retrievedHash == encodedPassword {
-            isLoginSuccessful = true
-        }
-        print(isLoginSuccessful)
+    func setUpObserver() {
+        UserManager.isSignInSuccessful
+            .asObservable()
+            .subscribe(onNext: { [unowned self] isSuccessful in
+                guard let isSuccessful: Bool = isSuccessful.rawValue as? Bool else { return }
+                shouldShowLoading.accept(false)
+                if isSuccessful {
+                    shouldProceedtoServer.accept(true)
+                } else {
+                    
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
