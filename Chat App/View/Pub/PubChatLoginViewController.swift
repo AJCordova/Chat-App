@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class PubChatLoginViewController: UIViewController {
     lazy var bannerLabel: UILabel = UILabel()
@@ -14,10 +16,15 @@ class PubChatLoginViewController: UIViewController {
     lazy var passwordField: UITextField = UITextField()
     lazy var loginButton: UIButton = UIButton()
     lazy var registerButton: UIButton = UIButton()
+    private let disposeBag = DisposeBag()
+    private let UserManager = UserManagementService()
+    var viewModel: PubChatLoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        viewModel = PubChatLoginViewModel(userProtocol: UserManager)
+        
     }
     
     override func loadView() {
@@ -52,11 +59,14 @@ class PubChatLoginViewController: UIViewController {
     }
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
-        let pubChatroomViewController = PubChatRoomViewController()
-        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
+        viewModel.processLogin(usernameInput: userNameField.text, passwordInput: passwordField.text)
+//        let pubChatroomViewController = PubChatRoomViewController()
+//        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
     }
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
+        let pubChatroomViewController = PubRegisterViewController()
+        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
     }
     
     func createSubViews() {
@@ -81,6 +91,8 @@ class PubChatLoginViewController: UIViewController {
         userNameField.backgroundColor = .white
         userNameField.borderStyle = .roundedRect
         userNameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        userNameField.autocorrectionType = .no
+        userNameField.autocapitalizationType = .none
         view.addSubview(userNameField)
     }
     
@@ -91,6 +103,8 @@ class PubChatLoginViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
         passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
+        passwordField.autocorrectionType = .no
+        passwordField.autocapitalizationType = .none
         view.addSubview(passwordField)
     }
     
@@ -110,5 +124,8 @@ class PubChatLoginViewController: UIViewController {
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
         view.addSubview(registerButton)
+    }
+    
+    func setUpListeners() {
     }
 }

@@ -14,13 +14,15 @@ class PubChatLoginViewModel {
     let task = DispatchGroup()
 
     var reference: CollectionReference? = nil
-    var docReference: DocumentReference? = nil
     var encodedPassword: String? = nil
     var db = Firestore.firestore()
     var retrievedHash: String = ""
     var isLoginSuccessful: Bool = false
+
+    var UserManager: UserManagementProtocol
     
-    init() {
+    init(userProtocol: UserManagementProtocol) {
+        self.UserManager = userProtocol
         self.reference = db.collection(Constants.FirebaseStrings.userCollectionReference)
     }
     
@@ -51,26 +53,7 @@ class PubChatLoginViewModel {
     
     func loginUser(username: String) {
         var retrievedHash: String = ""
-        
-        task.enter()
-        reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
-            .getDocuments() { (snapshot, error) in
-                if let err = error {
-                    print("Error: \(err)")
-                } else {
-                    for document in snapshot!.documents {
-                        let data = document.data()
-                        retrievedHash = (data["password"] as? String)!
-                        print((data["username"] as? String)!)
-                        print((data["password"] as? String)!)
-                    }
-                }
-                self.task.leave()
-            }
- 
-        task.notify(queue: .global()) {
-            self.verifyHash(retrievedHash: retrievedHash.self)
-        }
+        UserManager.UserSignIn(username: username, hash: encodedPassword!)
     }
     
     func verifyHash(retrievedHash: String) {
