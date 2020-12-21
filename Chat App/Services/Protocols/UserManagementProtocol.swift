@@ -9,5 +9,5 @@
 import Foundation
 
 protocol UserManagementProtocol {
-    static func UserSignIn(username: String, hash: String)
+    func UserSignIn(username: String, hash: String)
 }
