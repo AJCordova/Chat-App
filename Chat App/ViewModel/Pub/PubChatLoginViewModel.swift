@@ -25,6 +25,12 @@ class PubChatLoginViewModel {
         setUpObserver()
     }
     
+    /**
+     Initiates user sign in process. 
+     - Parameter username: submitted user name
+     - Parameter password: submitted password
+     - Returns: bool
+     */
     func processLogin(usernameInput: String?, passwordInput: String?) {
         guard let username = usernameInput else {return}
         guard let password = passwordInput else {return}
@@ -38,6 +44,12 @@ class PubChatLoginViewModel {
         }
     }
     
+    /**
+     Checks if user submitted input complies with input requirements.
+     - Parameter username: submitted user name
+     - Parameter password: submitted password
+     - Returns: bool
+     */
     func isInputValid(username: String, password: String) -> Bool {
         print("Show Input field", username, password)
         if username.count < 8 || username.count > 16 {
@@ -49,11 +61,18 @@ class PubChatLoginViewModel {
         return true;
     }
     
+    /**
+     Signs in the user with his submitted username and hashed password.
+     - Parameter username: submitted user name
+     */
     func loginUser(username: String) {
         shouldShowLoading.accept(true)
         UserManager.UserSignIn(username: username, hash: encodedPassword!)
     }
     
+    /**
+     Setup subject observer.
+     */
     func setUpObserver() {
         UserManager.isSignInSuccessful
             .asObservable()
