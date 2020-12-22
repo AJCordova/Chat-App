@@ -24,7 +24,7 @@ class PubChatLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        viewModel = PubChatLoginViewModel(userProtocol: UserManager)
+        viewModel = PubChatLoginViewModel()
         setupObservers()
     }
     

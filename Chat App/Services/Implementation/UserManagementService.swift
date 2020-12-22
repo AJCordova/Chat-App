@@ -41,7 +41,6 @@ extension UserManagementService {
                         self.receivedUUID = (document.documentID)
                         print((data["password"] as? String)!)
                     }
-                    self.isSignInSuccessful.accept(true)
                 }
                 self.task.leave()
             }
@@ -57,6 +56,7 @@ extension UserManagementService {
         if userHash.elementsEqual(receivedHash) {
             saveUser()
             isSignInSuccessful.accept(true)
+            print(isSignInSuccessful.value)
         } else {
             isSignInSuccessful.accept(false)
         }

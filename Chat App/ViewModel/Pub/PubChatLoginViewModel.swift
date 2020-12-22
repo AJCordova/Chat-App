@@ -12,9 +12,6 @@ import RxSwift
 import RxCocoa
 
 class PubChatLoginViewModel {
-    let task = DispatchGroup()
-
-    var reference: CollectionReference? = nil
     var encodedPassword: String? = nil
     var shouldShowLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
@@ -22,8 +19,8 @@ class PubChatLoginViewModel {
     var UserManager: UserManagementProtocol
     private let disposeBag = DisposeBag()
     
-    init(userProtocol: UserManagementProtocol) {
-        self.UserManager = userProtocol
+    init() {
+        self.UserManager = UserManagementService()
         setUpObserver()
     }
     
@@ -65,7 +62,7 @@ class PubChatLoginViewModel {
                 if isSuccessful {
                     shouldProceedtoServer.accept(true)
                 } else {
-                    
+                    // show errors 
                 }
             })
             .disposed(by: disposeBag)
