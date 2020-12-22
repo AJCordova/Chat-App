@@ -15,6 +15,7 @@ class PubChatLoginViewModel {
     var encodedPassword: String? = nil
     var shouldShowLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isInputEmpty: Bool = false
 
     var UserManager: UserManagementProtocol
     private let disposeBag = DisposeBag()
@@ -28,7 +29,7 @@ class PubChatLoginViewModel {
         guard let username = usernameInput else {return}
         guard let password = passwordInput else {return}
         if username.isEmpty && password.isEmpty {
-            print("Empty")
+            isInputEmpty = true
         } else if isInputValid(username: username, password: password) {
             encodedPassword = password.base64Encoded()
             loginUser(username: username)
