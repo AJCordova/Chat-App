@@ -7,27 +7,53 @@
 //
 
 import XCTest
+import RxCocoa
+@testable import Chat_App
 
 class PubChatLoginViewModelTest: XCTestCase {
+    var viewModel = PubChatLoginViewModel()
 
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel.UserManager = UserManagementServiceMock()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testProcessLogin_withEmptyUserInput() {
+        // arrange
+        let usernameString: String = ""
+        let passwordString: String = ""
+        
+        // act
+        viewModel.processLogin(usernameInput: usernameString, passwordInput: passwordString)
+        
+        // assert
+        XCTAssertTrue(viewModel.isInputEmpty)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testProcessLogin_withInvalidUserInput() {
+        // arrange
+        let usernameString: String = "abcde"
+        let passwordString: String = "abcde"
+        
+        // act
+        
+        // assert
+        XCTAssertFalse(viewModel.isInputValid(username: usernameString, password: passwordString))
+    }
+    
+    func testProcessLogin_withValidUserInput() {
+        // arrange
+        let usernameString: String = "abcd1234"
+        let passwordString: String = "abcde1234"
+        
+        // act
+        
+        // assert
+        XCTAssertTrue(viewModel.isInputValid(username: usernameString, password: passwordString))
     }
 
 }
