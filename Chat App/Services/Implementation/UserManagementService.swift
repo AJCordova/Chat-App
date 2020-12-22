@@ -25,6 +25,11 @@ class UserManagementService: UserManagementProtocol {
 
 extension UserManagementService {
     
+    /**
+     Authenticates user against Firebase user collection.
+     - Parameter username: submitted user name
+     - Parameter hash: hashed submitted password
+     */
     func UserSignIn(username: String, hash: String) {
         task.enter()
         print("Retrieving: \(username)")
@@ -52,6 +57,9 @@ extension UserManagementService {
         }
     }
     
+    /**
+     Compares retrieved user hash and hash from user input.
+     */
     func compareHash() {
         if userHash.elementsEqual(receivedHash) {
             saveUser()
@@ -62,6 +70,9 @@ extension UserManagementService {
         }
     }
     
+    /**
+     Saves user details to PubChat UserDefaults.
+     */
     func saveUser() {
         let defaults = UserDefaults.standard
         defaults.setValue(self.username, forKey: Constants.UserDefaultConstants.userKey)

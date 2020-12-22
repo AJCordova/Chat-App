@@ -10,6 +10,14 @@ import Foundation
 import RxCocoa
 
 protocol UserManagementProtocol {
+    
+    /**
+     Observable subject for signin status.
+     */
     var isSignInSuccessful: BehaviorRelay<Bool> {get}
+    
+    /**
+     Sign in pubchat user. 
+     */
     func UserSignIn(username: String, hash: String)
 }
