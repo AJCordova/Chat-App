@@ -61,7 +61,7 @@ class PubChatLoginViewModel {
         if password.count < 8 || password.count > 16 {
             return false
         }
-        return true;
+        return true
     }
     
     /**
@@ -80,14 +80,15 @@ class PubChatLoginViewModel {
         UserManager.isSigninValid
             .asObservable()
             .skip(1)
-            .subscribe(onNext: { [unowned self] isSuccessful in
-                guard let isSuccessful: Bool = isSuccessful.rawValue as? Bool else { return }
-                shouldShowLoading.accept(false)
+            .subscribe(onNext: { [weak self] isSuccessful in
+                guard let self = `self`,
+                      let isSuccessful = isSuccessful.rawValue as? Bool else { return }
+                self.shouldShowLoading.accept(false)
                 if isSuccessful {
-                    shouldProceedtoServer.accept(true)
+                    self.shouldProceedtoServer.accept(true)
                 } else {
                     self.warningText = Constants.PubStrings.invalidLoginCredentials
-                    shouldShowWarning.accept(true)
+                    self.shouldShowWarning.accept(true)
                 }
             })
             .disposed(by: disposeBag)
@@ -95,11 +96,12 @@ class PubChatLoginViewModel {
         UserManager.hasExitedPrematurely
             .asObservable()
             .skip(1)
-            .subscribe(onNext: { [unowned self] hasExitedPrematurely in
-                guard let hasExitedPrematurely: Bool = hasExitedPrematurely.rawValue as? Bool else { return }
+            .subscribe(onNext: { [weak self] hasExitedPrematurely in
+                guard let self = `self`,
+                      let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
                     self.warningText = Constants.PubStrings.serverUnavailableText
-                    shouldShowWarning.accept(true)
+                    self.shouldShowWarning.accept(true)
                 }
             })
             .disposed(by: disposeBag)

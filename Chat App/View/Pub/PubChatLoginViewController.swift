@@ -155,11 +155,12 @@ class PubChatLoginViewController: UIViewController {
         viewModel.shouldShowLoading
             .asObservable()
             .subscribe(onNext: { [weak self] showLoading in
-                guard let shouldshowLoading: Bool = showLoading.rawValue as? Bool else { return }
+                guard let self = `self`,
+                    let shouldshowLoading = showLoading.rawValue as? Bool else { return }
                 if shouldshowLoading {
-                    self!.activityIndicator.startAnimating()
+                    self.activityIndicator.startAnimating()
                 } else {
-                    self!.activityIndicator.stopAnimating()
+                    self.activityIndicator.stopAnimating()
                 }
             })
             .disposed(by: disposeBag)
@@ -167,18 +168,20 @@ class PubChatLoginViewController: UIViewController {
         viewModel.shouldProceedtoServer
             .asObservable()
             .subscribe(onNext: { [weak self] shouldProceed in
-                guard let shouldProceed: Bool = shouldProceed.rawValue as? Bool else { return }
+                guard let self = `self`,
+                        let shouldProceed = shouldProceed.rawValue as? Bool else { return }
                 if shouldProceed {
                     let viewController = PubChatRoomViewController()
-                    self?.navigationController?.pushViewController(viewController, animated: true)
+                    self.navigationController?.pushViewController(viewController, animated: true)
                 }
             })
             .disposed(by: disposeBag)
         
         viewModel.shouldShowWarning
             .asObservable()
-            .subscribe(onNext: { [unowned self] shouldShowWarning in
-                guard let shouldShowWarning: Bool = shouldShowWarning.rawValue as? Bool else { return }
+            .subscribe(onNext: { [weak self] shouldShowWarning in
+                guard let self = `self`,
+                    let shouldShowWarning = shouldShowWarning.rawValue as? Bool else { return }
                 if shouldShowWarning {
                     self.showWarning()
                 }
