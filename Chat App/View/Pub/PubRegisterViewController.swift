@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PubRegisterViewController: UIViewController {
     lazy var bannerLabel: UILabel = UILabel()
@@ -21,11 +23,15 @@ class PubRegisterViewController: UIViewController {
     lazy var registerButton: UIButton = UIButton()
     
     private var viewModel: PubRegisterViewModel!
+    private let disposeBag = DisposeBag()
+    private let inputThrottleInMilliseconds = 500
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         viewModel = PubRegisterViewModel()
+        setupUsernameLabelMessage()
+        setupObservers()
     }
     
     override func loadView() {
@@ -128,6 +134,8 @@ class PubRegisterViewController: UIViewController {
         usernameField.backgroundColor = .white
         usernameField.borderStyle = .roundedRect
         usernameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        usernameField.autocorrectionType = .no
+        usernameField.autocapitalizationType = .none
         view.addSubview(usernameField)
     }
     
@@ -147,6 +155,8 @@ class PubRegisterViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
         passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
+        passwordField.autocorrectionType = .no
+        passwordField.autocapitalizationType = .none
         view.addSubview(passwordField)
     }
     
@@ -194,5 +204,50 @@ class PubRegisterViewController: UIViewController {
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
         view.addSubview(loginButton)
+    }
+}
+
+extension PubRegisterViewController {
+    
+    func setupUsernameLabelMessage() {
+        let usernameValid = usernameField
+            .rx
+            .text
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.viewModel.verifyUserInput(userInput: $0!)
+            }
+        
+        usernameValid
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                guard let self = `self` else {return}
+                if $0 {
+                    self.viewModel.verifyUsernameAvailability(userInput: self.usernameField.text!)
+                } else {
+                    self.usernameMessageLabel.textColor = .red
+                    self.usernameMessageLabel.text = "Username must be at least 8 characters."
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupObservers() {
+        viewModel.isUsernameAvailable
+            .asObservable()
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                guard let self = `self` else {return}
+                if $0 {
+                    self.usernameMessageLabel.textColor = .blue
+                    self.usernameMessageLabel.text = "Username is available."
+                } else {
+                    self.usernameMessageLabel.textColor = .red
+                    self.usernameMessageLabel.text = "Username is taken."
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
