@@ -9,12 +9,16 @@
 import Foundation
 import RxCocoa
 
-protocol UserManagementProtocol {
+protocol UserManagementProtocol { 
+    /**
+     Observable subject for searching the user collection.
+     */
+    var isSigninValid: BehaviorRelay<Bool> {get}
     
     /**
-     Observable subject for signin status.
+     Observable subject for escaping closure.
      */
-    var isSignInSuccessful: BehaviorRelay<Bool> {get}
+    var hasExitedPrematurely: BehaviorRelay<Bool> {get}
     
     /**
      Sign in pubchat user. 

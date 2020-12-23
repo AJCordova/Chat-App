@@ -11,7 +11,9 @@ import FirebaseFirestore
 import RxCocoa
 
 class UserManagementService: UserManagementProtocol {
-    lazy var isSignInSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
     private let task = DispatchGroup()
     
     private static var db = Firestore.firestore()
@@ -21,10 +23,11 @@ class UserManagementService: UserManagementProtocol {
     private var receivedHash: String = ""
     private var username: String = ""
     private var receivedUUID: String = ""
+    private var hasSignInFailed: Bool = false
+    private var isUserFound: Bool = false
 }
 
 extension UserManagementService {
-    
     /**
      Authenticates user against Firebase user collection.
      - Parameter username: submitted user name
@@ -38,22 +41,27 @@ extension UserManagementService {
             .getDocuments() { (snapshot, error) in
                 if let err = error {
                     print("Error: \(err)")
+                    self.hasSignInFailed = true
                 } else {
                     for document in snapshot!.documents {
                         let data = document.data()
                         self.username = (data["username"] as? String)!
                         self.receivedHash = (data["password"] as? String)!
                         self.receivedUUID = (document.documentID)
-                        print((data["password"] as? String)!)
+                        self.isUserFound = true
                     }
                 }
                 self.task.leave()
             }
+        
         task.notify(queue: .main) {
-            print("Task Finished")
-            print("Mounting user..\(self.username)")
-            print("\(self.receivedUUID)")
-            self.compareHash()
+            if self.hasSignInFailed {
+                self.hasExitedPrematurely.accept(true)
+            } else if self.isUserFound {
+                self.compareHash()
+            } else {
+                self.isSigninValid.accept(false)
+            }
         }
     }
     
@@ -63,10 +71,10 @@ extension UserManagementService {
     func compareHash() {
         if userHash.elementsEqual(receivedHash) {
             saveUser()
-            isSignInSuccessful.accept(true)
-            print(isSignInSuccessful.value)
+            isSigninValid.accept(true)
+            print(isSigninValid.value)
         } else {
-            isSignInSuccessful.accept(false)
+            isSigninValid.accept(false)
         }
     }
     
