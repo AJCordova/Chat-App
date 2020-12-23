@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 struct Constants {
     enum App {
@@ -46,5 +47,18 @@ struct Constants {
         static let passwordPlaceholderText: String = "password"
         static let registerButtonTitle: String = "Register"
         static let loginButtonTitle: String = "Enter Server"
+        static let invalidLoginCredentials: String = "Invalid Username or Password."
+        static let serverUnavailableText: String = "The server is on a break."
+    }
+    
+    enum FirebaseStrings {
+        static let userCollectionReference = "Users"
+        static let userReference = "username"
+    }
+    
+    enum UserDefaultConstants {
+        static let userKey = "pub-username"
+        static let UUIDKey = "pub-UUID"
+        static let isLoggedIn = "pub-isLoggedIn"
     }
 }

@@ -14,6 +14,10 @@ target 'Chat App' do
   pod 'Firebase/Firestore'
   pod 'MessageKit'
   pod 'PubNubSwift', '~> 3.0'
+  pod 'RxSwift', '6.0.0-rc.2'
+  pod 'RxCocoa', '6.0.0-rc.2'
+  pod 'RxSwiftExt', '~> 5'
+  
 
   target 'Chat AppTests' do
     inherit! :search_paths

@@ -98,12 +98,20 @@ PODS:
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
   - PubNubSwift (3.1.0)
+  - RxCocoa (6.0.0-rc.2):
+    - RxRelay (= 6.0.0-rc.2)
+    - RxSwift (= 6.0.0-rc.2)
+  - RxRelay (6.0.0-rc.2):
+    - RxSwift (= 6.0.0-rc.2)
+  - RxSwift (6.0.0-rc.2)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Firestore
   - MessageKit
   - PubNubSwift (~> 3.0)
+  - RxCocoa (= 6.0.0-rc.2)
+  - RxSwift (= 6.0.0-rc.2)
 
 SPEC REPOS:
   trunk:
@@ -124,6 +132,9 @@ SPEC REPOS:
     - nanopb
     - Protobuf
     - PubNubSwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -143,7 +154,10 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   PubNubSwift: 6c963621e53dd5a87384be9d4b3aa148d0b0660d
+  RxCocoa: 38445a25751be5907f52f7ea02c137f52ce2e7f2
+  RxRelay: b9e2483e83f46e4e7bf1234c6fe418e5c2eaf825
+  RxSwift: ada35be6643bedf6881cdbd6bbfb27aeea527670
 
-PODFILE CHECKSUM: 3f6b9e9319df6e42324c802792c25cd3164c8ad6
+PODFILE CHECKSUM: d69256b54cf78e5d6ae3291747769105cdaceb98
 
 COCOAPODS: 1.10.0
