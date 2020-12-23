@@ -19,11 +19,13 @@ class PubRegisterViewController: UIViewController {
     lazy var confirmPasswordMessageLabel: UILabel = UILabel()
     lazy var loginButton: UIButton = UIButton()
     lazy var registerButton: UIButton = UIButton()
-    let viewModel = PubRegisterViewModel()
+    
+    private var viewModel: PubRegisterViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        viewModel = PubRegisterViewModel()
     }
     
     override func loadView() {
