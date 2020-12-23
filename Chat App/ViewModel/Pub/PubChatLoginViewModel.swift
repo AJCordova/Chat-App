@@ -12,12 +12,15 @@ import RxSwift
 import RxCocoa
 
 class PubChatLoginViewModel {
-    var encodedPassword: String? = nil
     var shouldShowLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var shouldShowWarning: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
     var isInputEmpty: Bool = false
-
+    var encodedPassword: String? = nil
     var UserManager: UserManagementProtocol
+    var warningText: String = ""
+    
     private let disposeBag = DisposeBag()
     
     init() {
@@ -71,18 +74,32 @@ class PubChatLoginViewModel {
     }
     
     /**
-     Setup subject observer.
+     Setup subject observer and conditional behavior.
      */
-    func setUpObserver() {
-        UserManager.isSignInSuccessful
+    private func setUpObserver() {
+        UserManager.isSigninValid
             .asObservable()
+            .skip(1)
             .subscribe(onNext: { [unowned self] isSuccessful in
                 guard let isSuccessful: Bool = isSuccessful.rawValue as? Bool else { return }
                 shouldShowLoading.accept(false)
                 if isSuccessful {
                     shouldProceedtoServer.accept(true)
                 } else {
-                    // show errors 
+                    self.warningText = Constants.PubStrings.invalidLoginCredentials
+                    shouldShowWarning.accept(true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        UserManager.hasExitedPrematurely
+            .asObservable()
+            .skip(1)
+            .subscribe(onNext: { [unowned self] hasExitedPrematurely in
+                guard let hasExitedPrematurely: Bool = hasExitedPrematurely.rawValue as? Bool else { return }
+                if hasExitedPrematurely {
+                    self.warningText = Constants.PubStrings.serverUnavailableText
+                    shouldShowWarning.accept(true)
                 }
             })
             .disposed(by: disposeBag)
