@@ -7,34 +7,50 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 class PubRegisterViewModel {
-    var encryptPassword: String = ""
+    var isUsernameValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    func processLogin(usernameInput: String?, passwordInput: String?) {
-        guard let username = usernameInput else {return}
-        guard let password = passwordInput else {return}
-        
-        if username.isEmpty && password.isEmpty {
-            print("Empty")
-        }
-        else if isInputValid(username: username, password: password) {
-            encryptPassword = password.base64Encoded()!
+    private var encryptPassword: String = ""
+    private var userManager: UserManagementProtocol
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        self.userManager = UserManagementService()
+        setUpObservers()
+    }
+    
+    func verifyUserInput(userInput: String) -> Bool {
+        if userInput.count >= 8 && userInput.count <= 16 {
+            return true
         } else {
-            
-            // show error message
+            return false
         }
     }
     
-    func isInputValid(username: String, password: String) -> Bool {
-        if username.count < 8 || username.count > 16 {
-            return false
-        }
-        if password.count < 8 || password.count > 16 {
-            return false;
-        }
-        
-        print("Show Input field", username, password)
-        return true
+    func verifyUsernameAvailability(userInput: String) {
+        userManager.checkUsernameAvailability(userInput: userInput)
+        print("check \(userInput): ")
+    }
+    
+    func setUpObservers() {
+        userManager.isUsernameAvailable
+            .asObservable()
+            .skip(1)
+            .subscribe(onNext: { [weak self] isAvailable in
+                guard let self = `self`,
+                      let isAvailable = isAvailable.rawValue as? Bool else {return}
+                if isAvailable {
+                    print(".... AVAILABLE")
+                    self.isUsernameAvailable.accept(true)
+                } else {
+                    print(".... NOT AVAILABLE")
+                    self.isUsernameAvailable.accept(false)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
