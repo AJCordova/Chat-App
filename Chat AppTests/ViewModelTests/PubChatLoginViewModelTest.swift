@@ -18,10 +18,11 @@ class PubChatLoginViewModelTest: XCTestCase {
         viewModel.UserManager = UserManagementServiceMock()
     }
 
-    override func tearDownWithError() throws {
-        
-    }
+    override func tearDownWithError() throws {}
     
+    /**
+     Tests loginviewmodel input validation property value when user input is empty
+     */
     func testProcessLogin_withEmptyUserInput() {
         // arrange
         let usernameString: String = ""
@@ -34,6 +35,9 @@ class PubChatLoginViewModelTest: XCTestCase {
         XCTAssertTrue(viewModel.isInputEmpty)
     }
     
+    /**
+     Tests loginviewmodel input validation property value when user input does not meet minimum requirements
+     */
     func testProcessLogin_withInvalidUserInput() {
         // arrange
         let usernameString: String = "abcde"
@@ -45,6 +49,9 @@ class PubChatLoginViewModelTest: XCTestCase {
         XCTAssertFalse(viewModel.isInputValid(username: usernameString, password: passwordString))
     }
     
+    /**
+     Tests loginviewmodel input validation property value when user input meets minimum requirements. 
+     */
     func testProcessLogin_withValidUserInput() {
         // arrange
         let usernameString: String = "abcd1234"
