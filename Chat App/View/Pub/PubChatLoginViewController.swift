@@ -12,14 +12,16 @@ import RxSwift
 
 class PubChatLoginViewController: UIViewController {
     lazy var bannerLabel: UILabel = UILabel()
-    lazy var userNameField: UITextField = UITextField()
+    lazy var usernameField: UITextField = UITextField()
+    lazy var formWarningLabel: UILabel = UILabel()
     lazy var passwordField: UITextField = UITextField()
     lazy var loginButton: UIButton = UIButton()
     lazy var registerButton: UIButton = UIButton()
     lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .large)
+    
     private let disposeBag = DisposeBag()
     private let UserManager = UserManagementService()
-    var viewModel: PubChatLoginViewModel!
+    private var viewModel: PubChatLoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +40,16 @@ class PubChatLoginViewController: UIViewController {
             bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
             bannerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            userNameField.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 70),
-            userNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            userNameField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            userNameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            formWarningLabel.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 50),
+            formWarningLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            formWarningLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             
-            passwordField.topAnchor.constraint(equalTo: userNameField.bottomAnchor, constant: 20),
+            usernameField.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 70),
+            usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            usernameField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            
+            passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 20),
             passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
@@ -63,7 +69,8 @@ class PubChatLoginViewController: UIViewController {
     }
     @objc func loginButtonTapped() {
         print("PubChat Login button tapped.")
-        viewModel.processLogin(usernameInput: userNameField.text, passwordInput: passwordField.text)
+        viewModel.processLogin(usernameInput: usernameField.text, passwordInput: passwordField.text)
+        formWarningLabel.isHidden = true
     }
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
@@ -73,6 +80,7 @@ class PubChatLoginViewController: UIViewController {
     
     func createSubViews() {
         createBannerLabel()
+        createFormWarningLabel()
         createUsernameField()
         createPasswordField()
         createLoginButton()
@@ -89,14 +97,23 @@ class PubChatLoginViewController: UIViewController {
     }
     
     func createUsernameField() {
-        userNameField.translatesAutoresizingMaskIntoConstraints = false
-        userNameField.font = .systemFont(ofSize: 15)
-        userNameField.backgroundColor = .white
-        userNameField.borderStyle = .roundedRect
-        userNameField.placeholder = Constants.PubStrings.usernamePlaceholderText
-        userNameField.autocorrectionType = .no
-        userNameField.autocapitalizationType = .none
-        view.addSubview(userNameField)
+        usernameField.translatesAutoresizingMaskIntoConstraints = false
+        usernameField.font = .systemFont(ofSize: 15)
+        usernameField.backgroundColor = .white
+        usernameField.borderStyle = .roundedRect
+        usernameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        usernameField.autocorrectionType = .no
+        usernameField.autocapitalizationType = .none
+        view.addSubview(usernameField)
+    }
+    
+    func createFormWarningLabel() {
+        formWarningLabel.translatesAutoresizingMaskIntoConstraints = false
+        formWarningLabel.font = .systemFont(ofSize: 12)
+        formWarningLabel.textAlignment = .natural
+        formWarningLabel.textColor = .red
+        formWarningLabel.isHidden = true
+        view.addSubview(formWarningLabel)
     }
     
     func createPasswordField() {
@@ -157,5 +174,20 @@ class PubChatLoginViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        viewModel.shouldShowWarning
+            .asObservable()
+            .subscribe(onNext: { [unowned self] shouldShowWarning in
+                guard let shouldShowWarning: Bool = shouldShowWarning.rawValue as? Bool else { return }
+                if shouldShowWarning {
+                    self.showWarning()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func showWarning() {
+        formWarningLabel.text = viewModel.warningText
+        formWarningLabel.isHidden = false
     }
 }
