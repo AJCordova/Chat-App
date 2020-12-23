@@ -16,12 +16,22 @@ protocol UserManagementProtocol {
     var isSigninValid: BehaviorRelay<Bool> {get}
     
     /**
-     Observable subject for escaping closure.
+     Observable subject for escaping querries early.
      */
     var hasExitedPrematurely: BehaviorRelay<Bool> {get}
+    
+    /**
+     Observable subject to confirm username availability.
+     */
+    var isUsernameAvailable: BehaviorRelay<Bool> {get}
     
     /**
      Sign in pubchat user. 
      */
     func userSignin(username: String, hash: String)
+    
+    /**
+     Checks if username is available.
+     */
+    func checkUsernameAvailability(userInput: String)
 }
