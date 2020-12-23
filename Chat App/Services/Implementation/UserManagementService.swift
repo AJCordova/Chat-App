@@ -33,7 +33,7 @@ extension UserManagementService {
      - Parameter username: submitted user name
      - Parameter hash: hashed submitted password
      */
-    func UserSignIn(username: String, hash: String) {
+    func userSignin(username: String, hash: String) {
         task.enter()
         print("Retrieving: \(username)")
         self.userHash = hash

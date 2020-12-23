@@ -70,7 +70,7 @@ class PubChatLoginViewModel {
      */
     func loginUser(username: String) {
         shouldShowLoading.accept(true)
-        UserManager.UserSignIn(username: username, hash: encodedPassword!)
+        UserManager.userSignin(username: username, hash: encodedPassword!)
     }
     
     /**

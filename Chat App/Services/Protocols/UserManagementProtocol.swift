@@ -23,5 +23,5 @@ protocol UserManagementProtocol {
     /**
      Sign in pubchat user. 
      */
-    func UserSignIn(username: String, hash: String)
+    func userSignin(username: String, hash: String)
 }
