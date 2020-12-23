@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import RxSwift
 import RxCocoa
 
@@ -25,7 +24,7 @@ class PubChatLoginViewModel {
     
     init() {
         self.UserManager = UserManagementService()
-        setUpObserver()
+        setupObserver()
     }
     
     /**
@@ -76,7 +75,7 @@ class PubChatLoginViewModel {
     /**
      Setup subject observer and conditional behavior.
      */
-    private func setUpObserver() {
+    private func setupObserver() {
         UserManager.isSigninValid
             .asObservable()
             .skip(1)

@@ -96,11 +96,11 @@ extension UserManagementService {
      - Parameter userInput: Username input
      */
     func checkUsernameAvailability(userInput: String) {
-        reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
+        reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: userInput)
             .getDocuments() { (snapshot, error) in
                 if let err = error {
                     print("Error: \(err)")
-                    // premature exit
+                    self.hasExitedPrematurely.accept(true)
                 } else {
                     if snapshot!.isEmpty {
                         self.isUsernameAvailable.accept(true)
