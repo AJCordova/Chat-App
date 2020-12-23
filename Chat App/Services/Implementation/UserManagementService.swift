@@ -12,6 +12,7 @@ import RxCocoa
 
 class UserManagementService: UserManagementProtocol {
     var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private let task = DispatchGroup()
@@ -87,4 +88,27 @@ extension UserManagementService {
         defaults.setValue(receivedUUID, forKey: Constants.UserDefaultConstants.UUIDKey)
         defaults.setValue(true, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
+    
+    // MARK: Register Users
+    
+    /**
+     Checks if username is available.
+     - Parameter userInput: Username input
+     */
+    func checkUsernameAvailability(userInput: String) {
+        reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
+            .getDocuments() { (snapshot, error) in
+                if let err = error {
+                    print("Error: \(err)")
+                    // premature exit
+                } else {
+                    if snapshot!.isEmpty {
+                        self.isUsernameAvailable.accept(true)
+                    } else {
+                        self.isUsernameAvailable.accept(false)
+                    }
+                }
+            }
+    }
+        
 }
