@@ -36,7 +36,7 @@ extension UserManagementService {
     func userSignin(username: String, hash: String) {
         task.enter()
         print("Retrieving: \(username)")
-        self.userHash = hash
+        userHash = hash
         reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
             .getDocuments() { (snapshot, error) in
                 if let err = error {
@@ -83,8 +83,8 @@ extension UserManagementService {
      */
     func saveUser() {
         let defaults = UserDefaults.standard
-        defaults.setValue(self.username, forKey: Constants.UserDefaultConstants.userKey)
-        defaults.setValue(self.receivedUUID, forKey: Constants.UserDefaultConstants.UUIDKey)
+        defaults.setValue(username, forKey: Constants.UserDefaultConstants.userKey)
+        defaults.setValue(receivedUUID, forKey: Constants.UserDefaultConstants.UUIDKey)
         defaults.setValue(true, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
 }
