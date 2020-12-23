@@ -43,12 +43,13 @@ struct Constants {
 
     enum PubStrings {
         static let bannerLabel: String = "PubChat"
-        static let usernamePlaceholderText: String = "username"
-        static let passwordPlaceholderText: String = "password"
+        static let usernamePlaceholderText: String = "Username"
+        static let passwordPlaceholderText: String = "Password"
         static let registerButtonTitle: String = "Register"
         static let loginButtonTitle: String = "Enter Server"
         static let invalidLoginCredentials: String = "Invalid Username or Password."
         static let serverUnavailableText: String = "The server is on a break."
+        static let confirmPasswordPlaceholder: String = "Confirm password"
     }
     
     enum FirebaseStrings {
