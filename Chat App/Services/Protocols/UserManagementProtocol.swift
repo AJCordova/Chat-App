@@ -34,4 +34,9 @@ protocol UserManagementProtocol {
      Checks if username is available.
      */
     func checkUsernameAvailability(userInput: String)
+    
+    /**
+     Register new user.
+     */
+    func registerNewUser(username: String, password: String)
 }

@@ -15,8 +15,8 @@ class PubRegisterViewModel {
     var doPasswordsMatch: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     var passwordInput = ""
+    var submittedUsername = ""
     
-    private var encryptPassword: String = ""
     private var userManager: UserManagementProtocol
     private let disposeBag = DisposeBag()
     
@@ -38,8 +38,12 @@ class PubRegisterViewModel {
     }
     
     func registerUser() {
-        // mask password with base64
-        // register user.
+        let encodedPassword = hashPassword()
+        userManager.registerNewUser(username: submittedUsername, password: encodedPassword)
+    }
+    
+    func hashPassword() -> String {
+        return passwordInput.base64Encoded()!
     }
     
     func verifyPasswordMatch(userInput: String!) -> Bool {

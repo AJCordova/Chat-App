@@ -110,5 +110,14 @@ extension UserManagementService {
                 }
             }
     }
+    
+    /**
+     Registers a new user in the server.
+     - Parameter username: Username input
+     - Parameter password: hashed password
+     */
+    func registerNewUser(username: String, password: String) {
+        
+    }
         
 }
