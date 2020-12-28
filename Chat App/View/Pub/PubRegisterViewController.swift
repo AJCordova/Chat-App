@@ -31,6 +31,7 @@ class PubRegisterViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         viewModel = PubRegisterViewModel()
         setupUsernameLabelMessage()
+        setupPasswordLabelMessage()
         setupObservers()
     }
     
@@ -157,6 +158,7 @@ class PubRegisterViewController: UIViewController {
         passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
         passwordField.autocorrectionType = .no
         passwordField.autocapitalizationType = .none
+        passwordField.disableAutoFill()
         view.addSubview(passwordField)
     }
     
@@ -229,6 +231,32 @@ extension PubRegisterViewController {
                 } else {
                     self.usernameMessageLabel.textColor = .red
                     self.usernameMessageLabel.text = "Username must be at least 8 characters."
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupPasswordLabelMessage() {
+        let passwordValid = passwordField
+            .rx
+            .text
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.viewModel.verifyUserInput(userInput: $0!)
+            }
+        
+        passwordValid
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                guard let self = `self` else {return}
+                if $0 {
+                    self.passwordMessageLabel.textColor = .blue
+                    self.passwordMessageLabel.text = "Password is valid."
+                } else {
+                    self.passwordMessageLabel.textColor = .red
+                    self.passwordMessageLabel.text = "Password must be at least 8 characters."
                 }
             })
             .disposed(by: disposeBag)
