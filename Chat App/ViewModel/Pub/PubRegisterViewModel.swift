@@ -11,8 +11,10 @@ import RxCocoa
 import RxSwift
 
 class PubRegisterViewModel {
-    var isUsernameValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var doPasswordsMatch: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    var passwordInput = ""
     
     private var encryptPassword: String = ""
     private var userManager: UserManagementProtocol
@@ -33,7 +35,20 @@ class PubRegisterViewModel {
     
     func verifyUsernameAvailability(userInput: String) {
         userManager.checkUsernameAvailability(userInput: userInput)
-        print("check \(userInput): ")
+    }
+    
+    func registerUser() {
+        // mask password with base64
+        // register user.
+    }
+    
+    func verifyPasswordMatch(userInput: String!) -> Bool {
+        guard let userInput = userInput else {return false}
+        if userInput.elementsEqual(passwordInput) {
+            return true
+        } else {
+            return false
+        }
     }
     
     func setUpObservers() {
@@ -44,10 +59,8 @@ class PubRegisterViewModel {
                 guard let self = `self`,
                       let isAvailable = isAvailable.rawValue as? Bool else {return}
                 if isAvailable {
-                    print(".... AVAILABLE")
                     self.isUsernameAvailable.accept(true)
                 } else {
-                    print(".... NOT AVAILABLE")
                     self.isUsernameAvailable.accept(false)
                 }
             })

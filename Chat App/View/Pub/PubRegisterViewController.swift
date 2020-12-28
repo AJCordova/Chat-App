@@ -24,14 +24,13 @@ class PubRegisterViewController: UIViewController {
     
     private var viewModel: PubRegisterViewModel!
     private let disposeBag = DisposeBag()
-    private let inputThrottleInMilliseconds = 500
+    private let inputThrottleInMilliseconds = 700
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         viewModel = PubRegisterViewModel()
-        setupUsernameLabelMessage()
-        setupPasswordLabelMessage()
+        setupTextChangedHandlers()
         setupObservers()
     }
     
@@ -124,7 +123,7 @@ class PubRegisterViewController: UIViewController {
     func createFormLabel() {
         formLabel.translatesAutoresizingMaskIntoConstraints = false
         formLabel.textAlignment = .center
-        formLabel.font = .systemFont(ofSize: 30)
+        formLabel.font = .systemFont(ofSize: 20)
         formLabel.text = "Register new user"
         view.addSubview(formLabel)
     }
@@ -179,6 +178,8 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordField.isSecureTextEntry = true
         confirmPasswordField.borderStyle = .roundedRect
         confirmPasswordField.placeholder = Constants.PubStrings.confirmPasswordPlaceholder
+        confirmPasswordField.autocorrectionType = .no
+        confirmPasswordField.autocapitalizationType = .none
         confirmPasswordField.disableAutoFill()
         view.addSubview(confirmPasswordField)
     }
@@ -213,7 +214,7 @@ class PubRegisterViewController: UIViewController {
 
 extension PubRegisterViewController {
     
-    func setupUsernameLabelMessage() {
+    func setupTextChangedHandlers() {
         let usernameValid = usernameField
             .rx
             .text
@@ -236,9 +237,7 @@ extension PubRegisterViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    func setupPasswordLabelMessage() {
+
         let passwordValid = passwordField
             .rx
             .text
@@ -256,11 +255,45 @@ extension PubRegisterViewController {
                 if $0 {
                     self.passwordMessageLabel.textColor = .blue
                     self.passwordMessageLabel.text = "Password is valid."
+                    self.viewModel.passwordInput = self.passwordField.text!
+                    //self.viewModel.verifyPasswordMatch(userInput: sel)
                 } else {
                     self.passwordMessageLabel.textColor = .red
                     self.passwordMessageLabel.text = "Password must be at least 8 characters."
                 }
             })
+            .disposed(by: disposeBag)
+
+        let confirmPasswordValid = confirmPasswordField
+            .rx
+            .text
+            .observe(on: MainScheduler.asyncInstance)
+            .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
+            .map { [unowned self] in
+                self.viewModel.verifyPasswordMatch(userInput: $0!)
+            }
+        
+        confirmPasswordValid
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                guard let self = `self` else {return}
+                if $0 {
+                    self.confirmPasswordMessageLabel.textColor = .blue
+                    self.confirmPasswordMessageLabel.text = "Password match."
+                } else {
+                    self.confirmPasswordMessageLabel.textColor = .red
+                    self.confirmPasswordMessageLabel.text = "Password does not match."
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        let everythingValid = Observable
+            .combineLatest(usernameValid, passwordValid, confirmPasswordValid) {
+                $0 && $1 && $2
+            }
+        
+        everythingValid
+            .bind(to: registerButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     
