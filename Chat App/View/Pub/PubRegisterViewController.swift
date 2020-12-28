@@ -137,6 +137,7 @@ class PubRegisterViewController: UIViewController {
         usernameField.placeholder = Constants.PubStrings.usernamePlaceholderText
         usernameField.autocorrectionType = .no
         usernameField.autocapitalizationType = .none
+        usernameField.disableAutoFill()
         view.addSubview(usernameField)
     }
     
@@ -178,6 +179,7 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordField.isSecureTextEntry = true
         confirmPasswordField.borderStyle = .roundedRect
         confirmPasswordField.placeholder = Constants.PubStrings.confirmPasswordPlaceholder
+        confirmPasswordField.disableAutoFill()
         view.addSubview(confirmPasswordField)
     }
     
