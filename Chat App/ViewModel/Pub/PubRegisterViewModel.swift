@@ -25,6 +25,11 @@ class PubRegisterViewModel {
         setUpObservers()
     }
     
+    /**
+     Verifies that user input meets character limit requirements.
+     - Parameter userInput: submitted user input.
+     - Returns a Bool value that indicates if user input was valid. 
+     */
     func verifyUserInput(userInput: String) -> Bool {
         if userInput.count >= 8 && userInput.count <= 16 {
             return true
@@ -33,19 +38,36 @@ class PubRegisterViewModel {
         }
     }
     
+    /**
+     Verifies that the inputted username is available for registration.
+     - Parameter userInput: submitted user input.
+     */
     func verifyUsernameAvailability(userInput: String) {
         userManager.checkUsernameAvailability(userInput: userInput)
     }
     
+    /**
+     Registers a new Pub user.
+     */
     func registerUser() {
         let encodedPassword = hashPassword()
         userManager.registerNewUser(username: submittedUsername, password: encodedPassword)
     }
     
+    /**
+     Verifies that the inputted username is valid.
+     - Parameter userInput: submitted user input.
+     - Returns a password as a base64 string.
+     */
     func hashPassword() -> String {
         return passwordInput.base64Encoded()!
     }
     
+    /**
+     Verifies that the password and confirm password fields contain the same values.
+     - Parameter userInput: submitted user input.
+     - Returns a Bool value that indicates that values match.
+     */
     func verifyPasswordMatch(userInput: String!) -> Bool {
         guard let userInput = userInput else {return false}
         if userInput.elementsEqual(passwordInput) {
@@ -55,6 +77,9 @@ class PubRegisterViewModel {
         }
     }
     
+    /**
+     Sets up observable subjects for pub register viewcontroller.
+     */
     func setUpObservers() {
         userManager.isUsernameAvailable
             .asObservable()
