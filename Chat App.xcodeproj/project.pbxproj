@@ -22,7 +22,6 @@
 		50462552253D2350007BCC1C /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462551253D2350007BCC1C /* ChatRoomModel.swift */; };
 		50462554253D2CAD007BCC1C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462553253D2CAD007BCC1C /* Message.swift */; };
 		50462556253DD602007BCC1C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50462555253DD602007BCC1C /* AppSettings.swift */; };
-		507D10422542AC2E00940438 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507D10412542AC2E00940438 /* Extensions.swift */; };
 		507E7A022537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A032537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
 		507E7A042537FEAD00C6E423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */; };
@@ -48,6 +47,9 @@
 		A779989F2581F920000CC730 /* ChatApp.Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */; };
 		A78E777125836FBB00317E5A /* PubChatLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78E777025836FBB00317E5A /* PubChatLoginViewModel.swift */; };
 		A7BB54CC258CBF2700367242 /* PubChatLoginViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BB54CB258CBF2700367242 /* PubChatLoginViewModelTest.swift */; };
+		A7CC59D325998E9200926F48 /* UITextField+DisableAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59D225998E9200926F48 /* UITextField+DisableAutoFill.swift */; };
+		A7CC59D82599942500926F48 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59D72599942500926F48 /* UIColor+Convenience.swift */; };
+		A7CC59DE259994E300926F48 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59DD259994E300926F48 /* String+Base64.swift */; };
 		A7DC8C1925903D27009116D5 /* UserManagementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */; };
 		A7DC8C1E25903D71009116D5 /* UserManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1D25903D71009116D5 /* UserManagementService.swift */; };
 		A7DC8C2C2591A026009116D5 /* UserManagementServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */; };
@@ -95,7 +97,6 @@
 		50462551253D2350007BCC1C /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
 		50462553253D2CAD007BCC1C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		50462555253DD602007BCC1C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		507D10412542AC2E00940438 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		507E7A012537FEAD00C6E423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50B88FC52540461500A7A7E2 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		50B88FD02541871A00A7A7E2 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
@@ -121,6 +122,9 @@
 		A779989E2581F920000CC730 /* ChatApp.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ChatApp.Release.xcconfig; sourceTree = "<group>"; };
 		A78E777025836FBB00317E5A /* PubChatLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewModel.swift; sourceTree = "<group>"; };
 		A7BB54CB258CBF2700367242 /* PubChatLoginViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewModelTest.swift; sourceTree = "<group>"; };
+		A7CC59D225998E9200926F48 /* UITextField+DisableAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+DisableAutoFill.swift"; sourceTree = "<group>"; };
+		A7CC59D72599942500926F48 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Convenience.swift"; sourceTree = "<group>"; };
+		A7CC59DD259994E300926F48 /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
 		A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementProtocol.swift; sourceTree = "<group>"; };
 		A7DC8C1D25903D71009116D5 /* UserManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementService.swift; sourceTree = "<group>"; };
 		A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementServiceMock.swift; sourceTree = "<group>"; };
@@ -216,7 +220,6 @@
 				501A8C882537F35A00EEA42A /* SceneDelegate.swift */,
 				50462555253DD602007BCC1C /* AppSettings.swift */,
 				5015531D25425D3800EA1011 /* Constants.swift */,
-				507D10412542AC2E00940438 /* Extensions.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 		501A8C852537F35A00EEA42A /* Chat App */ = {
 			isa = PBXGroup;
 			children = (
+				A7CC59CE25998AB400926F48 /* CustomComponents */,
 				A7DC8C1525903CD0009116D5 /* Services */,
 				A7552D172580B6C300C89166 /* BuildConfig */,
 				500465BD2538D86900480E1A /* Commons */,
@@ -410,6 +414,40 @@
 				A747050F2587223200F6CF12 /* PubRegisterViewController.swift */,
 			);
 			path = Pub;
+			sourceTree = "<group>";
+		};
+		A7CC59CE25998AB400926F48 /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A7CC59D125998B0E00926F48 /* UIColor */,
+				A7CC59D025998ADC00926F48 /* UITextField */,
+				A7CC59CF25998ACE00926F48 /* String */,
+			);
+			path = CustomComponents;
+			sourceTree = "<group>";
+		};
+		A7CC59CF25998ACE00926F48 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				A7CC59DD259994E300926F48 /* String+Base64.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		A7CC59D025998ADC00926F48 /* UITextField */ = {
+			isa = PBXGroup;
+			children = (
+				A7CC59D225998E9200926F48 /* UITextField+DisableAutoFill.swift */,
+			);
+			path = UITextField;
+			sourceTree = "<group>";
+		};
+		A7CC59D125998B0E00926F48 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				A7CC59D72599942500926F48 /* UIColor+Convenience.swift */,
+			);
+			path = UIColor;
 			sourceTree = "<group>";
 		};
 		A7DC8C1525903CD0009116D5 /* Services */ = {
@@ -699,6 +737,8 @@
 				501A8C872537F35A00EEA42A /* AppDelegate.swift in Sources */,
 				50462556253DD602007BCC1C /* AppSettings.swift in Sources */,
 				A7EE938B2576168D0024D391 /* StoredMessageSet.xcdatamodeld in Sources */,
+				A7CC59D325998E9200926F48 /* UITextField+DisableAutoFill.swift in Sources */,
+				A7CC59DE259994E300926F48 /* String+Base64.swift in Sources */,
 				50B88FD12541871A00A7A7E2 /* SignupModel.swift in Sources */,
 				A7DC8C1925903D27009116D5 /* UserManagementProtocol.swift in Sources */,
 				50F46719253B31B7006FEE21 /* SignUpViewModel.swift in Sources */,
@@ -715,11 +755,11 @@
 				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
-				507D10422542AC2E00940438 /* Extensions.swift in Sources */,
 				A78E777125836FBB00317E5A /* PubChatLoginViewModel.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
 				A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */,
 				5015531E25425D3800EA1011 /* Constants.swift in Sources */,
+				A7CC59D82599942500926F48 /* UIColor+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
