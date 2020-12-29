@@ -17,13 +17,13 @@ class PubChatLoginViewModel {
     
     var isInputEmpty: Bool = false
     var encodedPassword: String? = nil
-    var UserManager: UserManagementProtocol
+    var userManager: UserManagementProtocol
     var warningText: String = ""
     
     private let disposeBag = DisposeBag()
     
     init() {
-        self.UserManager = UserManagementService()
+        self.userManager = UserManagementService()
         setupObserver()
     }
     
@@ -69,14 +69,14 @@ class PubChatLoginViewModel {
      */
     func loginUser(username: String) {
         shouldShowLoading.accept(true)
-        UserManager.userSignin(username: username, hash: encodedPassword!)
+        userManager.userSignin(username: username, hash: encodedPassword!)
     }
     
     /**
      Setup subject observer and conditional behavior.
      */
     private func setupObserver() {
-        UserManager.isSigninValid
+        userManager.isSigninValid
             .asObservable()
             .skip(1)
             .subscribe(onNext: { [weak self] isSuccessful in
@@ -92,7 +92,7 @@ class PubChatLoginViewModel {
             })
             .disposed(by: disposeBag)
         
-        UserManager.hasExitedPrematurely
+        userManager.hasExitedPrematurely
             .asObservable()
             .skip(1)
             .subscribe(onNext: { [weak self] hasExitedPrematurely in
