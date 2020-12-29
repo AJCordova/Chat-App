@@ -47,9 +47,21 @@ struct Constants {
         static let passwordPlaceholderText: String = "Password"
         static let registerButtonTitle: String = "Register"
         static let loginButtonTitle: String = "Enter Server"
+        
+        // Login
         static let invalidLoginCredentials: String = "Invalid Username or Password."
         static let serverUnavailableText: String = "The server is on a break."
-        static let confirmPasswordPlaceholder: String = "Confirm password"
+        
+        // Register
+        static let registerUserFormLabel = "Register New User"
+        static let usernameInvalidMessage = "Username must be between 8-16 characters."
+        static let availableUsernameMessage = "Username is available."
+        static let usernameTakenMessage = "Username is taken."
+        static let passwordValidMessage = "Password is valid."
+        static let passwordInvalidMessage = "Password must be between 8-16 characters."
+        static let passwordMatchMessage = "Password match."
+        static let passwordMismatchMessage = "Password does not match."
+        static let confirmPasswordPlaceholder = "Confirm password"
     }
     
     enum FirebaseStrings {

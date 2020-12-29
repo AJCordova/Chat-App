@@ -90,13 +90,11 @@ class PubRegisterViewController: UIViewController {
     }
     
     @objc func registerButtonTapped() {
-        print("PubChat register button tapped.")
         self.viewModel.submittedUsername = usernameField.text!
         
     }
     
     @objc func loginButtonTapped() {
-        print("PubChat Login button tapped.")
         let loginViewController = PubChatLoginViewController()
         self.navigationController?.pushViewController(loginViewController, animated: true)
     }
@@ -126,7 +124,7 @@ class PubRegisterViewController: UIViewController {
         formLabel.translatesAutoresizingMaskIntoConstraints = false
         formLabel.textAlignment = .center
         formLabel.font = .systemFont(ofSize: 20)
-        formLabel.text = "Register new user"
+        formLabel.text = Constants.PubStrings.registerUserFormLabel
         view.addSubview(formLabel)
     }
     
@@ -232,7 +230,7 @@ extension PubRegisterViewController {
                     self.viewModel.verifyUsernameAvailability(userInput: self.usernameField.text!)
                 } else {
                     self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = "Username must be at least 8 characters."
+                    self.usernameMessageLabel.text = Constants.PubStrings.usernameInvalidMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -253,11 +251,11 @@ extension PubRegisterViewController {
                 guard let self = `self` else {return}
                 if $0 {
                     self.passwordMessageLabel.textColor = .blue
-                    self.passwordMessageLabel.text = "Password is valid."
+                    self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
                     self.viewModel.passwordInput = self.passwordField.text!
                 } else {
                     self.passwordMessageLabel.textColor = .red
-                    self.passwordMessageLabel.text = "Password must be at least 8 characters."
+                    self.passwordMessageLabel.text = Constants.PubStrings.passwordInvalidMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -277,10 +275,10 @@ extension PubRegisterViewController {
                 guard let self = `self` else {return}
                 if $0 {
                     self.confirmPasswordMessageLabel.textColor = .blue
-                    self.confirmPasswordMessageLabel.text = "Password match."
+                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
                 } else {
                     self.confirmPasswordMessageLabel.textColor = .red
-                    self.confirmPasswordMessageLabel.text = "Password does not match."
+                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMismatchMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -303,10 +301,10 @@ extension PubRegisterViewController {
                 guard let self = `self` else {return}
                 if $0 {
                     self.usernameMessageLabel.textColor = .blue
-                    self.usernameMessageLabel.text = "Username is available."
+                    self.usernameMessageLabel.text = Constants.PubStrings.registerUserFormLabel
                 } else {
                     self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = "Username is taken."
+                    self.usernameMessageLabel.text = Constants.PubStrings.usernameTakenMessage
                 }
             })
             .disposed(by: disposeBag)
