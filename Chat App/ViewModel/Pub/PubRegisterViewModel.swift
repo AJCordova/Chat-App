@@ -16,9 +16,9 @@ class PubRegisterViewModel {
     var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    var alertTitle = "Oh no"
-    var alertMessage = "This service is currently unavailable. Please try again later."
-    var alertActionLabel = "Ok"
+    var alertTitle = ""
+    var alertMessage = ""
+    var alertActionLabel = ""
     var passwordInput = ""
     var submittedUsername = ""
     var userManager: UserManagementProtocol
@@ -109,6 +109,9 @@ class PubRegisterViewModel {
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
                     self.shouldShowLoading.accept(false)
+                    self.alertTitle = Constants.PubStrings.genericErrorTitle
+                    self.alertMessage = Constants.PubStrings.genericErrorMessage
+                    self.alertActionLabel = Constants.PubStrings.okButtonTitle
                     self.shouldShowAlert.accept(true)
                 }
             })
