@@ -16,11 +16,6 @@ class UserManagementService: UserManagementProtocol {
     var isUsernameAvailable: PublishRelay<Bool>
     var isRegisterSuccessful: PublishRelay<Bool>
     
-//    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-//    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-//    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-//    var isRegisterSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
     private let task = DispatchGroup()
     
     private static var db = Firestore.firestore()
