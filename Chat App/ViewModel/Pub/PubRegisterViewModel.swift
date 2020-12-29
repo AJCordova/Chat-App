@@ -36,11 +36,7 @@ class PubRegisterViewModel {
      - Returns a Bool value that indicates if user input was valid.
      */
     func verifyUserInput(userInput: String) -> Bool {
-        if userInput.count >= 8 && userInput.count <= 16 {
-            return true
-        } else {
-            return false
-        }
+        userInput.count >= 8 && userInput.count <= 16
     }
     
     /**
