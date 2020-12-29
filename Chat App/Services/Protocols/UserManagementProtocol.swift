@@ -13,22 +13,22 @@ protocol UserManagementProtocol {
     /**
      Observable subject for searching the user collection.
      */
-    var isSigninValid: BehaviorRelay<Bool> {get}
+    var isSigninValid: BehaviorRelay<Bool> { get }
     
     /**
      Observable subject for escaping querries early.
      */
-    var hasExitedPrematurely: BehaviorRelay<Bool> {get}
+    var hasExitedPrematurely: BehaviorRelay<Bool> { get }
     
     /**
      Observable subject to confirm username availability.
      */
-    var isUsernameAvailable: BehaviorRelay<Bool> {get}
+    var isUsernameAvailable: BehaviorRelay<Bool> { get }
     
     /**
      Observable subject to confirm user registration success.
      */
-    var isRegisterSuccessful: BehaviorRelay<Bool> {get}
+    var isRegisterSuccessful: BehaviorRelay<Bool> { get }
     
     /**
      Sign in pubchat user. 
