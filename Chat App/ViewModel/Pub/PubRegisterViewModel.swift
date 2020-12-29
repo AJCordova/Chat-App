@@ -75,7 +75,7 @@ class PubRegisterViewModel {
      - Returns a Bool value that indicates that values match.
      */
     func verifyPasswordMatch(userInput: String!) -> Bool {
-        guard let userInput = userInput else {return false}
+        guard let userInput = userInput else { return false }
         if userInput.elementsEqual(passwordInput) {
             return true
         } else {
@@ -92,7 +92,7 @@ class PubRegisterViewModel {
             .skip(1)
             .subscribe(onNext: { [weak self] isAvailable in
                 guard let self = `self`,
-                      let isAvailable = isAvailable.rawValue as? Bool else {return}
+                      let isAvailable = isAvailable.rawValue as? Bool else { return }
                 if isAvailable {
                     self.isUsernameAvailable.accept(true)
                 } else {

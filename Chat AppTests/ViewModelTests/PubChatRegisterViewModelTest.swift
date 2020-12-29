@@ -21,7 +21,7 @@ class PubChatRegisterViewModelTest: XCTestCase {
     /**
      Tests registerviewmodel input validation property value when user input is invalid
      */
-    func testVerifyUserInput_withInvalidInput() {
+    func testVerifyUserInputWithInvalidInput() {
         // arrange
         let userInput = "XXX-XXX"
         
@@ -35,7 +35,7 @@ class PubChatRegisterViewModelTest: XCTestCase {
     /**
      Tests registerviewmodel input validation property value when user input is valid
      */
-    func testVerifyUserInput_withValidInput() {
+    func testVerifyUserInputWithValidInput() {
         // arrange
         let userInput = "XXXX-XXXX"
         
@@ -49,7 +49,7 @@ class PubChatRegisterViewModelTest: XCTestCase {
     /**
      Tests registerviewmodel input validation property value when user input is valid
      */
-    func testVerifyPasswordMatch_SameValues() {
+    func testVerifyPasswordMatchSameValues() {
         // arrange
         let userInput = "XXXX-XXXX"
         viewModel.passwordInput = "XXXX-XXXX"
@@ -64,7 +64,7 @@ class PubChatRegisterViewModelTest: XCTestCase {
     /**
      Tests verifyuserinput return value when password and confirmpassword texts are not equal.
      */
-    func testVerifyPasswordMatch_DifferentValues() {
+    func testVerifyPasswordMatchDifferentValues() {
         // arrange
         let userInput = "XXXX-XXXX"
         viewModel.passwordInput = "XXX-XXXX"
@@ -79,7 +79,7 @@ class PubChatRegisterViewModelTest: XCTestCase {
     /**
      Verify that plain-text are correctly encoded to base64.
      */
-    func testHashPassword_verifyHash() {
+    func testHashPasswordVerifyHash() {
         // arrange
         let testString = "Base64Test"
         viewModel.passwordInput = testString

@@ -235,7 +235,7 @@ extension PubRegisterViewController {
         usernameValid
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                guard let self = `self` else {return}
+                guard let self = `self` else { return }
                 if $0 {
                     self.viewModel.verifyUsernameAvailability(userInput: self.usernameField.text!)
                 } else {
@@ -258,7 +258,7 @@ extension PubRegisterViewController {
         passwordValid
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                guard let self = `self` else {return}
+                guard let self = `self` else { return }
                 if $0 {
                     self.passwordMessageLabel.textColor = .blue
                     self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
@@ -282,7 +282,7 @@ extension PubRegisterViewController {
         confirmPasswordValid
             .skip(1)
             .subscribe(onNext: { [weak self] in
-                guard let self = `self` else {return}
+                guard let self = `self` else { return }
                 if $0 {
                     self.confirmPasswordMessageLabel.textColor = .blue
                     self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage

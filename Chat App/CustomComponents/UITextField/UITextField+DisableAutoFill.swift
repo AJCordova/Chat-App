@@ -11,6 +11,11 @@ import UIKit
 
 extension UITextField {
     
+    /**
+     This code is added to address a secured text bug caused by the UITextField Autofill feature.
+     - https://stackoverflow.com/questions/45452170/ios-11-disable-password-autofill-accessory-view-option
+     - https://developer.apple.com/forums/thread/125717
+     */
     func disableAutoFill() {
         if #available(iOS 12, *) {
             textContentType = .oneTimeCode
