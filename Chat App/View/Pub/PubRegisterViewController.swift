@@ -21,6 +21,7 @@ class PubRegisterViewController: UIViewController {
     lazy var confirmPasswordMessageLabel: UILabel = UILabel()
     lazy var loginButton: UIButton = UIButton()
     lazy var registerButton: UIButton = UIButton()
+    lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .large)
     
     private var viewModel: PubRegisterViewModel!
     private let disposeBag = DisposeBag()
@@ -85,18 +86,22 @@ class PubRegisterViewController: UIViewController {
             
             loginButton.topAnchor.constraint(equalTo: registerButton.bottomAnchor, constant: 15),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
+            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
     @objc func registerButtonTapped() {
         self.viewModel.submittedUsername = usernameField.text!
-        
+        self.viewModel.registerUser()
     }
     
     @objc func loginButtonTapped() {
-        let loginViewController = PubChatLoginViewController()
-        self.navigationController?.pushViewController(loginViewController, animated: true)
+        self.showAlert()
+//        let loginViewController = PubChatLoginViewController()
+//        self.navigationController?.pushViewController(loginViewController, animated: true)
     }
     
     func createSubViews() {
@@ -110,6 +115,7 @@ class PubRegisterViewController: UIViewController {
         createConfirmPasswordMessageLabel()
         createRegisterButton()
         createLoginButton()
+        createLoadingIndicator()
     }
     
     func createBannerLabel() {
@@ -207,6 +213,11 @@ class PubRegisterViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
         view.addSubview(loginButton)
     }
+    
+    func createLoadingIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+    }
 }
 
 extension PubRegisterViewController {
@@ -294,6 +305,20 @@ extension PubRegisterViewController {
     }
     
     func setupObservers() {
+        viewModel.shouldShowLoading
+            .asObservable()
+            .skip(1)
+            .subscribe(onNext: {[weak self] showLoading in
+                guard let self = `self`,
+                      let shouldshowLoading = showLoading.rawValue as? Bool else { return }
+                if shouldshowLoading {
+                    self.activityIndicator.startAnimating()
+                } else {
+                    self.activityIndicator.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.isUsernameAvailable
             .asObservable()
             .skip(1)
@@ -301,12 +326,44 @@ extension PubRegisterViewController {
                 guard let self = `self` else {return}
                 if $0 {
                     self.usernameMessageLabel.textColor = .blue
-                    self.usernameMessageLabel.text = Constants.PubStrings.registerUserFormLabel
+                    self.usernameMessageLabel.text = Constants.PubStrings.usernameValidMessage
                 } else {
                     self.usernameMessageLabel.textColor = .red
                     self.usernameMessageLabel.text = Constants.PubStrings.usernameTakenMessage
                 }
             })
             .disposed(by: disposeBag)
+        
+        viewModel.shouldShowAlert
+            .asObservable()
+            .subscribe(onNext: { [weak self] shouldShowAlert in
+                guard let self = `self`,
+                      let shouldShowAlert = shouldShowAlert.rawValue as? Bool else { return }
+                if shouldShowAlert {
+                    self.showAlert()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.shouldProceedtoServer
+            .asObservable()
+            .subscribe(onNext: { [weak self] shouldProceed in
+                guard let self = `self`,
+                      let shouldProceed = shouldProceed.rawValue as? Bool else { return }
+                if shouldProceed {
+                    let viewController = PubChatRoomViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: viewModel.alertTitle,
+                                      message: viewModel.alertMessage,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: viewModel.alertActionLabel, style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }
