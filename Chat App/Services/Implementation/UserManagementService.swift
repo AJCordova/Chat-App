@@ -11,10 +11,15 @@ import FirebaseFirestore
 import RxCocoa
 
 class UserManagementService: UserManagementProtocol {
-    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var isRegisterSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isSigninValid: PublishRelay<Bool>
+    var hasExitedPrematurely: PublishRelay<Bool>
+    var isUsernameAvailable: PublishRelay<Bool>
+    var isRegisterSuccessful: PublishRelay<Bool>
+    
+//    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+//    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+//    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+//    var isRegisterSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private let task = DispatchGroup()
     
@@ -27,6 +32,13 @@ class UserManagementService: UserManagementProtocol {
     private var receivedUUID: String = ""
     private var hasSignInFailed: Bool = false
     private var isUserFound: Bool = false
+    
+    init() {
+        isSigninValid = PublishRelay<Bool>()
+        hasExitedPrematurely = PublishRelay<Bool>()
+        isUsernameAvailable = PublishRelay<Bool>()
+        isRegisterSuccessful = PublishRelay<Bool>()
+    }
 }
 
 extension UserManagementService {
@@ -72,9 +84,8 @@ extension UserManagementService {
      */
     func compareHash() {
         if userHash.elementsEqual(receivedHash) {
-            saveUser(username: username, UUID: receivedUUID, isLoggedIn: true)
+            saveUser(username: username, uuid: receivedUUID, isLoggedIn: true)
             isSigninValid.accept(true)
-            print(isSigninValid.value)
         } else {
             isSigninValid.accept(false)
         }
@@ -83,10 +94,10 @@ extension UserManagementService {
     /**
      Saves user details to PubChat UserDefaults.
      */
-    func saveUser(username: String, UUID: String, isLoggedIn: Bool) {
+    func saveUser(username: String, uuid: String, isLoggedIn: Bool) {
         let defaults = UserDefaults.standard
         defaults.setValue(username, forKey: Constants.UserDefaultConstants.userKey)
-        defaults.setValue(UUID, forKey: Constants.UserDefaultConstants.UUIDKey)
+        defaults.setValue(uuid, forKey: Constants.UserDefaultConstants.UUIDKey)
         defaults.setValue(isLoggedIn, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
     
@@ -128,7 +139,7 @@ extension UserManagementService {
                     self.hasExitedPrematurely.accept(true)
                     return
                 }
-                self.saveUser(username: username, UUID: UUID, isLoggedIn: true)
+                self.saveUser(username: username, uuid: UUID, isLoggedIn: true)
                 self.isRegisterSuccessful.accept(true)
             }
         }
