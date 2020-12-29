@@ -91,6 +91,8 @@ class PubRegisterViewController: UIViewController {
     
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
+        self.viewModel.submittedUsername = usernameField.text!
+        
     }
     
     @objc func loginButtonTapped() {
@@ -145,7 +147,6 @@ class PubRegisterViewController: UIViewController {
         usernameMessageLabel.font = .systemFont(ofSize: 12)
         usernameMessageLabel.textAlignment = .natural
         usernameMessageLabel.textColor = .red
-        usernameMessageLabel.text = "XXXXX-XXXXX"
         view.addSubview(usernameMessageLabel)
     }
     
@@ -167,7 +168,6 @@ class PubRegisterViewController: UIViewController {
         passwordMessageLabel.font = .systemFont(ofSize: 12)
         passwordMessageLabel.textAlignment = .natural
         passwordMessageLabel.textColor = .red
-        passwordMessageLabel.text = "XXXXX-XXXXX"
         view.addSubview(passwordMessageLabel)
     }
     
@@ -189,7 +189,6 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordMessageLabel.font = .systemFont(ofSize: 12)
         confirmPasswordMessageLabel.textAlignment = .natural
         confirmPasswordMessageLabel.textColor = .red
-        confirmPasswordMessageLabel.text = "XXXXX-XXXXX"
         view.addSubview(confirmPasswordMessageLabel)
     }
     
@@ -256,7 +255,6 @@ extension PubRegisterViewController {
                     self.passwordMessageLabel.textColor = .blue
                     self.passwordMessageLabel.text = "Password is valid."
                     self.viewModel.passwordInput = self.passwordField.text!
-                    //self.viewModel.verifyPasswordMatch(userInput: sel)
                 } else {
                     self.passwordMessageLabel.textColor = .red
                     self.passwordMessageLabel.text = "Password must be at least 8 characters."
