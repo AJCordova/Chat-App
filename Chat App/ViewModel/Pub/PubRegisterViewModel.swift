@@ -11,10 +11,10 @@ import RxCocoa
 import RxSwift
 
 class PubRegisterViewModel {
-    var shouldShowAlert: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var shouldShowLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    var shouldProceedtoServer: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var shouldShowAlert = PublishSubject<Bool>()
+    var shouldShowLoading = PublishSubject<Bool>()
+    var isUsernameAvailable = PublishSubject<Bool>()
+    var shouldProceedtoServer = PublishSubject<Bool>()
     
     var alertTitle = ""
     var alertMessage = ""
@@ -55,7 +55,7 @@ class PubRegisterViewModel {
      Registers a new Pub user.
      */
     func registerUser() {
-        shouldShowLoading.accept(true)
+        shouldShowLoading.onNext(true)
         let encodedPassword = hashPassword()
         userManager.registerNewUser(username: submittedUsername, password: encodedPassword)
     }
@@ -94,9 +94,9 @@ class PubRegisterViewModel {
                 guard let self = `self`,
                       let isAvailable = isAvailable.rawValue as? Bool else { return }
                 if isAvailable {
-                    self.isUsernameAvailable.accept(true)
+                    self.isUsernameAvailable.onNext(true)
                 } else {
-                    self.isUsernameAvailable.accept(false)
+                    self.isUsernameAvailable.onNext(false)
                 }
             })
             .disposed(by: disposeBag)
@@ -108,11 +108,11 @@ class PubRegisterViewModel {
                 guard let self = `self`,
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
-                    self.shouldShowLoading.accept(false)
+                    self.shouldShowLoading.onNext(false)
                     self.alertTitle = Constants.PubStrings.genericErrorTitle
                     self.alertMessage = Constants.PubStrings.genericErrorMessage
                     self.alertActionLabel = Constants.PubStrings.okButtonTitle
-                    self.shouldShowAlert.accept(true)
+                    self.shouldShowAlert.onNext(true)
                 }
             })
             .disposed(by: disposeBag)
@@ -123,9 +123,9 @@ class PubRegisterViewModel {
             .subscribe(onNext: { [weak self] isSuccessful in
                 guard let self = `self`,
                       let isSuccessful = isSuccessful.rawValue as? Bool else { return }
-                self.shouldShowLoading.accept(false)
+                self.shouldShowLoading.onNext(false)
                 if isSuccessful {
-                    self.shouldProceedtoServer.accept(true)
+                    self.shouldProceedtoServer.onNext(true)
                 }
             })
             .disposed(by: disposeBag)
