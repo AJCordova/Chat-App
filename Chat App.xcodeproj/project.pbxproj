@@ -50,6 +50,7 @@
 		A7CC59D325998E9200926F48 /* UITextField+DisableAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59D225998E9200926F48 /* UITextField+DisableAutoFill.swift */; };
 		A7CC59D82599942500926F48 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59D72599942500926F48 /* UIColor+Convenience.swift */; };
 		A7CC59DE259994E300926F48 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59DD259994E300926F48 /* String+Base64.swift */; };
+		A7CC59EC259B08CD00926F48 /* PubChatRegisterViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59EB259B08CD00926F48 /* PubChatRegisterViewModelTest.swift */; };
 		A7DC8C1925903D27009116D5 /* UserManagementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */; };
 		A7DC8C1E25903D71009116D5 /* UserManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1D25903D71009116D5 /* UserManagementService.swift */; };
 		A7DC8C2C2591A026009116D5 /* UserManagementServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */; };
@@ -125,6 +126,7 @@
 		A7CC59D225998E9200926F48 /* UITextField+DisableAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+DisableAutoFill.swift"; sourceTree = "<group>"; };
 		A7CC59D72599942500926F48 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Convenience.swift"; sourceTree = "<group>"; };
 		A7CC59DD259994E300926F48 /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
+		A7CC59EB259B08CD00926F48 /* PubChatRegisterViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatRegisterViewModelTest.swift; sourceTree = "<group>"; };
 		A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementProtocol.swift; sourceTree = "<group>"; };
 		A7DC8C1D25903D71009116D5 /* UserManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementService.swift; sourceTree = "<group>"; };
 		A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementServiceMock.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				A7BB54CB258CBF2700367242 /* PubChatLoginViewModelTest.swift */,
+				A7CC59EB259B08CD00926F48 /* PubChatRegisterViewModelTest.swift */,
 			);
 			path = ViewModelTests;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7BB54CC258CBF2700367242 /* PubChatLoginViewModelTest.swift in Sources */,
+				A7CC59EC259B08CD00926F48 /* PubChatRegisterViewModelTest.swift in Sources */,
 				501A8C9E2537F35C00EEA42A /* Chat_AppTests.swift in Sources */,
 				A7DC8C2C2591A026009116D5 /* UserManagementServiceMock.swift in Sources */,
 			);
