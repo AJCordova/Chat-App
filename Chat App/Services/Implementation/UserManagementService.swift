@@ -14,6 +14,7 @@ class UserManagementService: UserManagementProtocol {
     var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var isUsernameAvailable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isRegisterSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     private let task = DispatchGroup()
     
@@ -71,7 +72,7 @@ extension UserManagementService {
      */
     func compareHash() {
         if userHash.elementsEqual(receivedHash) {
-            saveUser()
+            saveUser(username: username, UUID: receivedUUID, isLoggedIn: true)
             isSigninValid.accept(true)
             print(isSigninValid.value)
         } else {
@@ -82,11 +83,11 @@ extension UserManagementService {
     /**
      Saves user details to PubChat UserDefaults.
      */
-    func saveUser() {
+    func saveUser(username: String, UUID: String, isLoggedIn: Bool) {
         let defaults = UserDefaults.standard
         defaults.setValue(username, forKey: Constants.UserDefaultConstants.userKey)
-        defaults.setValue(receivedUUID, forKey: Constants.UserDefaultConstants.UUIDKey)
-        defaults.setValue(true, forKey: Constants.UserDefaultConstants.isLoggedIn)
+        defaults.setValue(UUID, forKey: Constants.UserDefaultConstants.UUIDKey)
+        defaults.setValue(isLoggedIn, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
     
     // MARK: Register Users
@@ -117,7 +118,20 @@ extension UserManagementService {
      - Parameter password: hashed password
      */
     func registerNewUser(username: String, password: String) {
-        
+        docReference = reference?.addDocument(data: ["username": username, "password": password]) { error in
+            if let err = error {
+                print("Error: \(err)")
+                self.hasExitedPrematurely.accept(true)
+            } else {
+                let userID = self.docReference?.documentID
+                guard let UUID = userID else {
+                    self.hasExitedPrematurely.accept(true)
+                    return
+                }
+                self.saveUser(username: username, UUID: UUID, isLoggedIn: true)
+                self.isRegisterSuccessful.accept(true)
+            }
+        }
     }
         
 }

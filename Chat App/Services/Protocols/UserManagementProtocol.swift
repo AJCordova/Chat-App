@@ -26,6 +26,11 @@ protocol UserManagementProtocol {
     var isUsernameAvailable: BehaviorRelay<Bool> {get}
     
     /**
+     Observable subject to confirm user registration success.
+     */
+    var isRegisterSuccessful: BehaviorRelay<Bool> {get}
+    
+    /**
      Sign in pubchat user. 
      */
     func userSignin(username: String, hash: String)
