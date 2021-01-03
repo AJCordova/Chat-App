@@ -40,6 +40,7 @@ class PubRegisterViewController: UIViewController {
         super.loadView()
         view = UIView()
         view.backgroundColor = .systemGray3
+
         createSubViews()
     }
     
@@ -232,6 +233,7 @@ class PubRegisterViewController: UIViewController {
         
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
+        }
     }
 }
 
