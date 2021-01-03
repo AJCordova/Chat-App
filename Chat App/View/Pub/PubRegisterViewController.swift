@@ -232,9 +232,6 @@ class PubRegisterViewController: UIViewController {
         
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-        }
-//        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
     }
 }
 
