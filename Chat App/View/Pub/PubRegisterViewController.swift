@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -39,58 +40,7 @@ class PubRegisterViewController: UIViewController {
         super.loadView()
         view = UIView()
         view.backgroundColor = .systemGray3
-        
         createSubViews()
-        NSLayoutConstraint.activate([
-            bannerLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40),
-            bannerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            formLabel.topAnchor.constraint(equalTo: bannerLabel.bottomAnchor, constant: 20),
-            formLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            usernameField.topAnchor.constraint(equalTo: formLabel.bottomAnchor, constant: 20),
-            usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            //username field message
-            usernameMessageLabel.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 2),
-            usernameMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameMessageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            passwordField.topAnchor.constraint(equalTo: usernameMessageLabel.bottomAnchor, constant: 5),
-            passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            //password field message
-            passwordMessageLabel.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 2),
-            passwordMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordMessageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            //confirm password
-            confirmPasswordField.topAnchor.constraint(equalTo: passwordMessageLabel.bottomAnchor, constant: 5),
-            confirmPasswordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            confirmPasswordField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            confirmPasswordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            //confirm password message
-            confirmPasswordMessageLabel.topAnchor.constraint(equalTo: confirmPasswordField.bottomAnchor, constant: 2),
-            confirmPasswordMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            confirmPasswordMessageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            registerButton.topAnchor.constraint(equalTo: confirmPasswordMessageLabel.bottomAnchor, constant: 50),
-            registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            registerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07),
-            
-            loginButton.topAnchor.constraint(equalTo: registerButton.bottomAnchor, constant: 15),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
-            
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
     
     @objc func registerButtonTapped() {
@@ -123,6 +73,11 @@ class PubRegisterViewController: UIViewController {
         bannerLabel.font = .systemFont(ofSize: 40)
         bannerLabel.text = Constants.PubStrings.bannerLabel
         view.addSubview(bannerLabel)
+        
+        bannerLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(60)
+            make.centerX.equalToSuperview()
+        }
     }
     
     func createFormLabel() {
@@ -131,6 +86,11 @@ class PubRegisterViewController: UIViewController {
         formLabel.font = .systemFont(ofSize: 20)
         formLabel.text = Constants.PubStrings.registerUserFormLabel
         view.addSubview(formLabel)
+        
+        formLabel.snp.makeConstraints { make in
+            make.top.equalTo(bannerLabel.snp.bottom).offset(40)
+            make.centerX.equalToSuperview()
+        }
     }
     
     func createUsernameField() {
@@ -143,6 +103,13 @@ class PubRegisterViewController: UIViewController {
         usernameField.autocapitalizationType = .none
         usernameField.disableAutoFill()
         view.addSubview(usernameField)
+        
+        usernameField.snp.makeConstraints { make in
+            make.top.equalTo(formLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
     }
     
     func createUsernameMessageLabel() {
@@ -151,6 +118,12 @@ class PubRegisterViewController: UIViewController {
         usernameMessageLabel.textAlignment = .natural
         usernameMessageLabel.textColor = .red
         view.addSubview(usernameMessageLabel)
+        
+        usernameMessageLabel.snp.makeConstraints { make in
+            make.top.equalTo(usernameField.snp.bottom).offset(1)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+        }
     }
     
     func createPasswordField() {
@@ -164,6 +137,13 @@ class PubRegisterViewController: UIViewController {
         passwordField.autocapitalizationType = .none
         passwordField.disableAutoFill()
         view.addSubview(passwordField)
+        
+        passwordField.snp.makeConstraints { make in
+            make.top.equalTo(usernameField.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
     }
     
     func createPasswordMessageLabel() {
@@ -172,6 +152,12 @@ class PubRegisterViewController: UIViewController {
         passwordMessageLabel.textAlignment = .natural
         passwordMessageLabel.textColor = .red
         view.addSubview(passwordMessageLabel)
+        
+        passwordMessageLabel.snp.makeConstraints { make in
+            make.top.equalTo(passwordField.snp.bottom).offset(1)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+        }
     }
     
     func createConfirmPasswordField() {
@@ -185,6 +171,13 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordField.autocapitalizationType = .none
         confirmPasswordField.disableAutoFill()
         view.addSubview(confirmPasswordField)
+        
+        confirmPasswordField.snp.makeConstraints { make in
+            make.top.equalTo(passwordField.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
     }
     
     func createConfirmPasswordMessageLabel() {
@@ -193,6 +186,12 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordMessageLabel.textAlignment = .natural
         confirmPasswordMessageLabel.textColor = .red
         view.addSubview(confirmPasswordMessageLabel)
+        
+        confirmPasswordMessageLabel.snp.makeConstraints { make in
+            make.top.equalTo(confirmPasswordField.snp.bottom).offset(1)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+        }
     }
     
     func createRegisterButton() {
@@ -202,6 +201,13 @@ class PubRegisterViewController: UIViewController {
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
         view.addSubview(registerButton)
+        
+        registerButton.snp.makeConstraints { make in
+            make.top.equalTo(confirmPasswordMessageLabel.snp.bottom).offset(60)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
     }
     
     func createLoginButton() {
@@ -211,11 +217,24 @@ class PubRegisterViewController: UIViewController {
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
         view.addSubview(loginButton)
+        
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(registerButton.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
     }
     
     func createLoadingIndicator() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+//        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
     }
 }
 
