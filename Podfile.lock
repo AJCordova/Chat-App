@@ -104,6 +104,7 @@ PODS:
   - RxRelay (6.0.0-rc.2):
     - RxSwift (= 6.0.0-rc.2)
   - RxSwift (6.0.0-rc.2)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -112,6 +113,7 @@ DEPENDENCIES:
   - PubNubSwift (~> 3.0)
   - RxCocoa (= 6.0.0-rc.2)
   - RxSwift (= 6.0.0-rc.2)
+  - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
@@ -135,6 +137,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - SnapKit
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -157,7 +160,8 @@ SPEC CHECKSUMS:
   RxCocoa: 38445a25751be5907f52f7ea02c137f52ce2e7f2
   RxRelay: b9e2483e83f46e4e7bf1234c6fe418e5c2eaf825
   RxSwift: ada35be6643bedf6881cdbd6bbfb27aeea527670
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: d69256b54cf78e5d6ae3291747769105cdaceb98
+PODFILE CHECKSUM: 85cb8ecd691b48a060e7b46b20962f941896e89d
 
 COCOAPODS: 1.10.0
