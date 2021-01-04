@@ -77,7 +77,7 @@ struct Constants {
     
     enum UserDefaultConstants {
         static let userKey = "pub-username"
-        static let UUIDKey = "pub-UUID"
+        static let uuidKey = "pub-UUID"
         static let isLoggedIn = "pub-isLoggedIn"
     }
 }

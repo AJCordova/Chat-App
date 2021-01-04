@@ -123,11 +123,11 @@ extension UserManagementService {
                 self.hasExitedPrematurely.accept(true)
             } else {
                 let userID = self.docReference?.documentID
-                guard let UUID = userID else {
+                guard let uuid = userID else {
                     self.hasExitedPrematurely.accept(true)
                     return
                 }
-                self.saveUser(username: username, uuid: UUID, isLoggedIn: true)
+                self.saveUser(username: username, uuid: uuid, isLoggedIn: true)
                 self.isRegisterSuccessful.accept(true)
             }
         }
