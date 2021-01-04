@@ -11,10 +11,10 @@ import FirebaseFirestore
 import RxCocoa
 
 class UserManagementService: UserManagementProtocol {
-    var isSigninValid: PublishRelay<Bool>
-    var hasExitedPrematurely: PublishRelay<Bool>
-    var isUsernameAvailable: PublishRelay<Bool>
-    var isRegisterSuccessful: PublishRelay<Bool>
+    var isSigninValid = PublishRelay<Bool>()
+    var hasExitedPrematurely = PublishRelay<Bool>()
+    var isUsernameAvailable = PublishRelay<Bool>()
+    var isRegisterSuccessful = PublishRelay<Bool>()
     
     private let task = DispatchGroup()
     
@@ -27,13 +27,6 @@ class UserManagementService: UserManagementProtocol {
     private var receivedUUID: String = ""
     private var hasSignInFailed: Bool = false
     private var isUserFound: Bool = false
-    
-    init() {
-        isSigninValid = PublishRelay<Bool>()
-        hasExitedPrematurely = PublishRelay<Bool>()
-        isUsernameAvailable = PublishRelay<Bool>()
-        isRegisterSuccessful = PublishRelay<Bool>()
-    }
 }
 
 extension UserManagementService {
