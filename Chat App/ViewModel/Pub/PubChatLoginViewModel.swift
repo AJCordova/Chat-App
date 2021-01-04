@@ -86,7 +86,7 @@ class PubChatLoginViewModel {
                 if isSuccessful {
                     self.shouldProceedtoServer.accept(true)
                 } else {
-                    self.warningText = Constants.PubStrings.invalidLoginCredentials
+                    self.warningText = Constants.PubStrings.Warnings.invalidLoginCredentials
                     self.shouldShowWarning.accept(true)
                 }
             })
@@ -99,7 +99,7 @@ class PubChatLoginViewModel {
                 guard let self = `self`,
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
-                    self.warningText = Constants.PubStrings.serverUnavailableText
+                    self.warningText = Constants.PubStrings.Warnings.serverUnavailableText
                     self.shouldShowWarning.accept(true)
                 }
             })

@@ -124,9 +124,9 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
                     self.shouldShowLoading.onNext(false)
-                    self.alertTitle = Constants.PubStrings.genericErrorTitle
-                    self.alertMessage = Constants.PubStrings.genericErrorMessage
-                    self.alertActionLabel = Constants.PubStrings.okButtonTitle
+                    self.alertTitle = Constants.PubStrings.Warnings.genericErrorTitle
+                    self.alertMessage = Constants.PubStrings.Warnings.genericErrorMessage
+                    self.alertActionLabel = Constants.PubStrings.Generic.okButtonTitle
                     self.shouldShowAlert.onNext(true)
                 }
             })

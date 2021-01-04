@@ -72,7 +72,7 @@ class PubRegisterViewController: UIViewController {
         bannerLabel.translatesAutoresizingMaskIntoConstraints = false
         bannerLabel.textAlignment = .center
         bannerLabel.font = .systemFont(ofSize: 40)
-        bannerLabel.text = Constants.PubStrings.bannerLabel
+        bannerLabel.text = Constants.PubStrings.Generic.bannerLabel
         view.addSubview(bannerLabel)
         
         bannerLabel.snp.makeConstraints { make in
@@ -99,7 +99,7 @@ class PubRegisterViewController: UIViewController {
         usernameField.font = .systemFont(ofSize: 15)
         usernameField.backgroundColor = .white
         usernameField.borderStyle = .roundedRect
-        usernameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        usernameField.placeholder = Constants.PubStrings.Generic.usernamePlaceholderText
         usernameField.autocorrectionType = .no
         usernameField.autocapitalizationType = .none
         usernameField.disableAutoFill()
@@ -133,7 +133,7 @@ class PubRegisterViewController: UIViewController {
         passwordField.backgroundColor = .white
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
-        passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
+        passwordField.placeholder = Constants.PubStrings.Generic.passwordPlaceholderText
         passwordField.autocorrectionType = .no
         passwordField.autocapitalizationType = .none
         passwordField.disableAutoFill()
@@ -167,7 +167,7 @@ class PubRegisterViewController: UIViewController {
         confirmPasswordField.backgroundColor = .white
         confirmPasswordField.isSecureTextEntry = true
         confirmPasswordField.borderStyle = .roundedRect
-        confirmPasswordField.placeholder = Constants.PubStrings.confirmPasswordPlaceholder
+        confirmPasswordField.placeholder = Constants.PubStrings.Generic.confirmPasswordPlaceholder
         confirmPasswordField.autocorrectionType = .no
         confirmPasswordField.autocapitalizationType = .none
         confirmPasswordField.disableAutoFill()
@@ -197,7 +197,7 @@ class PubRegisterViewController: UIViewController {
     
     func createRegisterButton() {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle(Constants.PubStrings.registerButtonTitle, for: .normal)
+        registerButton.setTitle(Constants.PubStrings.Generic.registerButtonTitle, for: .normal)
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)
@@ -213,7 +213,7 @@ class PubRegisterViewController: UIViewController {
     
     func createLoginButton() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle(Constants.PubStrings.loginButtonTitle, for: .normal)
+        loginButton.setTitle(Constants.PubStrings.Generic.loginButtonTitle, for: .normal)
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
@@ -258,7 +258,7 @@ extension PubRegisterViewController {
                     self.viewModel.inputs.verifyUsernameAvailability(userInput: self.usernameField.text!)
                 } else {
                     self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = Constants.PubStrings.usernameInvalidMessage
+                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameInvalidMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -283,7 +283,7 @@ extension PubRegisterViewController {
                     self.viewModel.passwordInput = self.passwordField.text!
                 } else {
                     self.passwordMessageLabel.textColor = .red
-                    self.passwordMessageLabel.text = Constants.PubStrings.passwordInvalidMessage
+                    self.passwordMessageLabel.text = Constants.PubStrings.Warnings.passwordInvalidMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -306,7 +306,7 @@ extension PubRegisterViewController {
                     self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
                 } else {
                     self.confirmPasswordMessageLabel.textColor = .red
-                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMismatchMessage
+                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.Warnings.passwordMismatchMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -344,7 +344,7 @@ extension PubRegisterViewController {
                     self.usernameMessageLabel.text = Constants.PubStrings.usernameValidMessage
                 } else {
                     self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = Constants.PubStrings.usernameTakenMessage
+                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameTakenMessage
                 }
             })
             .disposed(by: disposeBag)

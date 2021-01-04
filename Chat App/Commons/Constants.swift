@@ -42,29 +42,32 @@ struct Constants {
     }
 
     enum PubStrings {
-        static let bannerLabel: String = "PubChat"
-        static let usernamePlaceholderText: String = "Username"
-        static let passwordPlaceholderText: String = "Password"
-        static let registerButtonTitle: String = "Register"
-        static let loginButtonTitle: String = "Enter Server"
+        enum Generic {
+            static let bannerLabel: String = "PubChat"
+            static let usernamePlaceholderText: String = "Username"
+            static let passwordPlaceholderText: String = "Password"
+            static let confirmPasswordPlaceholder = "Confirm password"
+            static let registerButtonTitle: String = "Register"
+            static let loginButtonTitle: String = "Enter Server"
+            static let okButtonTitle = "Ok"
+        }
         
-        // Login
-        static let invalidLoginCredentials: String = "Invalid Username or Password."
-        static let serverUnavailableText: String = "The server is on a break."
+        enum Warnings {
+            static let usernameInvalidMessage = "Username must be between 8-16 characters."
+            static let usernameTakenMessage = "Username is taken."
+            static let passwordInvalidMessage = "Password must be between 8-16 characters."
+            static let passwordMismatchMessage = "Password does not match."
+            static let genericErrorTitle = "Oh No"
+            static let genericErrorMessage = "This service is currently unavailable. Please try again later."
+            static let invalidLoginCredentials: String = "Invalid Username or Password."
+            static let serverUnavailableText: String = "The server is on a break."
+            
+        }
         
-        // Register
         static let registerUserFormLabel = "Register New User"
-        static let usernameInvalidMessage = "Username must be between 8-16 characters."
         static let usernameValidMessage = "Username is available."
-        static let usernameTakenMessage = "Username is taken."
         static let passwordValidMessage = "Password is valid."
-        static let passwordInvalidMessage = "Password must be between 8-16 characters."
         static let passwordMatchMessage = "Password match."
-        static let passwordMismatchMessage = "Password does not match."
-        static let confirmPasswordPlaceholder = "Confirm password"
-        static let genericErrorTitle = "Oh No"
-        static let genericErrorMessage = "This service is currently unavailable. Please try again later."
-        static let okButtonTitle = "Ok"
     }
     
     enum FirebaseStrings {
