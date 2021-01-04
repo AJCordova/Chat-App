@@ -10,11 +10,32 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class PubRegisterViewModel {
+protocol RegisterViewModelInputs {
+    func verifyUsernameAvailability(userInput: String)
+    func verifyUserInput(userInput: String) -> Bool
+    func verifyPasswordMatch(userInput: String!) -> Bool
+    func registerUser()
+}
+
+protocol RegisterViewModelOutputs {
+    var shouldShowAlert: PublishSubject<Bool> { get }
+    var shouldShowLoading: PublishSubject<Bool> { get }
+    var isUsernameAvailable: PublishSubject<Bool> { get }
+    var shouldProceedtoServer: PublishSubject<Bool> { get }
+}
+
+protocol RegisterViewModelTypes {
+    var inputs: RegisterViewModelInputs { get }
+    var outputs: RegisterViewModelOutputs { get }
+}
+
+class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, RegisterViewModelTypes {
     var shouldShowAlert = PublishSubject<Bool>()
     var shouldShowLoading = PublishSubject<Bool>()
     var isUsernameAvailable = PublishSubject<Bool>()
     var shouldProceedtoServer = PublishSubject<Bool>()
+    var inputs: RegisterViewModelInputs { return self }
+    var outputs: RegisterViewModelOutputs { return self }
     
     var alertTitle = ""
     var alertMessage = ""
@@ -85,7 +106,6 @@ class PubRegisterViewModel {
     private func setUpObservers() {
         userManager.isUsernameAvailable
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] isAvailable in
                 guard let self = `self`,
                       let isAvailable = isAvailable.rawValue as? Bool else { return }
@@ -99,7 +119,6 @@ class PubRegisterViewModel {
         
         userManager.hasExitedPrematurely
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] hasExitedPrematurely in
                 guard let self = `self`,
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
@@ -115,7 +134,6 @@ class PubRegisterViewModel {
         
         userManager.isRegisterSuccessful
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] isSuccessful in
                 guard let self = `self`,
                       let isSuccessful = isSuccessful.rawValue as? Bool else { return }

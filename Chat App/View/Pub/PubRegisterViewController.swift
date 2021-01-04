@@ -46,7 +46,7 @@ class PubRegisterViewController: UIViewController {
     
     @objc func registerButtonTapped() {
         self.viewModel.submittedUsername = usernameField.text!
-        self.viewModel.registerUser()
+        self.viewModel.inputs.registerUser()
     }
     
     @objc func loginButtonTapped() {
@@ -247,7 +247,7 @@ extension PubRegisterViewController {
             .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
             .map { [unowned self] in
-                self.viewModel.verifyUserInput(userInput: $0!)
+                self.viewModel.inputs.verifyUserInput(userInput: $0!)
             }
         
         usernameValid
@@ -255,7 +255,7 @@ extension PubRegisterViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = `self` else { return }
                 if $0 {
-                    self.viewModel.verifyUsernameAvailability(userInput: self.usernameField.text!)
+                    self.viewModel.inputs.verifyUsernameAvailability(userInput: self.usernameField.text!)
                 } else {
                     self.usernameMessageLabel.textColor = .red
                     self.usernameMessageLabel.text = Constants.PubStrings.usernameInvalidMessage
@@ -270,7 +270,7 @@ extension PubRegisterViewController {
             .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
             .map { [unowned self] in
-                self.viewModel.verifyUserInput(userInput: $0!)
+                self.viewModel.inputs.verifyUserInput(userInput: $0!)
             }
         
         passwordValid
@@ -294,7 +294,7 @@ extension PubRegisterViewController {
             .observe(on: MainScheduler.asyncInstance)
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
             .map { [unowned self] in
-                self.viewModel.verifyPasswordMatch(userInput: $0!)
+                self.viewModel.inputs.verifyPasswordMatch(userInput: $0!)
             }
         
         confirmPasswordValid
@@ -322,9 +322,8 @@ extension PubRegisterViewController {
     }
     
     func setupObservers() {
-        viewModel.shouldShowLoading
+        viewModel.outputs.shouldShowLoading
             .asObservable()
-            .skip(1)
             .subscribe(onNext: {[weak self] showLoading in
                 guard let self = `self`,
                       let shouldshowLoading = showLoading.rawValue as? Bool else { return }
@@ -336,9 +335,8 @@ extension PubRegisterViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.isUsernameAvailable
+        viewModel.outputs.isUsernameAvailable
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] in
                 guard let self = `self` else {return}
                 if $0 {
@@ -351,7 +349,7 @@ extension PubRegisterViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.shouldShowAlert
+        viewModel.outputs.shouldShowAlert
             .asObservable()
             .subscribe(onNext: { [weak self] shouldShowAlert in
                 guard let self = `self`,
@@ -362,7 +360,7 @@ extension PubRegisterViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.shouldProceedtoServer
+        viewModel.outputs.shouldProceedtoServer
             .asObservable()
             .subscribe(onNext: { [weak self] shouldProceed in
                 guard let self = `self`,
