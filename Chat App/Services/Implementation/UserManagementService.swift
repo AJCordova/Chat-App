@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import RxCocoa
+import KeychainSwift
 
 class UserManagementService: UserManagementProtocol {
     var isSigninValid = PublishRelay<Bool>()
@@ -27,6 +28,22 @@ class UserManagementService: UserManagementProtocol {
     private var receivedUUID: String = ""
     private var hasSignInFailed: Bool = false
     private var isUserFound: Bool = false
+    
+    var savedUser: User? {
+        get {
+            if let userData = KeychainSwift().getData(Constants.Keys.userInfoKey),
+               let user = try? JSONDecoder().decode(User.self, from: userData) {
+                return user
+            }
+            return nil
+        }
+        set {
+            guard let user = newValue else { return }
+            if let userData = try? JSONEncoder().encode(user) {
+                KeychainSwift().set(userData, forKey: Constants.Keys.userInfoKey)
+            }
+        }
+    }
 }
 
 extension UserManagementService {
@@ -37,24 +54,24 @@ extension UserManagementService {
      */
     func userSignin(username: String, hash: String) {
         task.enter()
-        print("Retrieving: \(username)")
         userHash = hash
         reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
             .getDocuments() { (snapshot, error) in
                 if let err = error {
-                    print("Error: \(err)")
+                    print("Error: \(err.localizedDescription)")
                     self.hasSignInFailed = true
                 } else {
-                    for document in snapshot!.documents {
-                        let data = document.data()
-                        self.username = (data["username"] as? String)!
-                        self.receivedHash = (data["password"] as? String)!
-                        self.receivedUUID = (document.documentID)
-                        self.isUserFound = true
-                    }
+                    if snapshot?.documents.count == 1 {
+                        guard let document = snapshot!.documents.first else { return }
+                            let data = document.data()
+                            self.username = (data["username"] as? String)!
+                            self.receivedHash = (data["password"] as? String)!
+                            self.receivedUUID = (document.documentID)
+                            self.isUserFound = true
+                        }
                 }
                 self.task.leave()
-            }
+        }
         
         task.notify(queue: .main) {
             if self.hasSignInFailed {
@@ -84,8 +101,7 @@ extension UserManagementService {
      */
     func saveUser(username: String, uuid: String, isLoggedIn: Bool) {
         let defaults = UserDefaults.standard
-        defaults.setValue(username, forKey: Constants.UserDefaultConstants.userKey)
-        defaults.setValue(uuid, forKey: Constants.UserDefaultConstants.UUIDKey)
+        savedUser = User(username: username, uuid: uuid)
         defaults.setValue(isLoggedIn, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
     
@@ -132,5 +148,4 @@ extension UserManagementService {
             }
         }
     }
-        
 }

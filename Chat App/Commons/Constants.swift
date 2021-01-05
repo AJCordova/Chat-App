@@ -80,4 +80,8 @@ struct Constants {
         static let uuidKey = "pub-UUID"
         static let isLoggedIn = "pub-isLoggedIn"
     }
+    
+    enum Keys {
+        static let userInfoKey = "pub-chat"
+    }
 }

@@ -30,6 +30,8 @@ protocol UserManagementProtocol {
      */
     var isRegisterSuccessful: PublishRelay<Bool> { get }
     
+    var savedUser: User? { get }
+    
     /**
      Sign in pubchat user. 
      */
