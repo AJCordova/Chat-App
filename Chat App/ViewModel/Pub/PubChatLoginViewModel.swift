@@ -25,6 +25,11 @@ class PubChatLoginViewModel {
     init() {
         self.userManager = UserManagementService()
         setupObserver()
+        if AppSettings.isLoggedIn {
+            guard let userData = self.userManager.savedUser else { return }
+            AppSettings.savedUser = userData
+            self.shouldProceedtoServer.accept(true)
+        }
     }
     
     /**
@@ -53,7 +58,6 @@ class PubChatLoginViewModel {
      - Returns: bool
      */
     func isInputValid(username: String, password: String) -> Bool {
-        print("Show Input field", username, password)
         if username.count < 8 || username.count > 16 {
             return false
         }
@@ -78,12 +82,13 @@ class PubChatLoginViewModel {
     private func setupObserver() {
         userManager.isSigninValid
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] isSuccessful in
                 guard let self = `self`,
                       let isSuccessful = isSuccessful.rawValue as? Bool else { return }
                 self.shouldShowLoading.accept(false)
                 if isSuccessful {
+                    guard let userData = self.userManager.savedUser else { return }
+                    AppSettings.savedUser = userData
                     self.shouldProceedtoServer.accept(true)
                 } else {
                     self.warningText = Constants.PubStrings.Warnings.invalidLoginCredentials
@@ -94,7 +99,6 @@ class PubChatLoginViewModel {
         
         userManager.hasExitedPrematurely
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] hasExitedPrematurely in
                 guard let self = `self`,
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
