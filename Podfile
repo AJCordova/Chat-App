@@ -17,6 +17,7 @@ target 'Chat App' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'RxSwift', '6.0.0-rc.2'
   pod 'RxCocoa', '6.0.0-rc.2'
+  pod 'KeychainSwift', '~> 19.0'
   
 
   target 'Chat AppTests' do
