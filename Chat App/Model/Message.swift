@@ -47,7 +47,7 @@ struct Message: MessageType {
     }
     
     init(content: String) {
-      self.msgSender = Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
+      self.msgSender = Sender(senderId: AppSettings.savedUser.uuid, displayName: AppSettings.savedUser.username)
       self.content = content
       self.id = nil
       self.sendDate = Date()
@@ -56,8 +56,8 @@ struct Message: MessageType {
 
 extension Message: DatabaseRepresentation {
     
-  var representation: [String : Any] {
-    let rep: [String : Any] = [
+  var representation: [String: Any] {
+    let rep: [String: Any] = [
         "sendDate": sentDate,
         "senderID": sender.senderId,
         "msgSender": sender.displayName,
