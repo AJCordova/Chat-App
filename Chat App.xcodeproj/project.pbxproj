@@ -51,6 +51,7 @@
 		A7CC59D82599942500926F48 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59D72599942500926F48 /* UIColor+Convenience.swift */; };
 		A7CC59DE259994E300926F48 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59DD259994E300926F48 /* String+Base64.swift */; };
 		A7CC59EC259B08CD00926F48 /* PubChatRegisterViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59EB259B08CD00926F48 /* PubChatRegisterViewModelTest.swift */; };
+		A7CC59F1259B1B4000926F48 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC59F0259B1B4000926F48 /* User.swift */; };
 		A7DC8C1925903D27009116D5 /* UserManagementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */; };
 		A7DC8C1E25903D71009116D5 /* UserManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C1D25903D71009116D5 /* UserManagementService.swift */; };
 		A7DC8C2C2591A026009116D5 /* UserManagementServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */; };
@@ -127,6 +128,7 @@
 		A7CC59D72599942500926F48 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Convenience.swift"; sourceTree = "<group>"; };
 		A7CC59DD259994E300926F48 /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
 		A7CC59EB259B08CD00926F48 /* PubChatRegisterViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubChatRegisterViewModelTest.swift; sourceTree = "<group>"; };
+		A7CC59F0259B1B4000926F48 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A7DC8C1825903D27009116D5 /* UserManagementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementProtocol.swift; sourceTree = "<group>"; };
 		A7DC8C1D25903D71009116D5 /* UserManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementService.swift; sourceTree = "<group>"; };
 		A7DC8C2B2591A026009116D5 /* UserManagementServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementServiceMock.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				50462553253D2CAD007BCC1C /* Message.swift */,
 				50B88FD02541871A00A7A7E2 /* SignupModel.swift */,
 				5015531A254203E700EA1011 /* LoginModel.swift */,
+				A7CC59F0259B1B4000926F48 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -756,6 +759,7 @@
 				A74705102587223200F6CF12 /* PubRegisterViewController.swift in Sources */,
 				A717A4872580CB5C00AECB2A /* PubChatLoginViewController.swift in Sources */,
 				50462554253D2CAD007BCC1C /* Message.swift in Sources */,
+				A7CC59F1259B1B4000926F48 /* User.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
 				A78E777125836FBB00317E5A /* PubChatLoginViewModel.swift in Sources */,
