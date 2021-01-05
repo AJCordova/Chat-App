@@ -25,13 +25,4 @@ class UserManagementServiceMock: UserManagementProtocol {
     func checkUsernameAvailability(userInput: String) {}
     
     func registerNewUser(username: String, password: String) {}
-
-    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-    var isSignInSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    func UserSignIn(username: String, hash: String) {
-        isSignInSuccessful.accept(true)
-    }
 }

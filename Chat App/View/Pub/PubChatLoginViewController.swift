@@ -122,7 +122,6 @@ class PubChatLoginViewController: UIViewController {
         passwordField.backgroundColor = .white
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
-
         passwordField.placeholder = Constants.PubStrings.Generic.passwordPlaceholderText
         passwordField.autocorrectionType = .no
         passwordField.autocapitalizationType = .none
@@ -131,9 +130,7 @@ class PubChatLoginViewController: UIViewController {
     
     func createLoginButton() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-
         loginButton.setTitle(Constants.PubStrings.Generic.loginButtonTitle, for: .normal)
-
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import RxSwift
 import RxCocoa
 
