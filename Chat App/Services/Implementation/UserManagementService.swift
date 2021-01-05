@@ -16,7 +16,7 @@ class UserManagementService: UserManagementProtocol {
     var hasExitedPrematurely = PublishRelay<Bool>()
     var isUsernameAvailable = PublishRelay<Bool>()
     var isRegisterSuccessful = PublishRelay<Bool>()
-    
+
     private let task = DispatchGroup()
     
     private static var db = Firestore.firestore()
@@ -28,7 +28,7 @@ class UserManagementService: UserManagementProtocol {
     private var receivedUUID: String = ""
     private var hasSignInFailed: Bool = false
     private var isUserFound: Bool = false
-    
+
     var savedUser: User? {
         get {
             if let userData = KeychainSwift().getData(Constants.Keys.userInfoKey),
@@ -54,6 +54,7 @@ extension UserManagementService {
      */
     func userSignin(username: String, hash: String) {
         task.enter()
+        print("Retrieving: \(username)")
         userHash = hash
         reference?.whereField(Constants.FirebaseStrings.userReference, isEqualTo: username)
             .getDocuments() { (snapshot, error) in
@@ -72,7 +73,19 @@ extension UserManagementService {
                 }
                 self.task.leave()
         }
-        
+                    print("Error: \(err)")
+                    self.hasSignInFailed = true
+                } else {
+                    for document in snapshot!.documents {
+                        let data = document.data()
+                        self.username = (data["username"] as? String)!
+                        self.receivedHash = (data["password"] as? String)!
+                        self.receivedUUID = (document.documentID)
+                        self.isUserFound = true
+                    }
+                }
+                self.task.leave()
+            }       
         task.notify(queue: .main) {
             if self.hasSignInFailed {
                 self.hasExitedPrematurely.accept(true)
@@ -91,6 +104,9 @@ extension UserManagementService {
         if userHash.elementsEqual(receivedHash) {
             saveUser(username: username, uuid: receivedUUID, isLoggedIn: true)
             isSigninValid.accept(true)
+            saveUser()
+            isSigninValid.accept(true)
+            print(isSigninValid.value)
         } else {
             isSigninValid.accept(false)
         }
@@ -147,5 +163,4 @@ extension UserManagementService {
                 self.isRegisterSuccessful.accept(true)
             }
         }
-    }
 }

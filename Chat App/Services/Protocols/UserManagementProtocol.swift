@@ -31,12 +31,19 @@ protocol UserManagementProtocol {
     var isRegisterSuccessful: PublishRelay<Bool> { get }
     
     var savedUser: User? { get }
+  
+    var isSigninValid: BehaviorRelay<Bool> {get}
     
+    /**
+     Observable subject for escaping closure.
+     */
+    var hasExitedPrematurely: BehaviorRelay<Bool> {get}
+  
     /**
      Sign in pubchat user. 
      */
     func userSignin(username: String, hash: String)
-    
+  
     /**
      Checks if username is available.
      */

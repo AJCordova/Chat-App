@@ -14,10 +14,12 @@ target 'Chat App' do
   pod 'Firebase/Firestore'
   pod 'MessageKit'
   pod 'PubNubSwift', '~> 3.0'
+
   pod 'SnapKit', '~> 5.0.0'
   pod 'RxSwift', '6.0.0-rc.2'
   pod 'RxCocoa', '6.0.0-rc.2'
   pod 'KeychainSwift', '~> 19.0'
+  pod 'RxSwiftExt', '~> 5'
   
 
   target 'Chat AppTests' do

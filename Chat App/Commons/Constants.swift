@@ -68,6 +68,13 @@ struct Constants {
         static let usernameValidMessage = "Username is available."
         static let passwordValidMessage = "Password is valid."
         static let passwordMatchMessage = "Password match."
+        static let bannerLabel: String = "PubChat"
+        static let usernamePlaceholderText: String = "username"
+        static let passwordPlaceholderText: String = "password"
+        static let registerButtonTitle: String = "Register"
+        static let loginButtonTitle: String = "Enter Server"
+        static let invalidLoginCredentials: String = "Invalid Username or Password."
+        static let serverUnavailableText: String = "The server is on a break."
     }
     
     enum FirebaseStrings {
@@ -83,5 +90,10 @@ struct Constants {
     
     enum Keys {
         static let userInfoKey = "pub-chat"
+    
+    enum UserDefaultConstants {
+        static let userKey = "pub-username"
+        static let UUIDKey = "pub-UUID"
+        static let isLoggedIn = "pub-isLoggedIn"
     }
 }

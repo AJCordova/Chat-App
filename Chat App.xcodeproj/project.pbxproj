@@ -762,6 +762,7 @@
 				A7CC59F1259B1B4000926F48 /* User.swift in Sources */,
 				50F4671D253B31D6006FEE21 /* LoginViewModel.swift in Sources */,
 				500465C025398CE200480E1A /* IndexViewController.swift in Sources */,
+				507D10422542AC2E00940438 /* Extensions.swift in Sources */,
 				A78E777125836FBB00317E5A /* PubChatLoginViewModel.swift in Sources */,
 				5046254F253CB02D007BCC1C /* ChatRoomViewController.swift in Sources */,
 				A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */,
