@@ -2,9 +2,9 @@ name: Swift
 
 on:
   push:
-    branches: [ master,  Feature/Pub_UserManagement, Develop]
+    branches: [ master,  PubNubMessenger, Develop]
   pull_request:
-    branches: [ master, Feature/Pub_UserManagement, Develop]
+    branches: [ master, PubNubMessenger, Develop]
 
 jobs:
   build:
