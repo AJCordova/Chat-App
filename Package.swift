@@ -23,6 +23,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "Chat AppTests",
-            dependencies: ["Chat-App"]),
+            dependencies: ["Chat App"]),
     ]
 )
