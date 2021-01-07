@@ -25,20 +25,35 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v2
 
-    - name: Set xcode command line 
-      run: sudo xcode-select -s /Applications/Xcode_12.app 
+    name: Setup Cocoapods based on provided version
+    runs-on: macos-latest
+    steps:
+    - name: setup-cocoapods
+      uses: maxim-lobanov/setup-cocoapods@v1
+      with:
+        version: latest
+
+    name: Setup Cocoapods based on Podfile.lock
+    runs-on: macos-latest
+    steps:
+    - name: setup-cocoapods
+      uses: maxim-lobanov/setup-cocoapods@v1
+      with:
+        podfile-path: myApp/Podfile.lock
+
+#    - name: Set xcode command line 
+#      run: sudo xcode-select -s /Applications/Xcode_12.app 
 
 #    - name: Bundle Install
 #     run: bundle install 
 
-    - name: Install dependencies 
-      run: | 
-
-        pod install --repo-update
-      shell: bash
-    - uses: ty0x2333/cocoapods-action@master
-      with:
-        additional_build_params: -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0'
+#    - name: Install dependencies 
+#      run: | 
+#        pod install --repo-update
+#      shell: bash
+#    - uses: ty0x2333/cocoapods-action@master
+#      with:
+#        additional_build_params: -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0'
 
     - name: Build Proj
       run: |
