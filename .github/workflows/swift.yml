@@ -28,7 +28,7 @@ jobs:
     - name: setup-cocoapods
       uses: maxim-lobanov/setup-cocoapods@v1
       with:
-        podfile-path: myApp/Podfile.lock
+        podfile-path: Podfile.lock
 
 #    - name: Set xcode command line 
 #      run: sudo xcode-select -s /Applications/Xcode_12.app 
