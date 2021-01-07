@@ -29,13 +29,6 @@ jobs:
       uses: maxim-lobanov/setup-cocoapods@v1
       with:
         version: latest
-
-    name: Setup Cocoapods based on Podfile.lock
-    runs-on: macos-latest
-    steps:
-    - name: setup-cocoapods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
         podfile-path: myApp/Podfile.lock
 
 #    - name: Set xcode command line 
