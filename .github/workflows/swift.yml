@@ -25,9 +25,6 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v2
 
-    name: Setup Cocoapods based on provided version
-    runs-on: macos-latest
-    steps:
     - name: setup-cocoapods
       uses: maxim-lobanov/setup-cocoapods@v1
       with:
