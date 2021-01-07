@@ -16,7 +16,7 @@ jobs:
   build:
     name: Build
     env:
-      SCHEME: "Chat App"
+      SCHEME: Chat App
       DEVICE: "iPhone 11"
       DERIVED_DATA_PATH: "DerivedData"
     
