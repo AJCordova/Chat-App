@@ -34,6 +34,6 @@ jobs:
 
     - name: Build Proj
       run: |
-        set -o pipefail && xcodebuild clean -scheme "Chat App" -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
+        set -o pipefail && xcodebuild clean -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
  #   - name: Run tests
  #     run: swift test -v
