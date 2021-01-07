@@ -14,12 +14,18 @@ on:
 
 jobs:
   build:
-
+    name: Build
+    env:
+      SCHEME: "Actions"
+      DEVICE: "iPhone 11"
+      DERIVED_DATA_PATH: "DerivedData"
+    
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
+    - name: Build Proj
+      run: |
+        set -o pipefail && xcodebuild clean -scheme $SCHEME -destination $DESTINATION -derivedDataPath $DERIVED_DATA_PATH build-for-testing
  #   - name: Run tests
  #     run: swift test -v
