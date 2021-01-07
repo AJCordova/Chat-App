@@ -26,6 +26,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build Proj
       run: |
-        set -o pipefail && xcodebuild clean -scheme $SCHEME -destination $DESTINATION -derivedDataPath $DERIVED_DATA_PATH build-for-testing
+        set -o pipefail && xcodebuild clean -scheme $SCHEME -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
  #   - name: Run tests
  #     run: swift test -v
