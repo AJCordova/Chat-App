@@ -71,6 +71,8 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     
     /**
      Registers a new Pub user.
+     - Parameter submittedUsername: submitted user name.
+     - Parameter password: submitted password.
      */
     func registerUser(submittedUsername: String!, password: String!) {
         guard let submittedUsername = submittedUsername,
@@ -92,6 +94,7 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     /**
      Verifies that the password and confirm password fields contain the same values.
      - Parameter userInput: submitted user input.
+     - Parameter comparable: string baseline to evaluate user input.
      - Returns a Bool value that indicates that values match.
      */
     func verifyPasswordMatch(userInput: String!, comparable: String!) -> Bool {
