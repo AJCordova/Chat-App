@@ -26,7 +26,7 @@ class PubChatLoginViewModel {
         self.userManager = UserManagementService()
         setupObserver()
         if AppSettings.isLoggedIn {
-            guard let userData = self.userManager.savedUser else { return }
+            guard let userData = self.userManager.getSavedUser() else { return }
             AppSettings.savedUser = userData
             self.shouldProceedtoServer.accept(true)
         }
@@ -72,8 +72,9 @@ class PubChatLoginViewModel {
      - Parameter username: submitted user name
      */
     func loginUser(username: String) {
+        guard let hash = encodedPassword else { return }
         shouldShowLoading.accept(true)
-        userManager.userSignin(username: username, hash: encodedPassword!)
+        userManager.userSignin(username: username, hash: hash)
     }
     
     /**
@@ -87,7 +88,7 @@ class PubChatLoginViewModel {
                       let isSuccessful = isSuccessful.rawValue as? Bool else { return }
                 self.shouldShowLoading.accept(false)
                 if isSuccessful {
-                    guard let userData = self.userManager.savedUser else { return }
+                    guard let userData = self.userManager.getSavedUser() else { return }
                     AppSettings.savedUser = userData
                     self.shouldProceedtoServer.accept(true)
                 } else {
