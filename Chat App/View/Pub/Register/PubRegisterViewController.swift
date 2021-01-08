@@ -44,8 +44,7 @@ class PubRegisterViewController: UIViewController {
     }
     
     @objc func registerButtonTapped() {
-        self.viewModel.submittedUsername = usernameField.text!
-        self.viewModel.inputs.registerUser()
+        self.viewModel.inputs.registerUser(submittedUsername: usernameField.text!, password: passwordField.text!)
     }
     
     @objc func loginButtonTapped() {
@@ -94,7 +93,6 @@ class PubRegisterViewController: UIViewController {
                 if isValid {
                     self.passwordMessageLabel.textColor = .blue
                     self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
-                    self.viewModel.passwordInput = self.passwordField.text!
                 } else {
                     self.passwordMessageLabel.textColor = .red
                     self.passwordMessageLabel.text = Constants.PubStrings.Warnings.passwordInvalidMessage
@@ -108,7 +106,7 @@ class PubRegisterViewController: UIViewController {
             .observe(on: MainScheduler.asyncInstance)
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
             .map { [unowned self] in
-                self.viewModel.inputs.verifyPasswordMatch(userInput: $0!)
+                self.viewModel.inputs.verifyPasswordMatch(userInput: $0!, comparable: self.passwordField.text!)
             }
         
         confirmPasswordValid
@@ -186,11 +184,11 @@ class PubRegisterViewController: UIViewController {
     }
     
     private func showAlert() {
-        let alert = UIAlertController(title: viewModel.alertTitle,
-                                      message: viewModel.alertMessage,
+        let alert = UIAlertController(title: viewModel.outputs.alertTitle,
+                                      message: viewModel.outputs.alertMessage,
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: viewModel.alertActionLabel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: viewModel.outputs.alertActionLabel, style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
 }

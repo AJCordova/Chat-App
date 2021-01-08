@@ -13,11 +13,14 @@ import RxSwift
 protocol RegisterViewModelInputs {
     func verifyUsernameAvailability(userInput: String)
     func verifyUserInput(userInput: String) -> Bool
-    func verifyPasswordMatch(userInput: String!) -> Bool
-    func registerUser()
+    func verifyPasswordMatch(userInput: String!, comparable: String!) -> Bool
+    func registerUser(submittedUsername: String!, password: String!)
 }
 
 protocol RegisterViewModelOutputs {
+    var alertTitle: String { get }
+    var alertMessage: String { get }
+    var alertActionLabel: String { get }
     var shouldShowAlert: PublishSubject<Bool> { get }
     var shouldShowLoading: PublishSubject<Bool> { get }
     var isUsernameAvailable: PublishSubject<Bool> { get }
@@ -40,8 +43,6 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     var alertTitle = ""
     var alertMessage = ""
     var alertActionLabel = ""
-    var passwordInput = ""
-    var submittedUsername = ""
     var userManager: UserManagementProtocol
     
     private let disposeBag = DisposeBag()
@@ -71,9 +72,11 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     /**
      Registers a new Pub user.
      */
-    func registerUser() {
+    func registerUser(submittedUsername: String!, password: String!) {
+        guard let submittedUsername = submittedUsername,
+              let password = password else { return }
         shouldShowLoading.onNext(true)
-        let encodedPassword = hashPassword()
+        let encodedPassword = hashPassword(password: password)
         userManager.registerNewUser(username: submittedUsername, password: encodedPassword)
     }
     
@@ -82,8 +85,8 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
      - Parameter userInput: submitted user input.
      - Returns a base64 encoded string.
      */
-    func hashPassword() -> String {
-        return passwordInput.base64Encoded()!
+    func hashPassword(password: String) -> String {
+        return password.base64Encoded()!
     }
     
     /**
@@ -91,9 +94,10 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
      - Parameter userInput: submitted user input.
      - Returns a Bool value that indicates that values match.
      */
-    func verifyPasswordMatch(userInput: String!) -> Bool {
-        guard let userInput = userInput else { return false }
-        if userInput.elementsEqual(passwordInput) {
+    func verifyPasswordMatch(userInput: String!, comparable: String!) -> Bool {
+        guard let userInput = userInput,
+              let comparable = comparable else { return false }
+        if userInput.elementsEqual(comparable) {
             return true
         } else {
             return false
