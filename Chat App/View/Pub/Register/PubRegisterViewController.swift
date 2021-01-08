@@ -66,9 +66,9 @@ class PubRegisterViewController: UIViewController {
         
         usernameValid
             .skip(1)
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] isValid in
                 guard let self = `self` else { return }
-                if $0 {
+                if isValid {
                     self.viewModel.inputs.verifyUsernameAvailability(userInput: self.usernameField.text!)
                 } else {
                     self.usernameMessageLabel.textColor = .red
@@ -89,9 +89,9 @@ class PubRegisterViewController: UIViewController {
         
         passwordValid
             .skip(1)
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] isValid in
                 guard let self = `self` else { return }
-                if $0 {
+                if isValid {
                     self.passwordMessageLabel.textColor = .blue
                     self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
                     self.viewModel.passwordInput = self.passwordField.text!
@@ -113,9 +113,9 @@ class PubRegisterViewController: UIViewController {
         
         confirmPasswordValid
             .skip(1)
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] isValid in
                 guard let self = `self` else { return }
-                if $0 {
+                if isValid {
                     self.confirmPasswordMessageLabel.textColor = .blue
                     self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
                 } else {
@@ -126,9 +126,7 @@ class PubRegisterViewController: UIViewController {
             .disposed(by: disposeBag)
         
         let everythingValid = Observable
-            .combineLatest(usernameValid, passwordValid, confirmPasswordValid) {
-                $0 && $1 && $2
-            }
+            .combineLatest(usernameValid, passwordValid, confirmPasswordValid).map { $0 && $1 && $2 }
         
         everythingValid
             .bind(to: registerButton.rx.isEnabled)
