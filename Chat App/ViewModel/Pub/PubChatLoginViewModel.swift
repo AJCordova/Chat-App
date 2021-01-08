@@ -36,7 +36,6 @@ class PubChatLoginViewModel {
      Initiates user sign in process. 
      - Parameter username: submitted user name
      - Parameter password: submitted password
-     - Returns: bool
      */
     func processLogin(usernameInput: String?, passwordInput: String?) {
         guard let username = usernameInput else {return}
