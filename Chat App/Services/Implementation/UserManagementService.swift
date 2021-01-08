@@ -28,22 +28,6 @@ class UserManagementService: UserManagementProtocol {
     private var receivedUUID: String = ""
     private var hasSignInFailed: Bool = false
     private var isUserFound: Bool = false
-    
-    var savedUser: User? {
-        get {
-            if let userData = KeychainSwift().getData(Constants.Keys.userInfoKey),
-               let user = try? JSONDecoder().decode(User.self, from: userData) {
-                return user
-            }
-            return nil
-        }
-        set {
-            guard let user = newValue else { return }
-            if let userData = try? JSONEncoder().encode(user) {
-                KeychainSwift().set(userData, forKey: Constants.Keys.userInfoKey)
-            }
-        }
-    }
 }
 
 extension UserManagementService {
@@ -101,11 +85,26 @@ extension UserManagementService {
      */
     func saveUser(username: String, uuid: String, isLoggedIn: Bool) {
         let defaults = UserDefaults.standard
-        savedUser = User(username: username, uuid: uuid)
+        let savedUser = User(username: username, uuid: uuid)
+
+        if let userData = try? JSONEncoder().encode(savedUser) {
+            KeychainSwift().set(userData, forKey: Constants.Keys.userInfoKey)
+        }
+        
         defaults.setValue(isLoggedIn, forKey: Constants.UserDefaultConstants.isLoggedIn)
     }
     
-    // MARK: Register Users
+    /**
+    Retrieves user information saved in the Keychain.
+     - Returns user - Returns stored user object with user unique id and username.
+     */
+    func getSavedUser() -> User? {
+        if let userData = KeychainSwift().getData(Constants.Keys.userInfoKey),
+           let user = try? JSONDecoder().decode(User.self, from: userData) {
+            return user
+        }
+        return nil
+    }
     
     /**
      Checks if username is available.

@@ -30,7 +30,10 @@ protocol UserManagementProtocol {
      */
     var isRegisterSuccessful: PublishRelay<Bool> { get }
     
-    var savedUser: User? { get }
+    /**
+     Retrieves user information saved in the Keychain.
+     */
+    func getSavedUser() -> User?
     
     /**
      Sign in pubchat user. 
