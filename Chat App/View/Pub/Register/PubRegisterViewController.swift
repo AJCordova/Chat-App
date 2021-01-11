@@ -84,8 +84,8 @@ class PubRegisterViewController: UIViewController {
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
-            .map { [unowned self] in
-                self.viewModel.inputs.verifyUserInput(userInput: $0!)
+            .map { [unowned self] passwordInput in
+                self.viewModel.inputs.verifyUserInput(userInput: passwordInput!)
             }
         
         passwordValid
