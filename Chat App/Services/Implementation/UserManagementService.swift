@@ -46,7 +46,7 @@ extension UserManagementService {
                     self.hasSignInFailed = true
                 } else {
                     if snapshot?.documents.count == 1 {
-                        guard let document = snapshot!.documents.first else { return }
+                        guard let document = snapshot?.documents.first else { return }
                             let data = document.data()
                             self.username = (data["username"] as? String)!
                             self.receivedHash = (data["password"] as? String)!
