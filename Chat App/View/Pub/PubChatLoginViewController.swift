@@ -75,7 +75,7 @@ class PubChatLoginViewController: UIViewController {
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
         let pubRegisterViewController = PubRegisterViewController()
-        self.navigationController?.pushViewController(pubRegisterViewController, animated: true)
+        navigationController?.pushViewController(pubRegisterViewController, animated: true)
     }
     
     func createSubViews() {
