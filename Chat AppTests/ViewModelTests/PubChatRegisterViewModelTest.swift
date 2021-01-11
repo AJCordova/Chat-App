@@ -52,10 +52,10 @@ class PubChatRegisterViewModelTest: XCTestCase {
     func testVerifyPasswordMatchSameValues() {
         // arrange
         let userInput = "XXXX-XXXX"
-        viewModel.passwordInput = "XXXX-XXXX"
+        let comparable = userInput
         
         // act
-        let result = viewModel.verifyPasswordMatch(userInput: userInput)
+        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
         
         // assert
         XCTAssertTrue(result)
@@ -67,10 +67,10 @@ class PubChatRegisterViewModelTest: XCTestCase {
     func testVerifyPasswordMatchDifferentValues() {
         // arrange
         let userInput = "XXXX-XXXX"
-        viewModel.passwordInput = "XXX-XXXX"
+        let comparable = "XXXXX-XXXXX"
         
         // act
-        let result = viewModel.verifyPasswordMatch(userInput: userInput)
+        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
         
         // assert
         XCTAssertFalse(result)
@@ -82,10 +82,9 @@ class PubChatRegisterViewModelTest: XCTestCase {
     func testHashPasswordVerifyHash() {
         // arrange
         let testString = "Base64Test"
-        viewModel.passwordInput = testString
         
         // act
-        let hashedResult = viewModel.hashPassword()
+        let hashedResult = viewModel.hashPassword(password: testString)
         
         // assert
         XCTAssertEqual(hashedResult.base64Decoded(), testString)
