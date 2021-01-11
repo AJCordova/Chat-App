@@ -44,7 +44,9 @@ class PubRegisterViewController: UIViewController {
     }
     
     @objc func registerButtonTapped() {
-        self.viewModel.inputs.registerUser(submittedUsername: usernameField.text!, password: passwordField.text!)
+        guard let username = usernameField.text,
+              let password = passwordField.text else { return }
+        self.viewModel.inputs.registerUser(submittedUsername: username, password: password)
     }
     
     @objc func loginButtonTapped() {
@@ -105,8 +107,8 @@ class PubRegisterViewController: UIViewController {
             .text
             .observe(on: MainScheduler.asyncInstance)
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
-            .map { [unowned self] in
-                self.viewModel.inputs.verifyPasswordMatch(userInput: $0!, comparable: self.passwordField.text!)
+            .map { [unowned self] userInput in
+                self.viewModel.inputs.verifyPasswordMatch(userInput: userInput!, comparable: self.passwordField.text!)
             }
         
         confirmPasswordValid
@@ -134,7 +136,7 @@ class PubRegisterViewController: UIViewController {
     func setupObservers() {
         viewModel.outputs.shouldShowLoading
             .asObservable()
-            .subscribe(onNext: {[weak self] showLoading in
+            .subscribe(onNext: { [weak self] showLoading in
                 guard let self = `self`,
                       let shouldshowLoading = showLoading.rawValue as? Bool else { return }
                 if shouldshowLoading {
@@ -147,9 +149,9 @@ class PubRegisterViewController: UIViewController {
         
         viewModel.outputs.isUsernameAvailable
             .asObservable()
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] isUsernameAvailable in
                 guard let self = `self` else {return}
-                if $0 {
+                if isUsernameAvailable {
                     self.usernameMessageLabel.textColor = .blue
                     self.usernameMessageLabel.text = Constants.PubStrings.usernameValidMessage
                 } else {

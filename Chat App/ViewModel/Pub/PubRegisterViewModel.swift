@@ -14,7 +14,7 @@ protocol RegisterViewModelInputs {
     func verifyUsernameAvailability(userInput: String)
     func verifyUserInput(userInput: String) -> Bool
     func verifyPasswordMatch(userInput: String!, comparable: String!) -> Bool
-    func registerUser(submittedUsername: String!, password: String!)
+    func registerUser(submittedUsername: String, password: String)
 }
 
 protocol RegisterViewModelOutputs {
@@ -40,9 +40,9 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     var inputs: RegisterViewModelInputs { return self }
     var outputs: RegisterViewModelOutputs { return self }
     
-    var alertTitle = ""
-    var alertMessage = ""
-    var alertActionLabel = ""
+    var alertTitle: String = ""
+    var alertMessage: String = ""
+    var alertActionLabel: String = ""
     var userManager: UserManagementProtocol
     
     private let disposeBag = DisposeBag()
@@ -74,9 +74,7 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
      - Parameter submittedUsername: submitted user name.
      - Parameter password: submitted password.
      */
-    func registerUser(submittedUsername: String!, password: String!) {
-        guard let submittedUsername = submittedUsername,
-              let password = password else { return }
+    func registerUser(submittedUsername: String, password: String) {
         shouldShowLoading.onNext(true)
         let encodedPassword = hashPassword(password: password)
         userManager.registerNewUser(username: submittedUsername, password: encodedPassword)
