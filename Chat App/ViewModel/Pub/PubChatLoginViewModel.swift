@@ -71,7 +71,9 @@ class PubChatLoginViewModel {
      - Parameter username: submitted user name
      */
     func loginUser(username: String) {
-        guard let hash = encodedPassword else { return }
+        guard let hash = encodedPassword else {
+            fatalError("Missing encoded password.")
+        }
         shouldShowLoading.accept(true)
         userManager.userSignin(username: username, hash: hash)
     }
