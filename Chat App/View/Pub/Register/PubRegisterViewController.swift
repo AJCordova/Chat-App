@@ -55,82 +55,45 @@ class PubRegisterViewController: UIViewController {
     }
     
     func setupTextChangedHandlers() {
-        let usernameValid = usernameField
+        usernameField
             .rx
             .text
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
-            .map { [unowned self] in
-                self.viewModel.inputs.verifyUserInput(userInput: $0!)
-            }
-        
-        usernameValid
-            .skip(1)
-            .subscribe(onNext: { [weak self] isValid in
-                guard let self = `self` else { return }
-                if isValid {
-                    self.viewModel.inputs.verifyUsernameAvailability(userInput: self.usernameField.text!)
-                } else {
-                    self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameInvalidMessage
-                }
+            .subscribe(onNext: { [unowned self] userInput in
+                self.viewModel.inputs.usernameChanged(userInput: userInput!)
             })
             .disposed(by: disposeBag)
-
-        let passwordValid = passwordField
+        
+        passwordField
             .rx
             .text
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
-            .map { [unowned self] passwordInput in
-                self.viewModel.inputs.verifyUserInput(userInput: passwordInput!)
-            }
-        
-        passwordValid
-            .skip(1)
-            .subscribe(onNext: { [weak self] isValid in
-                guard let self = `self` else { return }
-                if isValid {
-                    self.passwordMessageLabel.textColor = .blue
-                    self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
-                } else {
-                    self.passwordMessageLabel.textColor = .red
-                    self.passwordMessageLabel.text = Constants.PubStrings.Warnings.passwordInvalidMessage
-                }
+            .subscribe(onNext: { [unowned self] userInput in
+                self.viewModel.inputs.passwordChanged(userInput: userInput!)
             })
             .disposed(by: disposeBag)
-
-        let confirmPasswordValid = confirmPasswordField
+        
+        confirmPasswordField
             .rx
             .text
             .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
             .throttle(.milliseconds(inputThrottleInMilliseconds), scheduler: MainScheduler.instance)
-            .map { [unowned self] userInput in
-                self.viewModel.inputs.verifyPasswordMatch(userInput: userInput!, comparable: self.passwordField.text!)
-            }
-        
-        confirmPasswordValid
-            .skip(1)
-            .subscribe(onNext: { [weak self] isValid in
-                guard let self = `self` else { return }
-                if isValid {
-                    self.confirmPasswordMessageLabel.textColor = .blue
-                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
+            .subscribe(onNext: { [unowned self] userInput in
+                guard let passwordInput = passwordField.text,
+                      let userInput = userInput else { return }
+                if passwordInput.isEmpty {
+                    return
                 } else {
-                    self.confirmPasswordMessageLabel.textColor = .red
-                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.Warnings.passwordMismatchMessage
+                    self.viewModel.inputs.verifyPasswordMatch(userInput: userInput, comparable: passwordInput)
                 }
             })
             .disposed(by: disposeBag)
         
-        let everythingValid = Observable
-            .combineLatest(usernameValid, passwordValid, confirmPasswordValid).map { $0 && $1 && $2 }
-        
-        everythingValid
-            .bind(to: registerButton.rx.isEnabled)
-            .disposed(by: disposeBag)
     }
     
     func setupObservers() {
@@ -182,6 +145,59 @@ class PubRegisterViewController: UIViewController {
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.isUsernameValid
+            .skip(1)
+            .asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isUsernameValid in
+                guard let self = `self`,
+                      let isUsernameValid = isUsernameValid.rawValue as? Bool else { return }
+                if !isUsernameValid {
+                    self.usernameMessageLabel.textColor = .red
+                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameInvalidMessage
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.isPasswordValid
+            .skip(1)
+            .asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isPasswordValid in
+                guard let self = `self`,
+                      let isPasswordValid = isPasswordValid.rawValue as? Bool else { return }
+                if isPasswordValid {
+                    self.passwordMessageLabel.textColor = .blue
+                    self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
+                } else {
+                    self.passwordMessageLabel.textColor = .red
+                    self.passwordMessageLabel.text = Constants.PubStrings.Warnings.passwordInvalidMessage
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.doPasswordsMatch
+            .skip(1)
+            .asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] doPasswordsMatch in
+                guard let self = `self`,
+                      let doPasswordsMatch = doPasswordsMatch.rawValue as? Bool else { return }
+                if doPasswordsMatch {
+                    self.confirmPasswordMessageLabel.textColor = .blue
+                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
+                } else {
+                    self.confirmPasswordMessageLabel.textColor = .red
+                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.Warnings.passwordMismatchMessage
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.shouldEnableRegisterButton
+            .asObservable()
+            .bind(to: registerButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     
