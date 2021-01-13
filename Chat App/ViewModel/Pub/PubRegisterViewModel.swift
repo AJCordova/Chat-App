@@ -120,6 +120,10 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
         }
     }
     
+    /**
+     Determines if changes to the username input field are valid. 
+     - Parameter userInput: submitted user input.
+     */
     func usernameChanged(userInput: String!) {
         guard let userInput = userInput else { return }
         if isInputValid(userInput: userInput) {
@@ -130,6 +134,10 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
         }
     }
     
+    /**
+     Determines if changes to the password input field are valid.
+     - Parameter userInput: submitted user input.
+     */
     func passwordChanged(userInput: String!) {
         guard let userInput = userInput else { return }
         if isInputValid(userInput: userInput) {
