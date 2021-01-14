@@ -30,6 +30,10 @@ protocol RegisterViewModelOutputs {
     var isPasswordValid: PublishSubject<Bool> { get }
     var isUsernameValid: PublishSubject<Bool> { get }
     var shouldEnableRegisterButton: BehaviorRelay<Bool> { get }
+    
+    var usernameFieldLabel: BehaviorRelay<String> { get }
+    var passwordFieldLabel: BehaviorRelay<String> { get }
+    var confirmPasswordFieldLabel: BehaviorRelay<String> { get }
 }
 
 protocol RegisterViewModelTypes {
@@ -46,9 +50,11 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     var isUsernameValid = PublishSubject<Bool>()
     var doPasswordsMatch = PublishSubject<Bool>()
     var shouldEnableRegisterButton = BehaviorRelay<Bool>(value: false)
+    var usernameFieldLabel: BehaviorRelay<String>
+    var passwordFieldLabel: BehaviorRelay<String>
+    var confirmPasswordFieldLabel: BehaviorRelay<String>
     var inputs: RegisterViewModelInputs { return self }
     var outputs: RegisterViewModelOutputs { return self }
-    
     
     var alertTitle: String = ""
     var alertMessage: String = ""
@@ -59,8 +65,12 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
     
     init() {
         self.userManager = UserManagementService()
-        setUpObservers()
         
+        usernameFieldLabel = BehaviorRelay<String>(value: "")
+        passwordFieldLabel = BehaviorRelay<String>(value: "")
+        confirmPasswordFieldLabel = BehaviorRelay<String>(value: "")
+        
+        setUpObservers()
         let everythingValid = Observable
             .combineLatest(isUsernameValid, isPasswordValid, doPasswordsMatch)
             .map { $0 && $1 && $2 }
@@ -113,24 +123,31 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
      - Parameter comparable: string baseline to evaluate user input.
      */
     func verifyPasswordMatch(userInput: String, comparable: String) {
-        if userInput.elementsEqual(comparable) {
+        if userInput.isEmpty {
+            confirmPasswordFieldLabel.accept("")
+        } else if userInput.elementsEqual(comparable) {
             doPasswordsMatch.onNext(true)
+            confirmPasswordFieldLabel.accept(Constants.PubStrings.passwordMatchMessage)
         } else {
             doPasswordsMatch.onNext(false)
+            confirmPasswordFieldLabel.accept(Constants.PubStrings.Warnings.passwordMismatchMessage)
         }
     }
     
     /**
-     Determines if changes to the username input field are valid. 
+     Determines if changes to the username input field are valid.
      - Parameter userInput: submitted user input.
      */
     func usernameChanged(userInput: String!) {
         guard let userInput = userInput else { return }
-        if isInputValid(userInput: userInput) {
+        if userInput.isEmpty {
+            usernameFieldLabel.accept("")
+        } else if isInputValid(userInput: userInput) {
             isUsernameValid.onNext(true)
             verifyUsernameAvailability(userInput: userInput)
         } else {
             isUsernameValid.onNext(false)
+            usernameFieldLabel.accept(Constants.PubStrings.Warnings.usernameInvalidMessage)
         }
     }
     
@@ -140,10 +157,14 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
      */
     func passwordChanged(userInput: String!) {
         guard let userInput = userInput else { return }
-        if isInputValid(userInput: userInput) {
+        if userInput.isEmpty {
+            passwordFieldLabel.accept("")
+        } else if isInputValid(userInput: userInput) {
             isPasswordValid.onNext(true)
+            passwordFieldLabel.accept(Constants.PubStrings.passwordValidMessage)
         } else {
             isPasswordValid.onNext(false)
+            passwordFieldLabel.accept(Constants.PubStrings.Warnings.passwordInvalidMessage)
         }
     }
     
@@ -158,8 +179,10 @@ class PubRegisterViewModel: RegisterViewModelInputs, RegisterViewModelOutputs, R
                       let isAvailable = isAvailable.rawValue as? Bool else { return }
                 if isAvailable {
                     self.isUsernameAvailable.onNext(true)
+                    self.usernameFieldLabel.accept(Constants.PubStrings.usernameValidMessage)
                 } else {
                     self.isUsernameAvailable.onNext(false)
+                    self.usernameFieldLabel.accept(Constants.PubStrings.Warnings.usernameTakenMessage)
                 }
             })
             .disposed(by: disposeBag)
