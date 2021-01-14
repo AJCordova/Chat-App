@@ -35,6 +35,6 @@ jobs:
         pod install --repo-update
     - name: Build Proj
       run: |
-        set -o pipefail && xcodebuild clean -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing CODE_SIGNING_ALLOWED=NO | xcpretty --color --simple
+        set -o pipefail && xcodebuild clean -workspace "Chat App.xworkspace" -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" | xcpretty --color --simple
  #   - name: Run tests
  #     run: swift test -v
