@@ -42,13 +42,32 @@ struct Constants {
     }
 
     enum PubStrings {
-        static let bannerLabel: String = "PubChat"
-        static let usernamePlaceholderText: String = "username"
-        static let passwordPlaceholderText: String = "password"
-        static let registerButtonTitle: String = "Register"
-        static let loginButtonTitle: String = "Enter Server"
-        static let invalidLoginCredentials: String = "Invalid Username or Password."
-        static let serverUnavailableText: String = "The server is on a break."
+        enum Generic {
+            static let bannerLabel: String = "PubChat"
+            static let usernamePlaceholderText: String = "Username"
+            static let passwordPlaceholderText: String = "Password"
+            static let confirmPasswordPlaceholder = "Confirm password"
+            static let registerButtonTitle: String = "Register"
+            static let loginButtonTitle: String = "Enter Server"
+            static let okButtonTitle = "Ok"
+        }
+        
+        enum Warnings {
+            static let usernameInvalidMessage = "Username must be between 8-16 characters."
+            static let usernameTakenMessage = "Username is taken."
+            static let passwordInvalidMessage = "Password must be between 8-16 characters."
+            static let passwordMismatchMessage = "Password does not match."
+            static let genericErrorTitle = "Oh No"
+            static let genericErrorMessage = "This service is currently unavailable. Please try again later."
+            static let invalidLoginCredentials: String = "Invalid Username or Password."
+            static let serverUnavailableText: String = "The server is on a break."
+            
+        }
+        
+        static let registerUserFormLabel = "Register New User"
+        static let usernameValidMessage = "Username is available."
+        static let passwordValidMessage = "Password is valid."
+        static let passwordMatchMessage = "Password match."
     }
     
     enum FirebaseStrings {
@@ -58,7 +77,11 @@ struct Constants {
     
     enum UserDefaultConstants {
         static let userKey = "pub-username"
-        static let UUIDKey = "pub-UUID"
+        static let uuidKey = "pub-UUID"
         static let isLoggedIn = "pub-isLoggedIn"
+    }
+    
+    enum Keys {
+        static let userInfoKey = "pub-chat"
     }
 }

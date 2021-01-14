@@ -13,9 +13,8 @@ import RxCocoa
 class PubChatLoginViewModelTest: XCTestCase {
     var viewModel = PubChatLoginViewModel()
 
-    
     override func setUpWithError() throws {
-        viewModel.UserManager = UserManagementServiceMock()
+        viewModel.userManager = UserManagementServiceMock()
     }
 
     override func tearDownWithError() throws {}

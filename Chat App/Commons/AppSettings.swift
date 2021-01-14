@@ -8,45 +8,13 @@
 
 import Foundation
 
-final class AppSettings {
+struct AppSettings {
     
-    private enum SettingKey: String {
-      case displayName
-      case userID
+    static var isLoggedIn: Bool! {
+       get {
+        return UserDefaults.standard.bool(forKey: Constants.UserDefaultConstants.isLoggedIn)
+       }
     }
     
-    static var userID: String! {
-        get {
-            return UserDefaults.standard.string(forKey: SettingKey.userID.rawValue)
-        }
-       
-        set {
-         let defaults = UserDefaults.standard
-         let key = SettingKey.userID.rawValue
-         
-         if let name = newValue {
-           defaults.set(name, forKey: key)
-         }
-         else {
-           defaults.removeObject(forKey: key)
-         }
-       }
-     }
-    
-    static var displayName: String! {
-       get {
-         return UserDefaults.standard.string(forKey: SettingKey.displayName.rawValue)
-       }
-       set {
-         let defaults = UserDefaults.standard
-         let key = SettingKey.displayName.rawValue
-         
-         if let name = newValue {
-           defaults.set(name, forKey: key)
-         }
-         else {
-           defaults.removeObject(forKey: key)
-         }
-       }
-     }
+    static var savedUser: User!
 }

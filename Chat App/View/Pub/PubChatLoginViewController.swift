@@ -74,8 +74,8 @@ class PubChatLoginViewController: UIViewController {
     }
     @objc func registerButtonTapped() {
         print("PubChat register button tapped.")
-        let pubChatroomViewController = PubRegisterViewController()
-        self.navigationController?.pushViewController(pubChatroomViewController, animated: true)
+        let pubRegisterViewController = PubRegisterViewController()
+        navigationController?.pushViewController(pubRegisterViewController, animated: true)
     }
     
     func createSubViews() {
@@ -92,7 +92,7 @@ class PubChatLoginViewController: UIViewController {
         bannerLabel.translatesAutoresizingMaskIntoConstraints = false
         bannerLabel.textAlignment = .center
         bannerLabel.font = .systemFont(ofSize: 40)
-        bannerLabel.text = Constants.PubStrings.bannerLabel
+        bannerLabel.text = Constants.PubStrings.Generic.bannerLabel
         view.addSubview(bannerLabel)
     }
     
@@ -101,7 +101,7 @@ class PubChatLoginViewController: UIViewController {
         usernameField.font = .systemFont(ofSize: 15)
         usernameField.backgroundColor = .white
         usernameField.borderStyle = .roundedRect
-        usernameField.placeholder = Constants.PubStrings.usernamePlaceholderText
+        usernameField.placeholder = Constants.PubStrings.Generic.usernamePlaceholderText
         usernameField.autocorrectionType = .no
         usernameField.autocapitalizationType = .none
         view.addSubview(usernameField)
@@ -122,7 +122,7 @@ class PubChatLoginViewController: UIViewController {
         passwordField.backgroundColor = .white
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
-        passwordField.placeholder = Constants.PubStrings.passwordPlaceholderText
+        passwordField.placeholder = Constants.PubStrings.Generic.passwordPlaceholderText
         passwordField.autocorrectionType = .no
         passwordField.autocapitalizationType = .none
         view.addSubview(passwordField)
@@ -130,7 +130,7 @@ class PubChatLoginViewController: UIViewController {
     
     func createLoginButton() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle(Constants.PubStrings.loginButtonTitle, for: .normal)
+        loginButton.setTitle(Constants.PubStrings.Generic.loginButtonTitle, for: .normal)
         loginButton.backgroundColor = .black
         loginButton.layer.cornerRadius = 9.0
         loginButton.addTarget(self, action: #selector(self.loginButtonTapped), for: .touchUpInside)
@@ -139,7 +139,7 @@ class PubChatLoginViewController: UIViewController {
     
     func createRegisterButton() {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle(Constants.PubStrings.registerButtonTitle, for: .normal)
+        registerButton.setTitle(Constants.PubStrings.Generic.registerButtonTitle, for: .normal)
         registerButton.backgroundColor = .black
         registerButton.layer.cornerRadius = 9.0
         registerButton.addTarget(self, action: #selector(self.registerButtonTapped), for: .touchUpInside)

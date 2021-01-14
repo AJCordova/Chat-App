@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import RxSwift
 import RxCocoa
 
@@ -18,21 +17,25 @@ class PubChatLoginViewModel {
     
     var isInputEmpty: Bool = false
     var encodedPassword: String? = nil
-    var UserManager: UserManagementProtocol
+    var userManager: UserManagementProtocol
     var warningText: String = ""
     
     private let disposeBag = DisposeBag()
     
     init() {
-        self.UserManager = UserManagementService()
-        setUpObserver()
+        self.userManager = UserManagementService()
+        setupObserver()
+        if AppSettings.isLoggedIn {
+            guard let userData = self.userManager.getSavedUser() else { return }
+            AppSettings.savedUser = userData
+            self.shouldProceedtoServer.accept(true)
+        }
     }
     
     /**
      Initiates user sign in process. 
      - Parameter username: submitted user name
      - Parameter password: submitted password
-     - Returns: bool
      */
     func processLogin(usernameInput: String?, passwordInput: String?) {
         guard let username = usernameInput else {return}
@@ -54,7 +57,6 @@ class PubChatLoginViewModel {
      - Returns: bool
      */
     func isInputValid(username: String, password: String) -> Bool {
-        print("Show Input field", username, password)
         if username.count < 8 || username.count > 16 {
             return false
         }
@@ -69,38 +71,41 @@ class PubChatLoginViewModel {
      - Parameter username: submitted user name
      */
     func loginUser(username: String) {
+        guard let hash = encodedPassword else {
+            fatalError("Missing encoded password.")
+        }
         shouldShowLoading.accept(true)
-        UserManager.userSignin(username: username, hash: encodedPassword!)
+        userManager.userSignin(username: username, hash: hash)
     }
     
     /**
      Setup subject observer and conditional behavior.
      */
-    private func setUpObserver() {
-        UserManager.isSigninValid
+    private func setupObserver() {
+        userManager.isSigninValid
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] isSuccessful in
                 guard let self = `self`,
                       let isSuccessful = isSuccessful.rawValue as? Bool else { return }
                 self.shouldShowLoading.accept(false)
                 if isSuccessful {
+                    guard let userData = self.userManager.getSavedUser() else { return }
+                    AppSettings.savedUser = userData
                     self.shouldProceedtoServer.accept(true)
                 } else {
-                    self.warningText = Constants.PubStrings.invalidLoginCredentials
+                    self.warningText = Constants.PubStrings.Warnings.invalidLoginCredentials
                     self.shouldShowWarning.accept(true)
                 }
             })
             .disposed(by: disposeBag)
         
-        UserManager.hasExitedPrematurely
+        userManager.hasExitedPrematurely
             .asObservable()
-            .skip(1)
             .subscribe(onNext: { [weak self] hasExitedPrematurely in
                 guard let self = `self`,
                       let hasExitedPrematurely = hasExitedPrematurely.rawValue as? Bool else { return }
                 if hasExitedPrematurely {
-                    self.warningText = Constants.PubStrings.serverUnavailableText
+                    self.warningText = Constants.PubStrings.Warnings.serverUnavailableText
                     self.shouldShowWarning.accept(true)
                 }
             })

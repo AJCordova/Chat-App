@@ -11,12 +11,18 @@ import RxCocoa
 @testable import Chat_App
 
 class UserManagementServiceMock: UserManagementProtocol {
-    var isSigninValid: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var isSigninValid = PublishRelay<Bool>()
+    var hasExitedPrematurely = PublishRelay<Bool>()
+    var isUsernameAvailable = PublishRelay<Bool>()
+    var isRegisterSuccessful = PublishRelay<Bool>()
     
-    var hasExitedPrematurely: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-    var isSignInSuccessful: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     func UserSignIn(username: String, hash: String) {
-        isSignInSuccessful.accept(true)
+        isSigninValid.accept(true)
     }
+    
+    func userSignin(username: String, hash: String) {}
+    
+    func checkUsernameAvailability(userInput: String) {}
+    
+    func registerNewUser(username: String, password: String) {}
 }
