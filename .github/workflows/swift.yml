@@ -2,18 +2,39 @@ name: Swift
 
 on:
   push:
-    branches: [ master,  PubNubMessenger, Develop]
+    branches:
+      -  master
+      -  PubNubMessenger
+      -  Develop
   pull_request:
-    branches: [ master, PubNubMessenger, Develop]
+    branches:
+      -  master
+      -  PubNubMessenger
+      -  Develop
 
 jobs:
   build:
-
+    name: Build
+    env:
+      DEVICE: "iPhone 11"
+      DERIVED_DATA_PATH: "DerivedData"
+    
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+    - name: Checkout 
+      uses: actions/checkout@v2
+
+    - name: setup-cocoapods
+      uses: maxim-lobanov/setup-cocoapods@v1
+      with:
+        podfile-path: Podfile.lock
+
+    - name: Install dependencies 
+      run: | 
+        pod install --repo-update
+    - name: Build Proj
+      run: |
+        set -o pipefail && xcodebuild clean -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
+ #   - name: Run tests
+ #     run: swift test -v
