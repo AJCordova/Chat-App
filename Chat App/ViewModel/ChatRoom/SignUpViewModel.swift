@@ -114,8 +114,8 @@ class SignUpViewModel: SignUpViewModelDelegate {
                 }
                 else {
                     NSLog("User added. Reference: \(docReferrence?.documentID ?? "")")
-                    AppSettings.userID = docReferrence?.documentID
-                    AppSettings.displayName = username
+//                    AppSettings.userID = docReferrence?.documentID
+//                    AppSettings.displayName = username
                     self.isSignupSuccess = true
                 }
                 self.task.leave()

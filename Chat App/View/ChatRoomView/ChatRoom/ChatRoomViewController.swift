@@ -59,8 +59,8 @@ final class ChatRoomViewController: MessagesViewController {
      Logs user out of the chat room. Clears AppSettings data for user info..
      */
     @objc func logoutChat() {
-        AppSettings.displayName = ""
-        AppSettings.userID = ""
+//        AppSettings.displayName = ""
+//        AppSettings.userID = ""
         NSLog("ChatroomVC: Navigate to SignupVC")
         let signupViewController = IndexViewController()
         self.navigationController?.pushViewController(signupViewController, animated: true)
@@ -102,7 +102,7 @@ extension ChatRoomViewController: InputBarAccessoryViewDelegate {
 extension ChatRoomViewController: MessagesDataSource {
     
     func currentSender() -> SenderType {
-        return Sender(senderId: AppSettings.userID, displayName: AppSettings.displayName)
+        return Sender(senderId: "", displayName: "")
     }
     
     func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {

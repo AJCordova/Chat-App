@@ -104,8 +104,8 @@ class LoginViewModel: LoginViewModelDelegate {
                         let hash: String = (data["password"] as? String)!
                         
                         if self.isValidHash(hash: hash) {
-                            AppSettings.displayName = data["username"] as? String
-                            AppSettings.userID = document.documentID
+//                            AppSettings.displayName = data["username"] as? String
+//                            AppSettings.userID = document.documentID
                             self.isUserRegistered = true
                         }
                         else {
