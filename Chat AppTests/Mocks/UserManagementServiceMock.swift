@@ -11,6 +11,10 @@ import RxCocoa
 @testable import Chat_App
 
 class UserManagementServiceMock: UserManagementProtocol {
+    func getSavedUser() -> User? {
+        return nil
+    }
+    
     var isSigninValid = PublishRelay<Bool>()
     var hasExitedPrematurely = PublishRelay<Bool>()
     var isUsernameAvailable = PublishRelay<Bool>()
