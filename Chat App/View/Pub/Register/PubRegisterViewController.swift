@@ -93,7 +93,6 @@ class PubRegisterViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
     }
     
     func setupObservers() {
@@ -106,20 +105,6 @@ class PubRegisterViewController: UIViewController {
                     self.activityIndicator.startAnimating()
                 } else {
                     self.activityIndicator.stopAnimating()
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.outputs.isUsernameAvailable
-            .asObservable()
-            .subscribe(onNext: { [weak self] isUsernameAvailable in
-                guard let self = `self` else {return}
-                if isUsernameAvailable {
-                    self.usernameMessageLabel.textColor = .blue
-                    self.usernameMessageLabel.text = Constants.PubStrings.usernameValidMessage
-                } else {
-                    self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameTakenMessage
                 }
             })
             .disposed(by: disposeBag)
@@ -147,56 +132,62 @@ class PubRegisterViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.outputs.isUsernameAvailable
+            .filter { $0 }
+            .map { _ in UIColor.blue }
+            .bind(to: usernameMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.isUsernameAvailable
+            .filter { !$0 }
+            .map { _ in UIColor.red }
+            .bind(to: usernameMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.usernameFieldLabel
+            .bind(to: usernameMessageLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         viewModel.outputs.isUsernameValid
-            .skip(1)
-            .asObservable()
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] isUsernameValid in
-                guard let self = `self`,
-                      let isUsernameValid = isUsernameValid.rawValue as? Bool else { return }
-                if !isUsernameValid {
-                    self.usernameMessageLabel.textColor = .red
-                    self.usernameMessageLabel.text = Constants.PubStrings.Warnings.usernameInvalidMessage
-                }
-            })
+            .filter { !$0 }
+            .map { _ in UIColor.red }
+            .bind(to: usernameMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.passwordFieldLabel
+            .bind(to: passwordMessageLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.outputs.isPasswordValid
-            .skip(1)
+            .filter { $0 }
+            .map { _ in UIColor.blue }
+            .bind(to: passwordMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.isPasswordValid
+            .filter { !$0 }
+            .map { _ in UIColor.red }
+            .bind(to: passwordMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.confirmPasswordFieldLabel
             .asObservable()
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] isPasswordValid in
-                guard let self = `self`,
-                      let isPasswordValid = isPasswordValid.rawValue as? Bool else { return }
-                if isPasswordValid {
-                    self.passwordMessageLabel.textColor = .blue
-                    self.passwordMessageLabel.text = Constants.PubStrings.passwordValidMessage
-                } else {
-                    self.passwordMessageLabel.textColor = .red
-                    self.passwordMessageLabel.text = Constants.PubStrings.Warnings.passwordInvalidMessage
-                }
-            })
+            .bind(to: confirmPasswordMessageLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.outputs.doPasswordsMatch
-            .skip(1)
-            .asObservable()
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] doPasswordsMatch in
-                guard let self = `self`,
-                      let doPasswordsMatch = doPasswordsMatch.rawValue as? Bool else { return }
-                if doPasswordsMatch {
-                    self.confirmPasswordMessageLabel.textColor = .blue
-                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.passwordMatchMessage
-                } else {
-                    self.confirmPasswordMessageLabel.textColor = .red
-                    self.confirmPasswordMessageLabel.text = Constants.PubStrings.Warnings.passwordMismatchMessage
-                }
-            })
+            .filter { $0 }
+            .map { _ in UIColor.blue }
+            .bind(to: confirmPasswordMessageLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.doPasswordsMatch
+            .filter { !$0 }
+            .map { _ in UIColor.red }
+            .bind(to: confirmPasswordMessageLabel.rx.textColor)
             .disposed(by: disposeBag)
         
         viewModel.outputs.shouldEnableRegisterButton
-            .asObservable()
             .bind(to: registerButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
