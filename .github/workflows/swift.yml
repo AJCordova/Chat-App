@@ -36,5 +36,6 @@ jobs:
     - name: Build Proj
       run: |
         set -o pipefail && xcodebuild clean -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
+        CODE_SIGNING_ALLOWED=NO
  #   - name: Run tests
  #     run: swift test -v
