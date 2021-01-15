@@ -23,7 +23,7 @@ platform :ios do
 
   desc "Run Unit tests."
   lane :test do
-    run_tests(workspace: "Chat App.xcworkspace",
-              Target: "Chat AppTests")
+    scan(workspace: "Chat App.xcworkspace",
+         scan: "Chat AppTests")
   end
 end
