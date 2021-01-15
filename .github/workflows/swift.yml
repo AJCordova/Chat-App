@@ -21,19 +21,18 @@ jobs:
     
     runs-on: macos-latest
 
+#Checkout project
     steps:
     - name: Checkout 
       uses: actions/checkout@v2
 
 #Access and retrieve dependency cache
-#    - name: Get Cached Dependencies 
-#Go here if dependency cache cannot be retrieved. 
     - name: setup-cocoapods
       uses: maxim-lobanov/setup-cocoapods@v1
       with:
         podfile-path: Podfile.lock
 
-#Retrieve cached dependencies.
+#Retrieve cached dependencies
     - name: Cache dependencies
       id: Cocoa-Cache
       uses: actions/cache@v1
@@ -43,7 +42,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-#Install dependencies.
+#Install dependencies
     - name: Install dependencies 
       run: | 
         pod install --repo-update
