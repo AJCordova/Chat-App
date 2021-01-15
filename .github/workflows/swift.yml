@@ -35,10 +35,16 @@ jobs:
 
 #Cache dependencies.
     - name: Cache dependencies
+      id: Cocoa-Cache
       uses: actions/cache@v2
       with:
         path: Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+
+    - name: CocoaPods
+      if: steps.Cocoa-Cache.outputs.cache-hit != true
+      run: | 
+        pod install --repo-update
 
     - name: Install dependencies 
       run: | 
