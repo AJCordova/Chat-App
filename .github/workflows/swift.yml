@@ -33,7 +33,7 @@ jobs:
       with:
         podfile-path: Podfile.lock
 
-#Cache dependencies.
+#Retrieve cached dependencies.
     - name: Cache dependencies
       id: Cocoa-Cache
       uses: actions/cache@v1
@@ -42,10 +42,13 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
-          
+
+#Install dependencies.
     - name: Install dependencies 
       run: | 
         pod install --repo-update
+
+#Build Project
     - name: Build Proj
       run: |
-        set -o pipefail && xcodebuild -workspace "Chat App.xcworkspace" -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" | xcpretty --color --simple
+        set -o pipefail && xcodebuild -workspace "Chat App.xcworkspace" -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH build-for-testing CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" --cache-builds | xcpretty --color --simple
