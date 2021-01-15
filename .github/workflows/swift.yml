@@ -38,7 +38,7 @@ jobs:
       id: Cocoa-Cache
       uses: actions/cache@v1
       with:
-        path: Pods
+        path: ./Pods/
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
