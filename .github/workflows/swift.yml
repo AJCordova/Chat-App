@@ -52,9 +52,9 @@ jobs:
       run: bundle install
 
 #Build Project
- #   - name: Build Proj
- #     run: |
- #       set -o pipefail && xcodebuild build -workspace "Chat App.xcworkspace" -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" | xcpretty --color --simple
+    - name: Build Proj
+      run: |
+        set -o pipefail && xcodebuild build -workspace "Chat App.xcworkspace" -scheme "Chat App" -derivedDataPath $DERIVED_DATA_PATH CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" | xcpretty --color --simple
 
 #Execute tests through fastlane. 
     - name: Execute fastlane tests. 
