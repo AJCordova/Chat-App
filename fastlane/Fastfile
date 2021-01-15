@@ -24,6 +24,7 @@ platform :ios do
   desc "Run Unit tests."
   lane :test do
     run_tests(workspace: "Chat App.xcworkspace",
-              scheme: "Chat AppTests")
+              Scheme: "Chat App"
+              Target: "Chat AppTests")
   end
 end
