@@ -39,7 +39,7 @@
 		7F4EECDAAA671218E97F32F1 /* Pods_Chat_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA275C34399D541E2E1D1F3 /* Pods_Chat_AppTests.framework */; };
 		A717A4862580CB5C00AECB2A /* PubChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */; };
 		A717A4872580CB5C00AECB2A /* PubChatLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */; };
-		A73F1F6325873AB700CBBDB4 /* PubRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73F1F6225873AB700CBBDB4 /* PubRegisterViewModel.swift */; };
+    A73F1F6325873AB700CBBDB4 /* PubRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73F1F6225873AB700CBBDB4 /* PubRegisterViewModel.swift */; };
 		A74705102587223200F6CF12 /* PubRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747050F2587223200F6CF12 /* PubRegisterViewController.swift */; };
 		A7552D192580B7AF00C89166 /* pubKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7552D182580B7AF00C89166 /* pubKeys.plist */; };
 		A77998952581E941000CC730 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A77998942581E941000CC730 /* .swiftlint.yml */; };
@@ -117,7 +117,7 @@
 		8D9BD139CB12D89B44EADD34 /* Pods-Chat AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Chat AppUITests/Pods-Chat AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A717A4842580CB5C00AECB2A /* PubChatRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatRoomViewController.swift; sourceTree = "<group>"; };
 		A717A4852580CB5C00AECB2A /* PubChatLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubChatLoginViewController.swift; sourceTree = "<group>"; };
-		A73F1F6225873AB700CBBDB4 /* PubRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubRegisterViewModel.swift; sourceTree = "<group>"; };
+    A73F1F6225873AB700CBBDB4 /* PubRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubRegisterViewModel.swift; sourceTree = "<group>"; };
 		A747050F2587223200F6CF12 /* PubRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubRegisterViewController.swift; sourceTree = "<group>"; };
 		A7552D182580B7AF00C89166 /* pubKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pubKeys.plist; sourceTree = "<group>"; };
 		A77998942581E941000CC730 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
