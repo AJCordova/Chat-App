@@ -33,19 +33,19 @@ jobs:
         podfile-path: Podfile.lock
 
 #Retrieve cached dependencies
-    - name: Cache dependencies
-      id: Cocoa-Cache
-      uses: actions/cache@v1
-      with:
-        path: ./Pods/
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
+#    - name: Cache dependencies
+#      id: Cocoa-Cache
+#      uses: actions/cache@v1
+#      with:
+#        path: ./Pods/
+#        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-pods-
 
 #Install dependencies
     - name: Install dependencies 
       run: | 
-        pod install --repo-update
+       bundle exec pod install --repo-update
 
 #Bundle Install (Gemfile)
     - name: Bundle Install <Fastlane>
