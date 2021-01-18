@@ -45,6 +45,7 @@ jobs:
 #Install dependencies
     - name: Install dependencies 
       run: | 
+       bundle update
        bundle exec pod install --repo-update
 
 #Bundle Install (Gemfile)
