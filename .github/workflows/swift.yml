@@ -41,8 +41,8 @@ jobs:
        bundle exec pod install --repo-update
 
 #Bundle Install (Gemfile)
-    - name: Bundle Install <Fastlane>
-      run: bundle install
+#    - name: Bundle Install <Fastlane>
+#      run: bundle install
 
 #Build Project
     - name: Build Proj
