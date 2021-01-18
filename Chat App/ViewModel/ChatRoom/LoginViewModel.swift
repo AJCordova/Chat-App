@@ -101,11 +101,12 @@ class LoginViewModel: LoginViewModelDelegate {
                 if snapshot?.count == 1 {
                     for document in snapshot!.documents {
                         let data = document.data()
-                        let hash: String = (data["password"] as? String)!
-                        
-                        if self.isValidHash(hash: hash) {
-                            AppSettings.displayName = data["username"] as? String
-                            AppSettings.userID = document.documentID
+        
+                        guard let username = data["username"] as? String,
+                              let password = data["password"] as? String else { return }
+                        if self.isValidHash(hash: password) {
+                            AppSettings.savedUser.username = username
+                            AppSettings.savedUser.uuid = document.documentID
                             self.isUserRegistered = true
                         }
                         else {

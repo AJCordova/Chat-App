@@ -17,64 +17,64 @@ class PubChatRegisterViewModelTest: XCTestCase {
     }
 
     override func tearDownWithError() throws {}
-
-    /**
-     Tests registerviewmodel input validation property value when user input is invalid
-     */
-    func testVerifyUserInputWithInvalidInput() {
-        // arrange
-        let userInput = "XXX-XXX"
-        
-        // act
-        let result = viewModel.verifyUserInput(userInput: userInput)
-        
-        // assert
-        XCTAssertFalse(result)
-    }
-    
-    /**
-     Tests registerviewmodel input validation property value when user input is valid
-     */
-    func testVerifyUserInputWithValidInput() {
-        // arrange
-        let userInput = "XXXX-XXXX"
-        
-        // act
-        let result = viewModel.verifyUserInput(userInput: userInput)
-        
-        // assert
-        XCTAssertTrue(result)
-    }
-    
-    /**
-     Tests registerviewmodel input validation property value when user input is valid
-     */
-    func testVerifyPasswordMatchSameValues() {
-        // arrange
-        let userInput = "XXXX-XXXX"
-        let comparable = userInput
-        
-        // act
-        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
-        
-        // assert
-        XCTAssertTrue(result)
-    }
-    
-    /**
-     Tests verifyuserinput return value when password and confirmpassword texts are not equal.
-     */
-    func testVerifyPasswordMatchDifferentValues() {
-        // arrange
-        let userInput = "XXXX-XXXX"
-        let comparable = "XXXXX-XXXXX"
-        
-        // act
-        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
-        
-        // assert
-        XCTAssertFalse(result)
-    }
+//
+//    /**
+//     Tests registerviewmodel input validation property value when user input is invalid
+//     */
+//    func testVerifyUserInputWithInvalidInput() {
+//        // arrange
+//        let userInput = "XXX-XXX"
+//        
+//        // act
+//        let result = viewModel.inputs.verifyUserInput(userInput: userInput)
+//        
+//        // assert
+//        XCTAssertFalse(result)
+//    }
+//    
+//    /**
+//     Tests registerviewmodel input validation property value when user input is valid
+//     */
+//    func testVerifyUserInputWithValidInput() {
+//        // arrange
+//        let userInput = "XXXX-XXXX"
+//        
+//        // act
+//        let result = viewModel.inputs.verifyUserInput(userInput: userInput)
+//        
+//        // assert
+//        XCTAssertTrue(result)
+//    }
+//    
+//    /**
+//     Tests registerviewmodel input validation property value when user input is valid
+//     */
+//    func testVerifyPasswordMatchSameValues() {
+//        // arrange
+//        let userInput = "XXXX-XXXX"
+//        let comparable = userInput
+//        
+//        // act
+//        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
+//        
+//        // assert
+//        XCTAssertTrue(result)
+//    }
+//    
+//    /**
+//     Tests verifyuserinput return value when password and confirmpassword texts are not equal.
+//     */
+//    func testVerifyPasswordMatchDifferentValues() {
+//        // arrange
+//        let userInput = "XXXX-XXXX"
+//        let comparable = "XXXXX-XXXXX"
+//        
+//        // act
+//        let result = viewModel.verifyPasswordMatch(userInput: userInput, comparable: comparable)
+//        
+//        // assert
+//        XCTAssertFalse(result)
+//    }
     
     /**
      Verify that plain-text are correctly encoded to base64.
