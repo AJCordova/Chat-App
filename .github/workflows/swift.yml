@@ -27,12 +27,12 @@ jobs:
       uses: actions/checkout@v2
 
 #Retrieve cached dependencies
-   - name: Cache dependencies
-      id: Cocoa-Cache
-      uses: actions/cache@v1
-      with:
-        path: ./Pods/
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+     - name: Cache dependencies
+        id: Cocoa-Cache
+        uses: actions/cache@v1
+        with:
+          path: ./Pods/
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
 
 #Install dependencies
     - name: Install dependencies 
