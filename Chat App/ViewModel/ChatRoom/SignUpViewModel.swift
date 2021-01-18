@@ -105,7 +105,7 @@ class SignUpViewModel: SignUpViewModelDelegate {
             task.leave()
         }
         else {
-            docReferrence = referrence!.addDocument(data: ["username": username,"password": hash!]) { error in
+            docReferrence = referrence!.addDocument(data: ["username": username, "password": hash!]) { error in
                 if let error = error {
                     NSLog("Error adding user: \(error)")
                     self.usernameWarningMessage = Constants.DefaultStrings.invalidInputWarning
@@ -113,9 +113,10 @@ class SignUpViewModel: SignUpViewModelDelegate {
                     self.didEncounterError = true
                 }
                 else {
-                    NSLog("User added. Reference: \(docReferrence?.documentID ?? "")")
-                    AppSettings.userID = docReferrence?.documentID
-                    AppSettings.displayName = username
+                    guard let documentReference = docReferrence else { return }
+                    NSLog("User added. Reference: \(documentReference.documentID)")
+                    AppSettings.savedUser.uuid = documentReference.documentID
+                    AppSettings.savedUser.username = username
                     self.isSignupSuccess = true
                 }
                 self.task.leave()

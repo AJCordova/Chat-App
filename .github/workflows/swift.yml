@@ -2,18 +2,44 @@ name: Swift
 
 on:
   push:
-    branches: [ master,  Feature/Pub_UserManagement, Develop]
+    branches:
+      -  master
+      -  PubNubMessenger
+      -  Develop
   pull_request:
-    branches: [ master, Feature/Pub_UserManagement, Develop]
+    branches:
+      -  master
+      -  PubNubMessenger
+      -  Develop
 
 jobs:
   build:
-
+    name: Build
+    env:
+      DEVICE: "iPhone 11"
+      DERIVED_DATA_PATH: "DerivedData"
+    
     runs-on: macos-latest
 
+#Checkout project
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+    - name: Checkout 
+      uses: actions/checkout@v2
+
+#Retrieve cached dependencies
+    - name: Cache dependencies
+      id: Cocoa-Cache
+      uses: actions/cache@v1
+      with:
+        path: ./Pods/
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+
+#Install dependencies
+    - name: Install dependencies 
+      run: | 
+       bundle update
+       bundle exec pod install --repo-update
+       
+#Execute tests through fastlane. 
+    - name: Build and Test
+      run: bundle exec fastlane test

@@ -88,6 +88,7 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.19.0)
   - InputBarAccessoryView (4.2.2)
+  - KeychainSwift (19.0.0)
   - leveldb-library (1.20)
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
@@ -98,12 +99,23 @@ PODS:
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
   - PubNubSwift (3.1.0)
+  - RxCocoa (6.0.0-rc.2):
+    - RxRelay (= 6.0.0-rc.2)
+    - RxSwift (= 6.0.0-rc.2)
+  - RxRelay (6.0.0-rc.2):
+    - RxSwift (= 6.0.0-rc.2)
+  - RxSwift (6.0.0-rc.2)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Firestore
+  - KeychainSwift (~> 19.0)
   - MessageKit
   - PubNubSwift (~> 3.0)
+  - RxCocoa (= 6.0.0-rc.2)
+  - RxSwift (= 6.0.0-rc.2)
+  - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
@@ -119,11 +131,16 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - InputBarAccessoryView
+    - KeychainSwift
     - leveldb-library
     - MessageKit
     - nanopb
     - Protobuf
     - PubNubSwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SnapKit
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -138,12 +155,17 @@ SPEC CHECKSUMS:
   "gRPC-C++": 98be881723177d8c4faf5fdffacb582c7b4971a2
   gRPC-Core: bd9472c8daa2e414b9f8038ba667bf56ce0e02b8
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   PubNubSwift: 6c963621e53dd5a87384be9d4b3aa148d0b0660d
+  RxCocoa: 38445a25751be5907f52f7ea02c137f52ce2e7f2
+  RxRelay: b9e2483e83f46e4e7bf1234c6fe418e5c2eaf825
+  RxSwift: ada35be6643bedf6881cdbd6bbfb27aeea527670
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 3f6b9e9319df6e42324c802792c25cd3164c8ad6
+PODFILE CHECKSUM: e5cc123f203267eb446526e6a5bde1f990dc732f
 
 COCOAPODS: 1.10.0

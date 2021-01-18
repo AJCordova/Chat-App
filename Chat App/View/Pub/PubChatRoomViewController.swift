@@ -17,7 +17,7 @@ class PubChatRoomViewController: MessagesViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         
-        self.title = Constants.PubStrings.bannerLabel
+        self.title = Constants.PubStrings.Generic.bannerLabel
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         maintainPositionOnKeyboardFrameChanged = true
